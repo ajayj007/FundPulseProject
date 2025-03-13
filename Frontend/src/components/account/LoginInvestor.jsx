@@ -1,6 +1,9 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios"; // Make sure to import axios
 import { Link, NavLink } from "react-router-dom";
+import { API_BASE_URL } from "../../config";
+
 
 export default function LoginInvestor() {
   const [email, setEmail] = useState("");
@@ -8,20 +11,32 @@ export default function LoginInvestor() {
   const [error, setError] = useState("");
   const navigate = useNavigate(); // React Router navigation
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setError("");
 
-    if (!email || !password) {
-      setError("Both fields are required!");
-      return;
-    }
+    // Use FormData to append form data
+    const formData = new FormData();
+    formData.append("email", email);
+    formData.append("password", password);
 
-    // Dummy authentication
-    if (email === "test@example.com" && password === "password123") {
-      alert("Login successful!");
-    } else {
-      setError("Invalid email or password.");
+    try {
+      const response = await axios.post(
+        `${API_BASE_URL}/api/investor/login`, // Replace with actual base URL
+        formData, // Send FormData instead of the raw object
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      console.log("Login successful:", response.data);
+
+      // Redirect or do something after successful login
+      navigate("/dashboard"); // For example, navigate to a dashboard page
+    } catch (error) {
+      console.error("Error logging in:", error);
+      setError("Failed to log in. Please check your credentials.");
     }
   };
 

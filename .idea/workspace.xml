@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="1ec52e84-c3ee-469f-88eb-2b2010259320" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/ResourseNotFoundExaception.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/forms/LoginRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/forms/StartUpForm.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.vscode/settings.json" beforeDir="false" afterPath="$PROJECT_DIR$/.vscode/settings.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/BackendApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/BackendApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/config/CloudinaryConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/config/WebConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/config/WebConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/controller/GoogleDriveController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/controller/InvestorController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/controller/InvestorController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/controller/StartupController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/controller/StartupController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/forms/InvestorForm.java" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/forms/InvestorForm.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/models/Investor.java" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/models/Investor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/models/Startup.java" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/models/Startup.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/repository/InvestorRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/repository/InvestorRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/repository/StartupRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/repository/StartupRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/service/DocumentUploadService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/service/DocumentVerificationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/service/DocumentVerificationService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/service/GoogleDriveUploadService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/service/GoogleDriveUploadService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/service/InvestorService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/service/InvestorService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/service/StartupService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/service/StartupService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/service/impl/InvestorServiceImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/service/impl/StartupServiceImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/src/main/resources/google-drive.json" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/main/resources/google-drive.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/src/test/java/com/fundpulse/app/BackendApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/test/java/com/fundpulse/app/BackendApplicationTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/App.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/App.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/components/account/LoginInvestor.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/components/account/LoginInvestor.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/components/account/SignupInvestor.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/components/account/SignupInvestor.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/components/account/SignupStartup.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/components/account/SignupStartup.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/components/landingPage/Navbar.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/components/landingPage/Navbar.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/index.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/views/Home.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/views/Home.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/views/Project.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/views/Project.jsx" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 0
+}]]></component>
+  <component name="ProjectId" id="2uAaArJyFYg2T7wHnkUVg7Gt9SH" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.BackendApplication.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "AtomSettingsConfigurable",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RunManager" selected="Application.BackendApplication">
+    <configuration name="BackendApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.fundpulse.app.BackendApplication" />
+      <module name="Backend" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.fundpulse.app.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="BackendApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UpdateClassesAndResources" />
+      <module name="Backend" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.fundpulse.app.BackendApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.BackendApplication" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-125ca727e0f0-intellij.indexing.shared.core-IU-243.24978.46" />
+        <option value="bundled-js-predefined-d6986cc7102b-76f8388c3a79-JavaScript-IU-243.24978.46" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="1ec52e84-c3ee-469f-88eb-2b2010259320" name="Changes" comment="" />
+      <created>1741693727478</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1741693727478</updated>
+      <workItem from="1741693728704" duration="9121000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/service/InvestorService.java</url>
+          <line>44</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/service/GoogleDriveUploadService.java</url>
+          <line>22</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/service/DocumentUploadConfig.java</url>
+          <line>25</line>
+          <option name="timeStamp" value="5" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>

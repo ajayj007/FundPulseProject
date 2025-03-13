@@ -271,7 +271,7 @@ const Navbar = () => {
             <div className="relative dropdown">
               <button
                 onClick={() => setSignInOpen(!signInOpen)}
-                className="py-2 px-3 border rounded-md"
+                className="py-2 px-3 border rounded-md cursor-pointer"
               >
                 Sign In
               </button>
@@ -297,7 +297,7 @@ const Navbar = () => {
             <div className="relative dropdown">
               <button
                 onClick={() => setSignUpOpen(!signUpOpen)}
-                className="bg-gradient-to-r from-orange-500 to-orange-800 py-2 px-3 rounded-md"
+                className="bg-gradient-to-r from-orange-500 to-orange-800 py-2 px-3 rounded-md cursor-pointer"
               >
                 Create an Account
               </button>
@@ -330,9 +330,7 @@ const Navbar = () => {
 
           {/* Mobile Menu Toggle */}
           <div className="lg:hidden md:flex flex-col justify-end">
-            <button onClick={toggleNavbar}>
-              {mobileDrawerOpen ? <X /> : <Menu />}
-            </button>
+            <button onClick={toggleNavbar}>{mobileDrawerOpen ? <X /> : <Menu />}</button>
           </div>
         </div>
 

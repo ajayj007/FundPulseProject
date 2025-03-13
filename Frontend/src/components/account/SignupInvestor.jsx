@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import axios from "axios";
 import { API_BASE_URL } from "../../config";
 
@@ -8,6 +8,7 @@ function SignUpInvestor() {
     fullName: "",
     email: "",
     phone: "",
+    countryCode:"",
     password: "",
     confirmPassword: "",
     investmentCategories: "",
@@ -28,6 +29,7 @@ function SignUpInvestor() {
     const formDataToSend = new FormData();
     formDataToSend.append("fullName", formData.fullName);
     formDataToSend.append("email", formData.email);
+    formDataToSend.append("countryCode", formData.countryCode);
     formDataToSend.append("phone", formData.phone);
     formDataToSend.append("password", formData.password);
     formDataToSend.append("confirmPassword", formData.confirmPassword);
@@ -40,7 +42,7 @@ function SignUpInvestor() {
 
     try {
       const response = await axios.post(
-        `${API_BASE_URL}/api/drive/upload-pdf`,
+        `${API_BASE_URL}/api/investor/signup`,
         formDataToSend, // Send FormData instead of the raw object
         {
           headers: {
@@ -50,6 +52,16 @@ function SignUpInvestor() {
       );
 
       console.log("Signup successful:", response.data);
+      setFormData({
+        fullName: "",
+        email: "",
+        countryCode:"",
+        phone: "",
+        password: "",
+        confirmPassword: "",
+        investmentCategories: "",
+        itrDocument: undefined,
+      })
     } catch (error) {
       console.error("Error signing up:", error);
     }
@@ -178,6 +190,8 @@ function SignUpInvestor() {
                   <select
                     name="countryCode"
                     className="rounded-l-md border-gray-200 bg-white text-sm text-gray-700 shadow-xs dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200 px-2 h-8"
+                    value={formData.countryCode}
+                  onChange={handleChange}
                   >
                     <option value="">Select your country</option>
                     <option value="+61">+61 (Australia)</option>

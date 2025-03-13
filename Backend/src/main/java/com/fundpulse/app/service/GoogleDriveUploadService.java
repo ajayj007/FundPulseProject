@@ -6,6 +6,7 @@ import com.google.api.services.drive.model.Permission;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
@@ -15,11 +16,11 @@ import java.util.Collections;
 public class GoogleDriveUploadService {
 
     @Autowired
-    private DocumentUploadService documentUploadService; // Your Drive config
+    private DocumentUploadConfig documentUploadConfig; // Your Drive config
 
     public String uploadFile(MultipartFile file, String folderId) throws IOException {
         // Get Drive instance
-        Drive drive = documentUploadService.getDriveInstance();
+        Drive drive = documentUploadConfig.getDriveInstance();
 
         // Convert MultipartFile to a temporary file
         java.io.File tempFile = java.io.File.createTempFile("upload-", ".pdf");
@@ -36,7 +37,8 @@ public class GoogleDriveUploadService {
         }
 
         // Upload the file to Google Drive inside the specified folder
-        File uploadedFile = drive.files().create(fileMetadata, new com.google.api.client.http.FileContent("application/pdf", tempFile))
+        File uploadedFile = drive.files()
+                .create(fileMetadata, new com.google.api.client.http.FileContent("application/pdf", tempFile))
                 .setFields("id, webViewLink")
                 .execute();
 

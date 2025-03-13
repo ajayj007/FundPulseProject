@@ -14,11 +14,16 @@ const Project = () => {
   const [project] = useGlobalState('project')
   const [backers] = useGlobalState('backers')
 
-  useEffect(async () => {
-    await loadProject(id)
-    await getBackers(id)
-    setLoaded(true)
-  }, [])
+  useEffect(() => {
+    const fetchData = async () => {
+      await loadProject(id)
+      await getBackers(id)
+      setLoaded(true)
+    }
+
+    fetchData()
+  }, [id]) // ✅ Add 'id' as a dependency
+
   return loaded ? (
     <>
       <ProjectDetails project={project} />

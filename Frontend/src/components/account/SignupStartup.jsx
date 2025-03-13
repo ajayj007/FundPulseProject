@@ -1,15 +1,19 @@
 import React, { useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
+import axios from "axios";
+import { API_BASE_URL } from "../../config";
 
 function SignUpStartup() {
   const [formData, setFormData] = useState({
     founderName: "",
     email: "",
+    countryCode:"",
     phone: "",
     password: "",
     confirmPassword: "",
     industryCategories: "",
     fundingGoal: 0,
+    currency:""
   });
 
   const handleChange = (e) => {
@@ -18,11 +22,45 @@ function SignUpStartup() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Create a FormData instance
+    const formDataToSend = new FormData();
+    formDataToSend.append("founderName", formData.founderName);
+    formDataToSend.append("email", formData.email);
+    formDataToSend.append("countryCode", formData.countryCode);
+    formDataToSend.append("phone", formData.phone);
+    formDataToSend.append("password", formData.password);
+    formDataToSend.append("confirmPassword", formData.confirmPassword);
+    formDataToSend.append("industryCategories", formData.industryCategories);
+    formDataToSend.append("fundingGoal", formData.fundingGoal);
+    formDataToSend.append("currency", formData.currency);
+
+  
     try {
-      await axios.post(`${API_BASE_URL}/api/form`, formData);
-      alert("Data submitted successfully");
+      const response = await axios.post(
+        `${API_BASE_URL}/api/startup/signup`,
+        formDataToSend, // Send FormData instead of the raw object
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+
+      console.log("Signup successful:", response.data);
+      setFormData({
+        founderName: "",
+        email: "",
+        countryCode:"",
+        phone: "",
+        password: "",
+        confirmPassword: "",
+        industryCategories: "",
+        fundingGoal: "",
+        currency:""
+      })
     } catch (error) {
-      console.error("Error submitting form", error);
+      console.error("Error signing up:", error);
     }
   };
   return (
@@ -148,6 +186,8 @@ function SignUpStartup() {
                   <select
                     name="countryCode"
                     className="rounded-l-md border-gray-200 bg-white text-sm text-gray-700 shadow-xs dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200 px-2 h-8"
+                    value={formData.countryCode}
+                    onChange={handleChange}
                   >
                     <option value="">Select your country</option>
                     <option value="+61">+61 (Australia)</option>
@@ -308,6 +348,8 @@ function SignUpStartup() {
                     name="fundingGoal"
                     placeholder="Enter amount"
                     className="w-3/4 rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-xs dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200 h-8 px-2"
+                    value={formData.fundingGoal}
+                    onChange={handleChange}
                   />
 
                   {/* Currency Dropdown */}
@@ -315,7 +357,7 @@ function SignUpStartup() {
                     id="currency"
                     name="currency"
                     className="w-1/4 ml-2 rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-xs dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200 h-8 px-2"
-                    value={formData.fundingGoal}
+                    value={formData.currency}
                     onChange={handleChange}
                   >
                     <option value="USD">USD ($)</option>
