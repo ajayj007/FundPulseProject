@@ -23,6 +23,8 @@ public class Proposal {
     @Indexed(unique =true)
     private String startUpId;
     private Long amount;
+    private Long raisedAmount;
+    private Long minInvestment;
     private String reason;
     private int equity;
     private String location;

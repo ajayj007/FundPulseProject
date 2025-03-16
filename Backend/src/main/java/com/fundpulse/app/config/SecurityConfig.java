@@ -1,7 +1,7 @@
 package com.fundpulse.app.config;
 
-import com.fundpulse.app.service.CustomInvestorDetailsService;
-import com.fundpulse.app.service.CustomStartupDetailsService;
+import com.fundpulse.app.service.InvestorDetailsService;
+import com.fundpulse.app.service.StartupDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,7 +14,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 
 @Configuration
 @EnableWebSecurity
@@ -22,10 +21,10 @@ public class SecurityConfig {
 
 
     @Autowired
-    private CustomInvestorDetailsService investorDetailsService;
+    private InvestorDetailsService investorDetailsService;
 
     @Autowired
-    private CustomStartupDetailsService startupDetailsService;
+    private StartupDetailsService startupDetailsService;
 
 //    @Autowired
 //    private AuthenticationFailureHandler authenticationFailureHandler;

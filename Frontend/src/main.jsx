@@ -15,15 +15,16 @@ import Demonikhil from "./demonikhil.jsx";
 import SignUpStartup from "./components/account/SignupStartup.jsx";
 import SignUpInvestor from "./components/Account/SignupInvestor.jsx";
 import Dashboard from "./components/dashboard.jsx";
+import CreateProject from "./components/dashboard/CreateProject.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<Layout />}>
       <Route path="" element={<App />} />
-      <Route path="signUpStartup" element={<SignUpStartup />} />
-      <Route path="signUpInvestor" element={<SignUpInvestor />} />
-      <Route path="loginInvestor" element={<LoginInvestor />} />
-      <Route path="loginStartup" element={<LoginStartup />} />
+      <Route path="startup/signup" element={<SignUpStartup />} />
+      <Route path="investor/signup" element={<SignUpInvestor />} />
+      <Route path="investor/login" element={<LoginInvestor />} />
+      <Route path="startup/login" element={<LoginStartup />} />
       <Route path="demo" element={<Demonikhil />} />
       <Route path="dashboard" element={<Dashboard />} />
     </Route>

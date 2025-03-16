@@ -21,7 +21,7 @@ export default function LoginInvestor() {
 
     try {
       const response = await axios.post(
-        `${API_BASE_URL}/api/investor/login`, // Replace with actual base URL
+        `${API_BASE_URL}/investor/login`, // Replace with actual base URL
         formData, // Send FormData instead of the raw object
         {
           headers: {

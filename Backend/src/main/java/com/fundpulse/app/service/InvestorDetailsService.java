@@ -1,6 +1,6 @@
 package com.fundpulse.app.service;
 
-import com.fundpulse.app.repository.StartupRepo;
+import com.fundpulse.app.repository.InvestorRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -8,15 +8,14 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service
-public class CustomStartupDetailsService implements UserDetailsService {
-
+public class InvestorDetailsService implements UserDetailsService {
     @Autowired
-    private StartupRepo startupRepo;
+    private InvestorRepo investorRepo;
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 
-        return startupRepo.findByEmail(email)
+        return investorRepo.findByEmail(email)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found with email " + email));
     }
 }

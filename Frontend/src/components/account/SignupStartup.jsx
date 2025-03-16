@@ -38,7 +38,7 @@ function SignUpStartup() {
   
     try {
       const response = await axios.post(
-        `${API_BASE_URL}/api/startup/signup`,
+        `${API_BASE_URL}startup/signup`,
         formDataToSend, // Send FormData instead of the raw object
         {
           headers: {
