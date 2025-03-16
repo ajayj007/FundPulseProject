@@ -8,6 +8,7 @@ import com.fundpulse.app.repository.StartupRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import java.util.*;
 
 import java.util.Optional;
 
@@ -37,6 +38,15 @@ public class ProposalService {
             System.out.println("user is not available");
             return ResponseEntity.notFound().build();
         }
+
+    }
+
+    public ResponseEntity<List<Proposal>> getProposals(){
+
+        Optional<List<Proposal>> proposals = proposalRepo.findByStatus(true);
+        List<Proposal> proposals2 = proposals.get();
+        System.out.println(proposals2);
+        return ResponseEntity.ok().body(proposals2);
 
     }
 

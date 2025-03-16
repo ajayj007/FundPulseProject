@@ -7,11 +7,7 @@
     <list default="true" id="1ec52e84-c3ee-469f-88eb-2b2010259320" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/controller/InvestorController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/controller/InvestorController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/controller/StartupController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/controller/StartupController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/models/Investor.java" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/models/Investor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/models/Proposal.java" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/models/Proposal.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/repository/InvestorRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/repository/InvestorRepo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/repository/StartupRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/repository/StartupRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/repository/ProposalRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/repository/ProposalRepo.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/service/ProposalService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/service/ProposalService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Backend/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/main/resources/application.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Backend/src/main/resources/google-drive.json" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/main/resources/google-drive.json" afterDir="false" />
@@ -47,7 +43,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "Application.BackendApplication.executor": "Run",
+    "Application.BackendApplication.executor": "Debug",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "git-widget-placeholder": "main",
@@ -106,7 +102,7 @@
       <option name="presentableId" value="Default" />
       <updated>1741693727478</updated>
       <workItem from="1741693728704" duration="9121000" />
-      <workItem from="1742105109941" duration="12979000" />
+      <workItem from="1742105109941" duration="14357000" />
     </task>
     <servers />
   </component>
@@ -148,13 +144,18 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/service/ProposalService.java</url>
-          <line>23</line>
+          <line>24</line>
           <option name="timeStamp" value="13" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/service/ProposalService.java</url>
-          <line>30</line>
+          <line>31</line>
           <option name="timeStamp" value="14" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/service/ProposalService.java</url>
+          <line>45</line>
+          <option name="timeStamp" value="15" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

@@ -41,15 +41,15 @@ const Dashboard = () => {
       <Header />
       
 
-      {loaded && (
-        <Routes>
-          <Route path="/" element={<Home />} />
+      {/* {loaded && ( */}
+        {/* <Routes> */}
+          {/* <Route path="/" element={<Home />} /> */}
           {/* <Route path="/projects/:id" element={<Project />} /> */}
-          <Route path="/proposal" element={<ProposalForm />} />
+          {/* <Route path="/proposal" element={<ProposalForm />} /> */}
           {/* <Route path="/team" element={<div>Team Page</div>} /> */}
-          <Route path="/settings" element={<div>Settings Page</div>} />
-        </Routes>
-      )}
+          {/* <Route path="/settings" element={<div>Settings Page</div>} /> */}
+        {/* </Routes> */}
+      {/* )} */}
 
       <ToastContainer
         position="bottom-center"
