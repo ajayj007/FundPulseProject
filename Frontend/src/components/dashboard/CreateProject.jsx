@@ -3,195 +3,127 @@ import { FaTimes } from "react-icons/fa";
 import { toast } from "react-toastify";
 import { createProject } from "../../services/blockchain";
 import { useGlobalState, setGlobalState } from "../../store";
-// #1
-// import ProposalForm from "../starter/ProposalForm";
-// const CreateProject = () => {
-//   const [connectedAccount] = useGlobalState("connectedAccount");
 
-//   return <ProposalForm />;
-// };
-
-// export default CreateProject;
-
-// #2
 const CreateProject = () => {
-  
-  // const [createModal] = useGlobalState("createModal");
-  // const [title, setTitle] = useState("");
-  // const [description, setDescription] = useState("");
-  // const [cost, setCost] = useState("");
-  // const [date, setDate] = useState("");
-  // const [imageURL, setImageURL] = useState("");
+    const handleChange = (e) => {
+        setFormData({ ...formData, [e.target.name]: e.target.value });
+    };
 
-  // const toTimestamp = (dateStr) => {
-  //   const dateObj = Date.parse(dateStr);
-  //   return dateObj / 1000;
-  // };
+    const [formData, setFormData] = useState({
+        name: "",
+        amountToRaise: "",
+        reason: "",
+        equityPercentage: "",
+        location: "",
+        sector: "",
+        startDate: "",
+        endDate: "",
+    });
 
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   if (!title || !description || !cost || !date || !imageURL) return;
+    const [createModal] = useGlobalState("createModal");
+    const [title, setTitle] = useState("");
+    const [description, setDescription] = useState("");
+    const [cost, setCost] = useState("");
+    const [date, setDate] = useState("");
+    const [imageURL, setImageURL] = useState("");
 
-  //   const params = {
-  //     title,
-  //     description,
-  //     cost,
-  //     expiresAt: toTimestamp(date),
-  //     imageURL,
-  //   };
+    const toTimestamp = (dateStr) => {
+        const dateObj = Date.parse(dateStr);
+        return dateObj / 1000;
+    };
 
-  //   await createProject(params);
-  //   toast.success("Project created successfully, will reflect in 30sec.");
-  //   onClose();
-  // };
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        if (!title || !description || !cost || !date || !imageURL) return;
 
-  // const onClose = () => {
-  //   setGlobalState("createModal", "scale-0");
-  //   reset();
-  // };
+        const params = {
+            title,
+            description,
+            cost,
+            expiresAt: toTimestamp(date),
+            imageURL,
+        };
 
-  // const reset = () => {
-  //   setTitle("");
-  //   setCost("");
-  //   setDescription("");
-  //   setImageURL("");
-  //   setDate("");
-  // };
+        await createProject(params);
+        toast.success("Project created successfully, will reflect in 30sec.");
+        onClose();
+    };
 
-  // return (
-  //   <div
-  //     className={`fixed top-0 left-0 w-screen h-screen flex
-  //   items-center justify-center bg-black bg-opacity-50
-  //   transform transition-transform duration-300 ${createModal}`}
-  //   >
-  //     <div
-  //       className="bg-white shadow-xl shadow-black
-  //       rounded-xl w-11/12 md:w-2/5 h-7/12 p-6"
-  //     >
-  //       <form onSubmit={handleSubmit} className="flex flex-col">
-  //         <div className="flex justify-between items-center">
-  //           <p className="font-semibold">Add Project</p>
-  //           <button
-  //             onClick={onClose}
-  //             type="button"
-  //             className="border-0 bg-transparent focus:outline-none"
-  //           >
-  //             <FaTimes />
-  //           </button>
-  //         </div>
+    const onClose = () => {
+        setGlobalState("createModal", "scale-0");
+        reset();
+    };
 
-  //         <div className="flex justify-center items-center mt-5">
-  //           <div className="rounded-xl overflow-hidden h-20 w-20">
-  //             <img
-  //               src={
-  //                 imageURL ||
-  //                 "https://media.wired.com/photos/5926e64caf95806129f50fde/master/pass/AnkiHP.jpg"
-  //               }
-  //               alt="project title"
-  //               className="h-full w-full object-cover cursor-pointer"
-  //             />
-  //           </div>
-  //         </div>
+    const reset = () => {
+        setTitle("");
+        setCost("");
+        setDescription("");
+        setImageURL("");
+        setDate("");
+    };
 
-  //         <div
-  //           className="flex justify-between items-center
-  //         bg-gray-300 rounded-xl mt-5"
-  //         >
-  //           <input
-  //             className="block w-full bg-transparent
-  //           border-0 text-sm text-slate-500 focus:outline-none
-  //           focus:ring-0"
-  //             type="text"
-  //             name="title"
-  //             placeholder="Title"
-  //             onChange={(e) => setTitle(e.target.value)}
-  //             value={title}
-  //             required
-  //           />
-  //         </div>
-
-  //         <div
-  //           className="flex justify-between items-center
-  //         bg-gray-300 rounded-xl mt-5"
-  //         >
-  //           <input
-  //             className="block w-full bg-transparent
-  //           border-0 text-sm text-slate-500 focus:outline-none
-  //           focus:ring-0"
-  //             type="number"
-  //             step={0.01}
-  //             min={0.01}
-  //             name="cost"
-  //             placeholder="cost (ETH)"
-  //             onChange={(e) => setCost(e.target.value)}
-  //             value={cost}
-  //             required
-  //           />
-  //         </div>
-
-  //         <div
-  //           className="flex justify-between items-center
-  //         bg-gray-300 rounded-xl mt-5"
-  //         >
-  //           <input
-  //             className="block w-full bg-transparent
-  //           border-0 text-sm text-slate-500 focus:outline-none
-  //           focus:ring-0"
-  //             type="date"
-  //             name="date"
-  //             placeholder="Expires"
-  //             onChange={(e) => setDate(e.target.value)}
-  //             value={date}
-  //             required
-  //           />
-  //         </div>
-
-  //         <div
-  //           className="flex justify-between items-center
-  //         bg-gray-300 rounded-xl mt-5"
-  //         >
-  //           <input
-  //             className="block w-full bg-transparent
-  //           border-0 text-sm text-slate-500 focus:outline-none
-  //           focus:ring-0"
-  //             type="url"
-  //             name="imageURL"
-  //             placeholder="Image URL"
-  //             onChange={(e) => setImageURL(e.target.value)}
-  //             value={imageURL}
-  //             required
-  //           />
-  //         </div>
-
-  //         <div
-  //           className="flex justify-between items-center
-  //         bg-gray-300 rounded-xl mt-5"
-  //         >
-  //           <textarea
-  //             className="block w-full bg-transparent
-  //           border-0 text-sm text-slate-500 focus:outline-none
-  //           focus:ring-0"
-  //             type="text"
-  //             name="description"
-  //             placeholder="Description"
-  //             onChange={(e) => setDescription(e.target.value)}
-  //             value={description}
-  //             required
-  //           ></textarea>
-  //         </div>
-
-  //         <button
-  //           type="submit"
-  //           className="inline-block px-6 py-2.5 bg-green-600
-  //           text-white font-medium text-md leading-tight
-  //           rounded-full shadow-md hover:bg-green-700 mt-5"
-  //         >
-  //           Submit Project
-  //         </button>
-  //       </form>
-  //     </div>
-  //   </div>
-  // );
+    return (
+        <div
+            className={`fixed top-0 left-0 w-screen h-screen flex
+    items-center justify-center bg-black bg-opacity-50
+    transform transition-transform duration-300 ${createModal}`}
+        >
+            <div className="bg-white shadow-xl shadow-black rounded-xl w-7/12 md:w-2/6 h-3/6 p-6 overflow-y-auto max-h-screen border border-gray-300">
+                <button
+                    onClick={onClose}
+                    type="button"
+                    className="border-0 bg-transparent focus:outline-none float-right"
+                >
+                    <FaTimes className="text-gray-700" />
+                </button>
+                <h2 className="text-2xl font-bold text-gray-800 mb-4 text-center">
+                    Submit Your Startup Proposal
+                </h2>
+                <form onSubmit={handleSubmit} className="space-y-4">
+                    {[
+                        { label: "Startup Name", name: "name", type: "text" },
+                        { label: "Amount to Raise ($)", name: "amountToRaise", type: "number" },
+                        { label: "Reason for Fundraising", name: "reason", type: "textarea" },
+                        { label: "Equity Percentage (%)", name: "equityPercentage", type: "number" },
+                        { label: "Location", name: "location", type: "text" },
+                        { label: "Sector", name: "sector", type: "text" },
+                        { label: "Start Date", name: "startDate", type: "date" },
+                        { label: "End Date", name: "endDate", type: "date" },
+                    ].map(({ label, name, type }) => (
+                        <div key={name}>
+                            <label className="block font-medium text-gray-700">{label}</label>
+                            {type === "textarea" ? (
+                                <textarea
+                                    name={name}
+                                    value={formData[name]}
+                                    onChange={handleChange}
+                                    className="w-full p-2 border border-gray-400 rounded focus:ring focus:ring-blue-300 text-black placeholder-gray-500"
+                                    required
+                                    placeholder={label}
+                                />
+                            ) : (
+                                <input
+                                    type={type}
+                                    name={name}
+                                    value={formData[name]}
+                                    onChange={handleChange}
+                                    className="w-full p-2 border border-gray-400 rounded focus:ring focus:ring-blue-300 text-black placeholder-gray-500"
+                                    required
+                                    placeholder={label}
+                                />
+                            )}
+                        </div>
+                    ))}
+                    <button
+                        type="submit"
+                        className="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600"
+                    >
+                        Submit Proposal
+                    </button>
+                </form>
+            </div>
+        </div>
+    );
 };
 
 export default CreateProject;
