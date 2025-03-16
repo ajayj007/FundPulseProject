@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface StartupRepo extends MongoRepository<Startup, Integer> {
+public interface StartupRepo extends MongoRepository<Startup, String> {
     Startup findByEmailAndPassword(String email, String pwd);
 
     Optional<Startup> findByEmail(String email);

@@ -29,7 +29,7 @@ public class Investor implements UserDetails {
     private double declaredIncome; // From user input
     private double extractedIncome; // Extracted from ITR
     private boolean verified; // True if the document passes verification
-
+    private double coin;
     private String itrUrl; // Storing the document as a URL reference
 
     @Override

@@ -21,23 +21,17 @@ public class ProposalService {
     private ProposalRepo proposalRepo;
 
     public ResponseEntity<Proposal> addProposal(ProposalForm proposalForm, String id) {
-        Optional<Startup> startupById = startupRepo.findById(Integer.valueOf(id));
-        if (startupById.isPresent()) {
-            Optional<Proposal> activeProposal = proposalRepo.findByStartupAndStatus()
-            Startup startup = startupById.get();
-            Proposal proposal = new Proposal();
+        Optional<Startup> startupById = startupRepo.findById(id);
 
-            proposal.setStartUpId(startup.getStartupId());
-            proposal.setAmount(proposalForm.getAmount());
-            proposal.setEquity(proposalForm.getEquity());
-            proposal.setReason(proposalForm.getReason());
-            proposal.setLocation(proposalForm.getLocation());
-            proposal.setSector(proposalForm.getSector());
-            proposal.setStartDate(proposalForm.getStartDate());
-            proposal.setEndDate(proposalForm.getEndDate());
+        if (startupById.isPresent()) {
+            
+            Startup startup = startupById.get();
+            Proposal proposal = getProposal(proposalForm, startup);
 
             Proposal savedProposal = proposalRepo.save(proposal);
+            System.out.println(savedProposal.getProposalId());
             startup.setProposalId(savedProposal.getProposalId());
+            startupRepo.save(startup);
              return ResponseEntity.ok().body(proposal);
         }else{
             System.out.println("user is not available");
@@ -45,4 +39,26 @@ public class ProposalService {
         }
 
     }
+
+    private static Proposal getProposal(ProposalForm proposalForm, Startup startup) {
+        Proposal proposal = new Proposal();
+
+        proposal.setStartUpId(startup.getStartupId());
+        proposal.setAmount(proposalForm.getAmount());
+        proposal.setEquity(proposalForm.getEquity());
+        proposal.setReason(proposalForm.getReason());
+        proposal.setLocation(proposalForm.getLocation());
+        proposal.setSector(proposalForm.getSector());
+        proposal.setStartDate(proposalForm.getStartDate());
+        proposal.setEndDate(proposalForm.getEndDate());
+        proposal.setStatus(true);
+        return proposal;
+    }
+
+    // private boolean canSubmitProposal(String id){
+
+    //     Optional<Proposal> activeProposal = proposalRepo.findByStartupAndStatus(id,"Active");
+    //    
+    //     return true;
+   // }
 }

@@ -29,6 +29,6 @@ public class Proposal {
     private String sector;
     private LocalDateTime startDate;
     private LocalDateTime endDate;
-    private String status;
+    private boolean status;
 
 }
