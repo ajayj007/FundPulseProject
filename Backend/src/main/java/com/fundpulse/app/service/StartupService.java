@@ -2,24 +2,34 @@ package com.fundpulse.app.service;
 
 import com.fundpulse.app.ResourseNotFoundExaception;
 import com.fundpulse.app.forms.LoginRequest;
+import com.fundpulse.app.forms.ProposalForm;
 import com.fundpulse.app.forms.StartUpForm;
+import com.fundpulse.app.models.Proposal;
 import com.fundpulse.app.models.Startup;
+import com.fundpulse.app.repository.ProposalRepo;
 import com.fundpulse.app.repository.StartupRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
+import java.util.Optional;
 
 @Service
 public class StartupService {
     @Autowired
     private StartupRepo startupRepo;
 
-    private static Startup getStartup(StartUpForm startUpForm) {
+    @Autowired
+    private BCryptPasswordEncoder encoder;
+
+    private  Startup getStartup(StartUpForm startUpForm) {
         Startup startup = new Startup();
         startup.setFounderName(startUpForm.getFounderName());
         startup.setEmail(startUpForm.getEmail());
         startup.setPhone(startUpForm.getCountryCode() + " " + startUpForm.getPhone());
-        startup.setPassword(startUpForm.getPassword());
+        startup.setPassword(encoder.encode(startUpForm.getPassword()));
         startup.setIndustryCategories(startUpForm.getIndustryCategories());
         startup.setFundingGoal(startUpForm.getCurrency() + " " + startUpForm.getFundingGoal());
         return startup;
@@ -51,4 +61,7 @@ public class StartupService {
             return ResponseEntity.badRequest().body("Error processing signup: " + e.getMessage());
         }
     }
+
+
+
 }

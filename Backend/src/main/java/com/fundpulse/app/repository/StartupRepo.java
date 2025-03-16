@@ -1,10 +1,14 @@
 package com.fundpulse.app.repository;
 
 import com.fundpulse.app.models.Startup;
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
-public interface StartupRepo extends JpaRepository<Startup, Integer> {
+public interface StartupRepo extends MongoRepository<Startup, Integer> {
     Startup findByEmailAndPassword(String email, String pwd);
+
+    Optional<Startup> findByEmail(String email);
 }

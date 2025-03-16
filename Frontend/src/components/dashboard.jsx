@@ -2,7 +2,9 @@ import { useEffect, useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import Header from "./dashboard/Header";
 import Home from "../views/Home";
-import Project from "../views/Project";
+// import Project from "../views/Project";
+import ProposalForm from '../components/starter/ProposalForm'
+import StarterNavBar from "../components/starter/StarterNavBar";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -30,23 +32,25 @@ const Dashboard = () => {
 
     return () => {
       console.log("Dashboard component unmounting...");
-
-      // Ensure cleanup doesn't return a non-function value
-      return () => {
-        isMounted = false;
-      };
+      isMounted = false;
     };
   }, []);
 
   return (
     <div className="min-h-screen relative">
       <Header />
+      
+
       {loaded && (
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/projects/:id" element={<Project />} />
+          {/* <Route path="/projects/:id" element={<Project />} /> */}
+          <Route path="/proposal" element={<ProposalForm />} />
+          {/* <Route path="/team" element={<div>Team Page</div>} /> */}
+          <Route path="/settings" element={<div>Settings Page</div>} />
         </Routes>
       )}
+
       <ToastContainer
         position="bottom-center"
         autoClose={5000}

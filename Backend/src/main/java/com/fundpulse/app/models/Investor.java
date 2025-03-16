@@ -1,21 +1,25 @@
 package com.fundpulse.app.models;
 
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import java.util.Collection;
+import java.util.List;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
-@Table(name = "investors")
-public class Investor {
+@Document(collection = "investors")
+public class Investor implements UserDetails {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String investorId;
 
     private String fullName;
     private String email;
@@ -26,6 +30,15 @@ public class Investor {
     private double extractedIncome; // Extracted from ITR
     private boolean verified; // True if the document passes verification
 
-    private String itrUrl; // Storing the document as a byte array
+    private String itrUrl; // Storing the document as a URL reference
 
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of();
+    }
+
+    @Override
+    public String getUsername() {
+        return this.email;
+    }
 }

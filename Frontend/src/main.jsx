@@ -25,7 +25,6 @@ const router = createBrowserRouter(
       <Route path="loginInvestor" element={<LoginInvestor />} />
       <Route path="loginStartup" element={<LoginStartup />} />
       <Route path="demo" element={<Demonikhil />} />
-
       <Route path="dashboard" element={<Dashboard />} />
     </Route>
   )
