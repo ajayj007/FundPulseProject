@@ -42,7 +42,7 @@ function SignUpInvestor() {
 
     try {
       const response = await axios.post(
-        `${API_BASE_URL}investor/signup`,
+        `${API_BASE_URL}/investor/signup`,
         formDataToSend, // Send FormData instead of the raw object
         {
           headers: {

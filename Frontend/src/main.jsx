@@ -1,21 +1,14 @@
-import { StrictMode } from "react";
-import { createRoot } from "react-dom/client";
+import {StrictMode} from "react";
+import {createRoot} from "react-dom/client";
 import "./index.css";
 import App from "./App.jsx";
-import {
-  createBrowserRouter,
-  createRoutesFromElements,
-  Route,
-  RouterProvider,
-} from "react-router-dom";
+import {createBrowserRouter, createRoutesFromElements, Route, RouterProvider,} from "react-router-dom";
 import Layout from "./Layout.jsx";
 import LoginInvestor from "./components/account/LoginInvestor.jsx";
 import LoginStartup from "./components/account/LoginStartup.jsx";
-import Demonikhil from "./demonikhil.jsx";
 import SignUpStartup from "./components/account/SignupStartup.jsx";
 import SignUpInvestor from "./components/Account/SignupInvestor.jsx";
 import Dashboard from "./components/dashboard.jsx";
-import CreateProject from "./components/dashboard/CreateProject.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -25,7 +18,6 @@ const router = createBrowserRouter(
       <Route path="investor/signup" element={<SignUpInvestor />} />
       <Route path="investor/login" element={<LoginInvestor />} />
       <Route path="startup/login" element={<LoginStartup />} />
-      <Route path="demo" element={<Demonikhil />} />
       <Route path="dashboard" element={<Dashboard />} />
     </Route>
   )

@@ -8,7 +8,7 @@ const Hero = () => {
       <h1 className="text-5xl md:text-6xl xl:text-7xl font-bold tracking-tight mb-12">
         <span className="capitalize">Empowering Dreams, Funding Futures Together with</span>
         <br />
-        <span className="uppercase text-green-600">BlockchainBoost</span>
+        <span className="uppercase text-green-600">FundChain</span>
       </h1>
 
       <div className="flex justify-center items-center space-x-4">

@@ -8,6 +8,7 @@ import com.fundpulse.app.repository.InvestorRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -27,12 +28,15 @@ public class InvestorService {
     @Autowired
     private GoogleDriveUploadService googleDriveUploadService;
 
-    private static Investor getInvestor(InvestorForm investorForm) {
+    @Autowired
+    private BCryptPasswordEncoder encoder;
+
+    private  Investor getInvestor(InvestorForm investorForm) {
         Investor investor = new Investor();
         investor.setFullName(investorForm.getFullName());
         investor.setEmail(investorForm.getEmail());
         investor.setPhone(investorForm.getCountryCode() + " " + investorForm.getPhone());
-        investor.setPassword(investorForm.getPassword());
+        investor.setPassword(encoder.encode(investorForm.getPassword()));
         investor.setInvestmentCategories(investorForm.getInvestmentCategories());
         investor.setDeclaredIncome(investorForm.getDeclaredIncome());
         investor.setExtractedIncome(12000000); // Dummy extracted value
