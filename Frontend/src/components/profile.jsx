@@ -7,7 +7,7 @@ import ProposalForm from "../components/starter/ProposalForm";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const Dashboard = () => {
+const Profile = () => {
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
@@ -68,4 +68,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default Profile;

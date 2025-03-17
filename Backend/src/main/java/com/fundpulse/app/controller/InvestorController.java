@@ -1,15 +1,10 @@
 package com.fundpulse.app.controller;
 
-import com.fundpulse.app.forms.InvestorForm;
-import com.fundpulse.app.forms.LoginRequest;
+import com.fundpulse.app.dto.LoginRequest;
 import com.fundpulse.app.models.Investor;
-import com.fundpulse.app.models.Proposal;
-import com.fundpulse.app.service.InvestorService;
-import com.fundpulse.app.service.ProposalService;
-
-import java.util.List;
-
+import com.fundpulse.app.service.investor.InvestorService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,32 +12,31 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/investor")
 public class InvestorController {
 
-
     @Autowired
     private InvestorService investorService;
-    @Autowired
-    private ProposalService proposalService;
-
-    @PostMapping(value = "/signup", consumes = "multipart/form-data")
-    public ResponseEntity<String> registerInvestor(@ModelAttribute InvestorForm investorForm) {
-        System.out.println("Received request in registerInvestor()");
-        System.out.println("Investor Email: " + investorForm.getEmail());
-        return investorService.registerInvestor(investorForm);
-    }
 
     @PostMapping("/login")
-    public Investor LoginInvestor(@RequestBody LoginRequest loginRequest) {
+    public ResponseEntity<?> loginInvestor(@RequestBody LoginRequest loginRequest) {
+        // Validate input
+        if (loginRequest.getEmail() == null || loginRequest.getPassword() == null) {
+            return ResponseEntity
+                    .status(HttpStatus.BAD_REQUEST)
+                    .body("Email and password are required.");
+        }
 
-        Investor investor = investorService.loginInvestor(loginRequest);
-        return investor;
-
+        try {
+            Investor investor = investorService.loginInvestor(loginRequest);
+            if (investor != null) {
+                return ResponseEntity.ok(investor); // Return investor data
+            } else {
+                return ResponseEntity
+                        .status(HttpStatus.UNAUTHORIZED)
+                        .body("Invalid email or password.");
+            }
+        } catch (Exception e) {
+            return ResponseEntity
+                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("An error occurred while processing your request.");
+        }
     }
-
-    @GetMapping("/allActiveProposal")
-    public ResponseEntity<List<Proposal>> allProposals(){
-        return proposalService.getProposals();
-    }
-
-
-
 }

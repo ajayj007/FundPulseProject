@@ -1,6 +1,6 @@
 package com.fundpulse.app.service;
 
-import com.fundpulse.app.forms.proposalProgressForm;
+import com.fundpulse.app.dto.proposalProgressForm;
 import com.fundpulse.app.models.Investment;
 import com.fundpulse.app.models.Proposal;
 import com.fundpulse.app.repository.TempInvestmentRepo;

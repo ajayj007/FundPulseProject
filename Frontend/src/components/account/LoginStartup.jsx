@@ -8,20 +8,32 @@ export default function LoginStartup() {
   const [error, setError] = useState("");
   const navigate = useNavigate(); // React Router navigation
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setError("");
 
-    if (!email || !password) {
-      setError("Both fields are required!");
-      return;
-    }
+    // Use FormData to append form data
+    const formData = new FormData();
+    formData.append("email", email);
+    formData.append("password", password);
 
-    // Dummy authentication
-    if (email === "test@example.com" && password === "password123") {
-      alert("Login successful!");
-    } else {
-      setError("Invalid email or password.");
+    try {
+      const response = await axios.post(
+        `${API_BASE_URL}/investor/login`, // Replace with actual base URL
+        formData, // Send FormData instead of the raw object
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      console.log("Login successful:", response.data);
+
+      // Redirect or do something after successful login
+      navigate("/dashboard"); // For example, navigate to a dashboard page
+    } catch (error) {
+      console.error("Error logging in:", error);
+      setError("Failed to log in. Please check your credentials.");
     }
   };
 

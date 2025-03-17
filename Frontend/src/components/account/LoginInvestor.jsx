@@ -1,28 +1,31 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios"; // Make sure to import axios
-import { Link, NavLink } from "react-router-dom";
+import axios from "axios";
 import { API_BASE_URL } from "../../config";
-
 
 export default function LoginInvestor() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const navigate = useNavigate(); // React Router navigation
+  const [loading, setLoading] = useState(false); // Loading state
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Use FormData to append form data
-    const formData = new FormData();
-    formData.append("email", email);
-    formData.append("password", password);
+    // Basic client-side validation
+    if (!email || !password) {
+      setError("Please fill in all fields.");
+      return;
+    }
+
+    setLoading(true); // Start loading
+    setError(""); // Clear previous errors
 
     try {
       const response = await axios.post(
-        `${API_BASE_URL}/investor/login`, // Replace with actual base URL
-        formData, // Send FormData instead of the raw object
+        `${API_BASE_URL}/investor/login`,
+        { email, password }, // Send as JSON
         {
           headers: {
             "Content-Type": "application/json",
@@ -32,19 +35,33 @@ export default function LoginInvestor() {
 
       console.log("Login successful:", response.data);
 
-      // Redirect or do something after successful login
-      navigate("/dashboard"); // For example, navigate to a dashboard page
+      // Store investor data (e.g., in localStorage)
+      localStorage.setItem("investor", JSON.stringify(response.data));
+
+      // Redirect to dashboard
+      navigate("/dashboard");
     } catch (error) {
       console.error("Error logging in:", error);
-      setError("Failed to log in. Please check your credentials.");
+
+      // Display specific error message from the backend
+      setError(
+        error.response?.data?.message ||
+          "Failed to log in. Please check your credentials."
+      );
+    } finally {
+      setLoading(false); // Stop loading
     }
   };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-900">
       <div className="bg-gray-800 bg-opacity-80 backdrop-blur-md p-8 rounded-xl shadow-2xl max-w-sm w-full">
-        <h2 className="text-3xl font-bold text-white text-center mb-6">Investor Login</h2>
-        {error && <p className="text-red-500 text-center mb-3">{error}</p>}
+        <h2 className="text-3xl font-bold text-white text-center mb-6">
+          Investor Login
+        </h2>
+        {error && (
+          <p className="text-red-500 text-center mb-3">{error}</p>
+        )}
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
             <label className="block text-gray-300 mb-1">Email:</label>
@@ -54,6 +71,7 @@ export default function LoginInvestor() {
               placeholder="Enter your email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              required
             />
           </div>
 
@@ -65,14 +83,16 @@ export default function LoginInvestor() {
               placeholder="Enter your password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              required
             />
           </div>
 
           <button
             type="submit"
-            className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition duration-300 shadow-md"
+            className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition duration-300 shadow-md disabled:opacity-50"
+            disabled={loading} // Disable button while loading
           >
-            Login
+            {loading ? "Logging in..." : "Login"}
           </button>
         </form>
       </div>

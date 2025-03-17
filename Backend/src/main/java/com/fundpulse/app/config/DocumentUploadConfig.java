@@ -1,4 +1,4 @@
-package com.fundpulse.app.service;
+package com.fundpulse.app.config;
 
 import com.google.api.client.http.HttpTransport;
 import com.google.api.client.http.javanet.NetHttpTransport;
@@ -11,7 +11,6 @@ import com.google.auth.oauth2.GoogleCredentials;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Collections;

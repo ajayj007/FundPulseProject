@@ -1,4 +1,4 @@
-package com.fundpulse.app.service;
+package com.fundpulse.app.service.document;
 
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;

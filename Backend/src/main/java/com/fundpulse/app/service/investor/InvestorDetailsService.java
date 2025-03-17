@@ -1,4 +1,4 @@
-package com.fundpulse.app.service;
+package com.fundpulse.app.service.investor;
 
 import com.fundpulse.app.repository.InvestorRepo;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,6 +1,6 @@
-package com.fundpulse.app.service;
+package com.fundpulse.app.service.proposal;
 
-import com.fundpulse.app.forms.ProposalForm;
+import com.fundpulse.app.dto.ProposalForm;
 import com.fundpulse.app.models.Proposal;
 import com.fundpulse.app.models.Startup;
 import com.fundpulse.app.repository.ProposalRepo;

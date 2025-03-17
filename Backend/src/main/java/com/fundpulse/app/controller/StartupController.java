@@ -1,11 +1,11 @@
 package com.fundpulse.app.controller;
 
-import com.fundpulse.app.forms.LoginRequest;
-import com.fundpulse.app.forms.ProposalForm;
-import com.fundpulse.app.forms.StartUpForm;
+import com.fundpulse.app.dto.LoginRequest;
+import com.fundpulse.app.dto.ProposalForm;
+import com.fundpulse.app.dto.StartUpForm;
 import com.fundpulse.app.models.Startup;
-import com.fundpulse.app.service.ProposalService;
-import com.fundpulse.app.service.StartupService;
+import com.fundpulse.app.service.proposal.ProposalService;
+import com.fundpulse.app.service.startup.StartupService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

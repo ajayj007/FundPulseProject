@@ -1,5 +1,6 @@
-package com.fundpulse.app.service;
+package com.fundpulse.app.service.document;
 
+import com.fundpulse.app.config.DocumentUploadConfig;
 import com.google.api.services.drive.Drive;
 import com.google.api.services.drive.model.File;
 import com.google.api.services.drive.model.Permission;

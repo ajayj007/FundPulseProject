@@ -1,4 +1,4 @@
-package com.fundpulse.app.forms;
+package com.fundpulse.app.dto;
 
 import lombok.Data;
 
