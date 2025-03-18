@@ -5,36 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e7968e2c-cf28-41de-8e9c-32e8a0a2aa9f" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/dto/InvestorForm.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/dto/LoginRequest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/dto/ProposalForm.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/dto/StartUpForm.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/service/auth/JwtService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/config/SecurityConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/controller/InvestorController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/controller/InvestorController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/controller/StartupController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/controller/StartupController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/forms/InvestorForm.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/forms/LoginRequest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/forms/ProposalForm.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/forms/StartUpForm.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/forms/proposalProgressForm.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/service/DocumentUploadConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/config/DocumentUploadConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/service/DocumentVerificationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/service/document/DocumentVerificationService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/service/GoogleDriveUploadService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/service/document/GoogleDriveUploadService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/service/InvestorDetailsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/service/investor/InvestorDetailsService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/service/InvestorService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/service/investor/InvestorService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/service/ProposalService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/service/proposal/ProposalService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/service/StartupDetailsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/service/startup/StartupDetailsService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/service/StartupService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/service/startup/StartupService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/service/TempInvestmentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/service/TempInvestmentService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/service/startup/StartupService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/service/startup/StartupService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Backend/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/main/resources/application.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Backend/src/main/resources/google-drive.json" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/main/resources/google-drive.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Frontend/src/components/account/LoginInvestor.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/components/account/LoginInvestor.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Frontend/src/components/account/LoginStartup.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/components/account/LoginStartup.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Frontend/src/components/dashboard.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/components/dashboard.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/components/profile.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/components/starter/StarterNavBar.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/components/starter/StarterNavBar.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/components/userProfile/CreateProjectForm.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/components/userProfile/ProjectCard.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/main.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/main.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -65,8 +44,13 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
+    "Spring Boot.BackendApplication.executor": "Run",
     "git-widget-placeholder": "main",
     "kotlin-language-version-configured": "true",
     "node.js.detected.package.eslint": "true",
@@ -103,7 +87,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1742236216341</updated>
-      <workItem from="1742236224964" duration="478000" />
+      <workItem from="1742236224964" duration="3070000" />
     </task>
     <servers />
   </component>

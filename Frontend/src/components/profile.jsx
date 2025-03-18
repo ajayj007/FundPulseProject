@@ -1,70 +1,42 @@
-import { useEffect, useState } from "react";
-import { Route, Routes } from "react-router-dom";
+import React from "react";
+import ProfileHeader from "./userProfile/ProfileHeader";
+import ProfileDetails from "./userProfile/ProfileDetails";
+import ProfileStats from "./userProfile/ProfileStats";
+import ProfileActivity from "./userProfile/ProfileActivity";
+import InvestmentSlider from "./userProfile/InvestmentSlider";
 import Header from "./dashboard/Header";
-import Home from "../views/Home";
-// import Project from "../views/Project";
-import ProposalForm from "../components/starter/ProposalForm";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 
 const Profile = () => {
-  const [loaded, setLoaded] = useState(false);
-
-  useEffect(() => {
-    let isMounted = true;
-
-    const loadBlockchain = async () => {
-      try {
-        console.log("Loading blockchain...");
-        await new Promise((resolve) => setTimeout(resolve, 2000));
-
-        if (isMounted) {
-          setLoaded(true);
-          console.log("Blockchain loaded successfully");
-        }
-      } catch (error) {
-        console.error("Error loading blockchain:", error);
-      }
-    };
-
-    loadBlockchain();
-
-    return () => {
-      console.log("Dashboard component unmounting...");
-      isMounted = false;
-    };
-  }, []);
+  const user = {
+    name: "John Doe",
+    role: "Full-Stack Developer",
+    avatar: "https://via.placeholder.com/100",
+    email: "johndoe@example.com",
+    phone: "+123 456 789",
+    location: "New York, USA",
+    projects: 12,
+    followers: 320,
+    following: 180,
+    activities: ["Updated project X", "Followed Jane Smith", "Commented on a post"],
+  };
 
   return (
-    <div className="min-h-screen relative">
+    <>
       <Header />
-
-      {loaded && (
-        <Routes>
-          <Route path="/" element={<Home />} />
-          {/* <Route path="/projects/:id" element={<Project />} /> */}
-          <Route path="/proposal" element={<ProposalForm />} />
-          {/* <Route path="/team" element={<div>Team Page</div>} /> */}
-          <Route path="/settings" element={<div>Settings Page</div>} />
-          <Route path="/startup/signup" element={<div>Signup Page</div>} />
-          <Route path="/startup/login" element={<div>Login Page</div>} />
-          {/* <Route path="/signup" element={<div>Login Page</div>} /> */}
-        </Routes>
-      )}
-
-      <ToastContainer
-        position="bottom-center"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="dark"
-      />
-    </div>
+      <div className="text-black p-6 bg-gray-100 min-h-screen">
+        <ProfileHeader name={user.name} role={user.role} avatar={user.avatar} />
+        <div className="mt-6 grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <ProfileDetails email={user.email} phone={user.phone} location={user.location} />
+          <ProfileStats
+            projects={user.projects}
+            followers={user.followers}
+            following={user.following}
+          />
+          <ProfileActivity activities={user.activities} />
+        </div>
+        <InvestmentSlider />
+      </div>
+    </>
   );
 };
 
