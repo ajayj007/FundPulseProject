@@ -39,29 +39,40 @@ function SignUpStartup() {
     try {
       const response = await axios.post(
         `${API_BASE_URL}/startup/signup`,
-        formDataToSend, // Send FormData instead of the raw object
+        {
+          founderName: formData.founderName,
+          email: formData.email,
+          countryCode: formData.countryCode,
+          phone: formData.phone,
+          password: formData.password,
+          confirmPassword: formData.confirmPassword,
+          industryCategories: formData.industryCategories,
+          fundingGoal: formData.fundingGoal,
+          currency: formData.currency
+        },
         {
           headers: {
-            "Content-Type": "multipart/form-data",
+            "Content-Type": "application/json",
           },
         }
       );
-
+    
       console.log("Signup successful:", response.data);
       setFormData({
         founderName: "",
         email: "",
-        countryCode:"",
+        countryCode: "",
         phone: "",
         password: "",
         confirmPassword: "",
         industryCategories: "",
         fundingGoal: "",
-        currency:""
-      })
+        currency: ""
+      });
     } catch (error) {
       console.error("Error signing up:", error);
     }
+    
   };
   return (
     <section className="bg-white dark:bg-gray-900">

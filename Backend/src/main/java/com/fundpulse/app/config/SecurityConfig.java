@@ -39,12 +39,12 @@ public class SecurityConfig {
         return httpSecurity
                 .cors(cors -> cors.configurationSource(corsConfigurationSource())) // ✅ FIXED: Now properly defined
                 .csrf(AbstractHttpConfigurer::disable) // Disable CSRF for API calls
-                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // Use JWT if applicable
+//                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // Use JWT if applicable
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/investor/login", "/startup/login", "/investor/signup", "/startup/signup").permitAll()
-                        .requestMatchers("/investor/dashboard").hasRole("INVESTOR")
-                        .requestMatchers("/startup/dashboard").hasRole("STARTUP")
-                        .anyRequest().authenticated()
+//                        .requestMatchers("/investor/login", "/startup/login", "/investor/signup", "/startup/signup").permitAll()
+//                        .requestMatchers("/investor/dashboard").hasRole("INVESTOR")
+//                        .requestMatchers("/startup/dashboard").hasRole("STARTUP")
+                        .anyRequest().permitAll()
                 )
                 .authenticationProvider(investorAuthenticationProvider())
                 .authenticationProvider(startupAuthenticationProvider())

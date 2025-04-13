@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link, NavLink } from "react-router-dom";
+import axios from "axios";
+import { API_BASE_URL } from "../../config";
 
 export default function LoginStartup() {
   const [email, setEmail] = useState("");
@@ -18,7 +20,7 @@ export default function LoginStartup() {
 
     try {
       const response = await axios.post(
-        `${API_BASE_URL}/investor/login`, // Replace with actual base URL
+        `${API_BASE_URL}/startup/login`, // Replace with actual base URL
         formData, // Send FormData instead of the raw object
         {
           headers: {

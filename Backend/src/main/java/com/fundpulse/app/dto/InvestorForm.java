@@ -22,5 +22,4 @@ public class InvestorForm {
 
     private MultipartFile itrDocument;
 
-
 }

@@ -46,8 +46,8 @@ const CreateProject = () => {
   };
 
   return (
-    <div className={`fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 transition-transform duration-300 ${createModal}`}>
-      <div className="bg-white shadow-xl rounded-xl w-11/12 md:w-2/5 max-h-[90vh] overflow-auto p-6 border border-gray-300">
+    <div className={`fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 transition-transform  duration-300  ${createModal}`}>
+      <div className="bg-white shadow-xl rounded-xl w-11/12 md:w-2/5 max-h-[90vh] overflow-auto p-6 border mt-25  border-gray-300">
         {/* Close Button */}
         <button onClick={onClose} className="border-0 bg-transparent float-right text-gray-700">
           <FaTimes size={20} />
@@ -59,14 +59,9 @@ const CreateProject = () => {
         {/* Form */}
         <form onSubmit={handleSubmit} className="space-y-4">
           {[
-            { label: "Startup Name", name: "name", type: "text" },
             { label: "Amount to Raise ($)", name: "amountToRaise", type: "number" },
             { label: "Reason for Fundraising", name: "reason", type: "textarea" },
             { label: "Equity Percentage (%)", name: "equityPercentage", type: "number" },
-            { label: "Location", name: "location", type: "text" },
-            { label: "Sector", name: "sector", type: "text" },
-            { label: "Start Date", name: "startDate", type: "date" },
-            { label: "End Date", name: "endDate", type: "date" },
           ].map(({ label, name, type }) => (
             <div key={name}>
               <label className="block font-medium text-gray-700">{label}</label>
