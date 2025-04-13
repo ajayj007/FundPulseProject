@@ -22,15 +22,15 @@ public class Proposal {
 
     @Indexed(unique =true)
     private String startUpId;
-    private Long amount;
-    private Long raisedAmount;
-    private Long minInvestment;
+    private String projectName;
+    private Long amountToRaise;
     private String reason;
-    private int equity;
-    private String location;
+    private int equityPercentage;
     private String sector;
     private LocalDateTime startDate;
     private LocalDateTime endDate;
+    private Long raisedAmount;
+    private Long minInvestment;
     private boolean status;
 
 }

@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Link, NavLink } from "react-router-dom";
 import axios from "axios";
 import { API_BASE_URL } from "../../config";
 
@@ -29,10 +28,13 @@ export default function LoginStartup() {
         }
       );
 
-      console.log("Login successful:", response.data);
+      console.log("Login successful:", response.data.startupId);
+
+      // Save the startupId to localStorage
+      localStorage.setItem("startupId", response.data.startupId);
 
       // Redirect or do something after successful login
-      navigate("/dashboard"); // For example, navigate to a dashboard page
+      navigate("/startup"); // For example, navigate to a dashboard page
     } catch (error) {
       console.error("Error logging in:", error);
       setError("Failed to log in. Please check your credentials.");

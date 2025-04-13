@@ -13,10 +13,10 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class ProposalForm {
 
-    private Long amount;
+    private String projectName;
+    private Long amountToRaise;
     private String reason;
-    private int equity;
-    private String location;
+    private int equityPercentage;
     private String sector;
     private LocalDateTime startDate;
     private LocalDateTime endDate;

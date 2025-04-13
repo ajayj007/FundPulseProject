@@ -54,10 +54,9 @@ public class ProposalService {
         Proposal proposal = new Proposal();
 
         proposal.setStartUpId(startup.getStartupId());
-        proposal.setAmount(proposalForm.getAmount());
-        proposal.setEquity(proposalForm.getEquity());
+        proposal.setAmount(proposalForm.getAmountToRaise());
+        proposal.setEquityPercentage(proposalForm.getEquityPercentage());
         proposal.setReason(proposalForm.getReason());
-        proposal.setLocation(proposalForm.getLocation());
         proposal.setSector(proposalForm.getSector());
         proposal.setStartDate(proposalForm.getStartDate());
         proposal.setEndDate(proposalForm.getEndDate());
