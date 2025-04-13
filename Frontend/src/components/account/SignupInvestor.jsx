@@ -1,17 +1,17 @@
-import React, { useState } from "react";
-import { NavLink } from "react-router-dom";
-import axios from "axios";
-import { API_BASE_URL } from "../../config";
+import React, { useState } from 'react';
+import { NavLink } from 'react-router-dom';
+import axios from 'axios';
+import { API_BASE_URL } from '../../config';
 
 function SignUpInvestor() {
   const [formData, setFormData] = useState({
-    fullName: "",
-    email: "",
-    phone: "",
-    countryCode:"",
-    password: "",
-    confirmPassword: "",
-    investmentCategories: "",
+    fullName: '',
+    email: '',
+    phone: '',
+    countryCode: '',
+    password: '',
+    confirmPassword: '',
+    investmentCategories: '',
     itrDocument: undefined,
   });
 
@@ -27,17 +27,20 @@ function SignUpInvestor() {
 
     // Create a FormData instance
     const formDataToSend = new FormData();
-    formDataToSend.append("fullName", formData.fullName);
-    formDataToSend.append("email", formData.email);
-    formDataToSend.append("countryCode", formData.countryCode);
-    formDataToSend.append("phone", formData.phone);
-    formDataToSend.append("password", formData.password);
-    formDataToSend.append("confirmPassword", formData.confirmPassword);
-    formDataToSend.append("investmentCategories", formData.investmentCategories);
+    formDataToSend.append('fullName', formData.fullName);
+    formDataToSend.append('email', formData.email);
+    formDataToSend.append('countryCode', formData.countryCode);
+    formDataToSend.append('phone', formData.phone);
+    formDataToSend.append('password', formData.password);
+    formDataToSend.append('confirmPassword', formData.confirmPassword);
+    formDataToSend.append(
+      'investmentCategories',
+      formData.investmentCategories,
+    );
 
     // Append file only if it exists
     if (formData.itrDocument) {
-      formDataToSend.append("itrDocument", formData.itrDocument);
+      formDataToSend.append('itrDocument', formData.itrDocument);
     }
 
     try {
@@ -46,24 +49,24 @@ function SignUpInvestor() {
         formDataToSend, // Send FormData instead of the raw object
         {
           headers: {
-            "Content-Type": "multipart/form-data",
+            'Content-Type': 'multipart/form-data',
           },
-        }
+        },
       );
 
-      console.log("Signup successful:", response.data);
+      console.log('Signup successful:', response.data);
       setFormData({
-        fullName: "",
-        email: "",
-        countryCode:"",
-        phone: "",
-        password: "",
-        confirmPassword: "",
-        investmentCategories: "",
+        fullName: '',
+        email: '',
+        countryCode: '',
+        phone: '',
+        password: '',
+        confirmPassword: '',
+        investmentCategories: '',
         itrDocument: undefined,
-      })
+      });
     } catch (error) {
-      console.error("Error signing up:", error);
+      console.error('Error signing up:', error);
     }
   };
 
@@ -100,7 +103,8 @@ function SignUpInvestor() {
             </h2>
 
             <p className="mt-4 text-xl leading-relaxed text-black">
-              A place for budding startups to thrive in this capilistic world of business.
+              A place for budding startups to thrive in this capilistic world of
+              business.
             </p>
           </div>
         </section>
@@ -131,12 +135,15 @@ function SignUpInvestor() {
               </h1>
 
               <p className="mt-4 leading-relaxed text-gray-500 dark:text-gray-400">
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eligendi nam dolorum
-                aliquam, quibusdam aperiam voluptatum.
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+                Eligendi nam dolorum aliquam, quibusdam aperiam voluptatum.
               </p>
             </div>
 
-            <form onSubmit={handleSubmit} className="mt-8 grid grid-cols-6 gap-6">
+            <form
+              onSubmit={handleSubmit}
+              className="mt-8 grid grid-cols-6 gap-6"
+            >
               <div className="col-span-6">
                 <label
                   htmlFor="FullName"
@@ -191,7 +198,7 @@ function SignUpInvestor() {
                     name="countryCode"
                     className="rounded-l-md border-gray-200 bg-white text-sm text-gray-700 shadow-xs dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200 px-2 h-8"
                     value={formData.countryCode}
-                  onChange={handleChange}
+                    onChange={handleChange}
                   >
                     <option value="">Select your country</option>
                     <option value="+61">+61 (Australia)</option>
@@ -289,15 +296,23 @@ function SignUpInvestor() {
                   <option value="venture_capital">Venture Capital</option>
                   <option value="hedge_funds">Hedge Funds</option>
                   <option value="fixed_deposits">Fixed Deposits</option>
-                  <option value="reit">Real Estate Investment Trusts (REITs)</option>
+                  <option value="reit">
+                    Real Estate Investment Trusts (REITs)
+                  </option>
                   <option value="commodities">Commodities</option>
                   <option value="art_collectibles">Art & Collectibles</option>
                   <option value="forex">Foreign Exchange (Forex)</option>
                   <option value="startups">Startups & Angel Investing</option>
-                  <option value="peer_to_peer_lending">Peer-to-Peer Lending</option>
+                  <option value="peer_to_peer_lending">
+                    Peer-to-Peer Lending
+                  </option>
                   <option value="insurance">Insurance & Annuities</option>
-                  <option value="retirement_funds">Retirement Funds (401k, IRA, NPS, etc.)</option>
-                  <option value="alternative_investments">Alternative Investments</option>
+                  <option value="retirement_funds">
+                    Retirement Funds (401k, IRA, NPS, etc.)
+                  </option>
+                  <option value="alternative_investments">
+                    Alternative Investments
+                  </option>
                 </select>
               </div>
 
@@ -381,21 +396,27 @@ function SignUpInvestor() {
                   />
 
                   <span className="text-sm text-gray-700 dark:text-gray-200">
-                    I want to receive emails about events, product updates and company
-                    announcements.
+                    I want to receive emails about events, product updates and
+                    company announcements.
                   </span>
                 </label>
               </div>
               <div className="col-span-6">
                 <p className="text-sm text-gray-500 dark:text-gray-400">
                   By creating an account, you agree to our
-                  <a href="#" className="text-gray-700 underline dark:text-gray-200 ml-1 mr-1">
+                  <a
+                    href="#"
+                    className="text-gray-700 underline dark:text-gray-200 ml-1 mr-1"
+                  >
                     terms and conditions
                   </a>
                   and
-                  <a href="#" className="text-gray-700 underline dark:text-gray-200 ml-1">
-                    {" "}
-                    privacy policy{" "}
+                  <a
+                    href="#"
+                    className="text-gray-700 underline dark:text-gray-200 ml-1"
+                  >
+                    {' '}
+                    privacy policy{' '}
                   </a>
                   .
                 </p>
@@ -406,12 +427,15 @@ function SignUpInvestor() {
                 </button>
 
                 <p className="mt-4 text-sm text-gray-500 sm:mt-0 dark:text-gray-400">
-                  Already have an account?{" "}
+                  Already have an account?{' '}
                   <button
-                    onClick={() => navigate("/login/Investor")}
+                    onClick={() => navigate('/login/Investor')}
                     className="text-gray-700  dark:text-gray-200 hover:text-blue-400 transition"
                   >
-                    <NavLink to="/LoginInvestor" className="py-2 px-3 border rounded-md ">
+                    <NavLink
+                      to="/investor-auth/signup"
+                      className="py-2 px-3 border rounded-md "
+                    >
                       Login
                     </NavLink>
                   </button>

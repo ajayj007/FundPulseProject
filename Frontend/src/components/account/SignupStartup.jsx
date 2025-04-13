@@ -1,19 +1,19 @@
-import React, { useState } from "react";
-import { NavLink } from "react-router-dom";
-import axios from "axios";
-import { API_BASE_URL } from "../../config";
+import React, { useState } from 'react';
+import { NavLink } from 'react-router-dom';
+import axios from 'axios';
+import { API_BASE_URL } from '../../config';
 
 function SignUpStartup() {
   const [formData, setFormData] = useState({
-    founderName: "",
-    email: "",
-    countryCode:"",
-    phone: "",
-    password: "",
-    confirmPassword: "",
-    industryCategories: "",
+    founderName: '',
+    email: '',
+    countryCode: '',
+    phone: '',
+    password: '',
+    confirmPassword: '',
+    industryCategories: '',
     fundingGoal: 0,
-    currency:""
+    currency: '',
   });
 
   const handleChange = (e) => {
@@ -25,42 +25,41 @@ function SignUpStartup() {
 
     // Create a FormData instance
     const formDataToSend = new FormData();
-    formDataToSend.append("founderName", formData.founderName);
-    formDataToSend.append("email", formData.email);
-    formDataToSend.append("countryCode", formData.countryCode);
-    formDataToSend.append("phone", formData.phone);
-    formDataToSend.append("password", formData.password);
-    formDataToSend.append("confirmPassword", formData.confirmPassword);
-    formDataToSend.append("industryCategories", formData.industryCategories);
-    formDataToSend.append("fundingGoal", formData.fundingGoal);
-    formDataToSend.append("currency", formData.currency);
+    formDataToSend.append('founderName', formData.founderName);
+    formDataToSend.append('email', formData.email);
+    formDataToSend.append('countryCode', formData.countryCode);
+    formDataToSend.append('phone', formData.phone);
+    formDataToSend.append('password', formData.password);
+    formDataToSend.append('confirmPassword', formData.confirmPassword);
+    formDataToSend.append('industryCategories', formData.industryCategories);
+    formDataToSend.append('fundingGoal', formData.fundingGoal);
+    formDataToSend.append('currency', formData.currency);
 
-  
     try {
       const response = await axios.post(
         `${API_BASE_URL}/startup/signup`,
         formDataToSend, // Send FormData instead of the raw object
         {
           headers: {
-            "Content-Type": "multipart/form-data",
+            'Content-Type': 'multipart/form-data',
           },
-        }
+        },
       );
 
-      console.log("Signup successful:", response.data);
+      console.log('Signup successful:', response.data);
       setFormData({
-        founderName: "",
-        email: "",
-        countryCode:"",
-        phone: "",
-        password: "",
-        confirmPassword: "",
-        industryCategories: "",
-        fundingGoal: "",
-        currency:""
-      })
+        founderName: '',
+        email: '',
+        countryCode: '',
+        phone: '',
+        password: '',
+        confirmPassword: '',
+        industryCategories: '',
+        fundingGoal: '',
+        currency: '',
+      });
     } catch (error) {
-      console.error("Error signing up:", error);
+      console.error('Error signing up:', error);
     }
   };
   return (
@@ -96,7 +95,8 @@ function SignUpStartup() {
             </h2>
 
             <p className="mt-4 text-xl leading-relaxed text-black">
-              A place for budding startups to thrive in this capilistic world of business.
+              A place for budding startups to thrive in this capilistic world of
+              business.
             </p>
           </div>
         </section>
@@ -127,12 +127,15 @@ function SignUpStartup() {
               </h1>
 
               <p className="mt-4 leading-relaxed text-gray-500 dark:text-gray-400">
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eligendi nam dolorum
-                aliquam, quibusdam aperiam voluptatum.
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+                Eligendi nam dolorum aliquam, quibusdam aperiam voluptatum.
               </p>
             </div>
 
-            <form onSubmit={handleSubmit} className="mt-8 grid grid-cols-6 gap-6">
+            <form
+              onSubmit={handleSubmit}
+              className="mt-8 grid grid-cols-6 gap-6"
+            >
               <div className="col-span-6">
                 <label
                   htmlFor="FounderName"
@@ -285,15 +288,23 @@ function SignUpStartup() {
                   <option value="venture_capital">Venture Capital</option>
                   <option value="hedge_funds">Hedge Funds</option>
                   <option value="fixed_deposits">Fixed Deposits</option>
-                  <option value="reit">Real Estate Investment Trusts (REITs)</option>
+                  <option value="reit">
+                    Real Estate Investment Trusts (REITs)
+                  </option>
                   <option value="commodities">Commodities</option>
                   <option value="art_collectibles">Art & Collectibles</option>
                   <option value="forex">Foreign Exchange (Forex)</option>
                   <option value="startups">Startups & Angel Investing</option>
-                  <option value="peer_to_peer_lending">Peer-to-Peer Lending</option>
+                  <option value="peer_to_peer_lending">
+                    Peer-to-Peer Lending
+                  </option>
                   <option value="insurance">Insurance & Annuities</option>
-                  <option value="retirement_funds">Retirement Funds (401k, IRA, NPS, etc.)</option>
-                  <option value="alternative_investments">Alternative Investments</option>
+                  <option value="retirement_funds">
+                    Retirement Funds (401k, IRA, NPS, etc.)
+                  </option>
+                  <option value="alternative_investments">
+                    Alternative Investments
+                  </option>
                 </select>
               </div>
 
@@ -384,21 +395,27 @@ function SignUpStartup() {
                   />
 
                   <span className="text-sm text-gray-700 dark:text-gray-200">
-                    I want to receive emails about events, product updates and company
-                    announcements.
+                    I want to receive emails about events, product updates and
+                    company announcements.
                   </span>
                 </label>
               </div>
               <div className="col-span-6">
                 <p className="text-sm text-gray-500 dark:text-gray-400">
                   By creating an account, you agree to our
-                  <a href="#" className="text-gray-700 underline dark:text-gray-200 ml-1 mr-1">
+                  <a
+                    href="#"
+                    className="text-gray-700 underline dark:text-gray-200 ml-1 mr-1"
+                  >
                     terms and conditions
                   </a>
                   and
-                  <a href="#" className="text-gray-700 underline dark:text-gray-200 ml-1">
-                    {" "}
-                    privacy policy{" "}
+                  <a
+                    href="#"
+                    className="text-gray-700 underline dark:text-gray-200 ml-1"
+                  >
+                    {' '}
+                    privacy policy{' '}
                   </a>
                   .
                 </p>
@@ -409,12 +426,15 @@ function SignUpStartup() {
                 </button>
 
                 <p className="mt-4 text-sm text-gray-500 sm:mt-0 dark:text-gray-400">
-                  Already have an account?{" "}
+                  Already have an account?{' '}
                   <button
-                    onClick={() => navigate("/login/Startup")}
+                    onClick={() => navigate('/login/Startup')}
                     className="text-gray-700  dark:text-gray-200 hover:text-blue-400 transition"
                   >
-                    <NavLink to="/LoginStartup" className="py-2 px-3 border rounded-md ">
+                    <NavLink
+                      to="/startup-auth/login"
+                      className="py-2 px-3 border rounded-md "
+                    >
                       Login
                     </NavLink>
                   </button>
