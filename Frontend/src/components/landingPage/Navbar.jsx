@@ -1,9 +1,9 @@
-import { Menu, X } from "lucide-react";
-import { useState, useEffect } from "react";
-import { AnimatePresence, motion } from "framer-motion";
-import logo from "/assets/logo.png";
-import { navItems } from "../../constants";
-import { NavLink } from "react-router-dom";
+import { Menu, X } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
+import logo from '/assets/logo.png';
+import { navItems } from '../../constants';
+import { NavLink } from 'react-router-dom';
 
 const Navbar = ({ onPopupToggle = () => {} }) => {
   const [mobileDrawerOpen, setMobileDrawerOpen] = useState(false);
@@ -11,20 +11,20 @@ const Navbar = ({ onPopupToggle = () => {} }) => {
 
   useEffect(() => {
     if (popup) {
-      document.body.classList.add("overflow-hidden");
+      document.body.classList.add('overflow-hidden');
     } else {
-      document.body.classList.remove("overflow-hidden");
+      document.body.classList.remove('overflow-hidden');
     }
   }, [popup]);
 
   const popupLinks = {
     Signup: [
-      { name: "Create as Startup", path: "/startup/signup" },
-      { name: "Create as Investor", path: "/investor/signup" },
+      { name: 'Create as Startup', path: '/startup-auth/signup' },
+      { name: 'Create as Investor', path: '/investor-auth/signup' },
     ],
     Login: [
-      { name: "Sign in as Startup", path: "/startup/login" },
-      { name: "Sign in as Investor", path: "/investor/login" },
+      { name: 'Sign in as Startup', path: '/startup-auth/login' },
+      { name: 'Sign in as Investor', path: '/investor-auth/login' },
     ],
   };
 
@@ -51,7 +51,7 @@ const Navbar = ({ onPopupToggle = () => {} }) => {
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.8 }}
-              transition={{ duration: 0.3, ease: "easeInOut" }}
+              transition={{ duration: 0.3, ease: 'easeInOut' }}
               className="bg-white/90 backdrop-blur-xl border border-white/20 p-6 rounded-2xl shadow-2xl shadow-black/30 w-11/12 max-w-md z-50 relative"
               onClick={(e) => e.stopPropagation()}
             >
@@ -96,20 +96,22 @@ const Navbar = ({ onPopupToggle = () => {} }) => {
             </ul>
             <div className="hidden lg:flex justify-center space-x-6 items-center">
               <button
-                onClick={() => handlePopupToggle("Login")}
+                onClick={() => handlePopupToggle('Login')}
                 className="py-2 px-3 border rounded-md cursor-pointer hover:bg-gray-100 transition duration-300"
               >
                 Sign In
               </button>
               <button
-                onClick={() => handlePopupToggle("Signup")}
+                onClick={() => handlePopupToggle('Signup')}
                 className="bg-gradient-to-r from-orange-500 to-orange-800 py-2 px-3 rounded-md cursor-pointer hover:from-orange-600 hover:to-orange-900 transition duration-300"
               >
                 Create an Account
               </button>
             </div>
             <div className="lg:hidden md:flex flex-col justify-end">
-              <button onClick={toggleNavbar}>{mobileDrawerOpen ? <X /> : <Menu />}</button>
+              <button onClick={toggleNavbar}>
+                {mobileDrawerOpen ? <X /> : <Menu />}
+              </button>
             </div>
           </div>
           {mobileDrawerOpen && (
@@ -123,13 +125,13 @@ const Navbar = ({ onPopupToggle = () => {} }) => {
               </ul>
               <div className="flex space-x-6 mt-4">
                 <button
-                  onClick={() => handlePopupToggle("Login")}
+                  onClick={() => handlePopupToggle('Login')}
                   className="py-2 px-3 border rounded-md hover:bg-gray-100 transition duration-300"
                 >
                   Sign In
                 </button>
                 <button
-                  onClick={() => handlePopupToggle("Signup")}
+                  onClick={() => handlePopupToggle('Signup')}
                   className="py-2 px-3 rounded-md bg-gradient-to-r from-orange-500 to-orange-800 hover:from-orange-600 hover:to-orange-900 transition duration-300"
                 >
                   Create an Account
