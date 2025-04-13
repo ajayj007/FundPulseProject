@@ -2,6 +2,10 @@ import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import axios from 'axios';
 import { API_BASE_URL } from '../../config';
+import React, { useState } from 'react';
+import { NavLink } from 'react-router-dom';
+import axios from 'axios';
+import { API_BASE_URL } from '../../config';
 
 function SignUpStartup() {
   const [formData, setFormData] = useState({
@@ -12,7 +16,15 @@ function SignUpStartup() {
     password: '',
     confirmPassword: '',
     industryCategories: '',
+    founderName: '',
+    email: '',
+    countryCode: '',
+    phone: '',
+    password: '',
+    confirmPassword: '',
+    industryCategories: '',
     fundingGoal: 0,
+    currency: '',
     currency: '',
   });
 
@@ -25,6 +37,16 @@ function SignUpStartup() {
 
     // Create a FormData instance
     const formDataToSend = new FormData();
+    formDataToSend.append('founderName', formData.founderName);
+    formDataToSend.append('email', formData.email);
+    formDataToSend.append('countryCode', formData.countryCode);
+    formDataToSend.append('phone', formData.phone);
+    formDataToSend.append('password', formData.password);
+    formDataToSend.append('confirmPassword', formData.confirmPassword);
+    formDataToSend.append('industryCategories', formData.industryCategories);
+    formDataToSend.append('fundingGoal', formData.fundingGoal);
+    formDataToSend.append('currency', formData.currency);
+
     formDataToSend.append('founderName', formData.founderName);
     formDataToSend.append('email', formData.email);
     formDataToSend.append('countryCode', formData.countryCode);
@@ -54,6 +76,7 @@ function SignUpStartup() {
             "Content-Type": "application/json",
           },
         },
+        },
       );
     
       console.log("Signup successful:", response.data);
@@ -69,6 +92,7 @@ function SignUpStartup() {
         currency: ""
       });
     } catch (error) {
+      console.error('Error signing up:', error);
       console.error('Error signing up:', error);
     }
     
@@ -108,6 +132,8 @@ function SignUpStartup() {
             <p className="mt-4 text-xl leading-relaxed text-black">
               A place for budding startups to thrive in this capilistic world of
               business.
+              A place for budding startups to thrive in this capilistic world of
+              business.
             </p>
           </div>
         </section>
@@ -140,9 +166,15 @@ function SignUpStartup() {
               <p className="mt-4 leading-relaxed text-gray-500 dark:text-gray-400">
                 Lorem, ipsum dolor sit amet consectetur adipisicing elit.
                 Eligendi nam dolorum aliquam, quibusdam aperiam voluptatum.
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+                Eligendi nam dolorum aliquam, quibusdam aperiam voluptatum.
               </p>
             </div>
 
+            <form
+              onSubmit={handleSubmit}
+              className="mt-8 grid grid-cols-6 gap-6"
+            >
             <form
               onSubmit={handleSubmit}
               className="mt-8 grid grid-cols-6 gap-6"
@@ -302,6 +334,9 @@ function SignUpStartup() {
                   <option value="reit">
                     Real Estate Investment Trusts (REITs)
                   </option>
+                  <option value="reit">
+                    Real Estate Investment Trusts (REITs)
+                  </option>
                   <option value="commodities">Commodities</option>
                   <option value="art_collectibles">Art & Collectibles</option>
                   <option value="forex">Foreign Exchange (Forex)</option>
@@ -309,7 +344,16 @@ function SignUpStartup() {
                   <option value="peer_to_peer_lending">
                     Peer-to-Peer Lending
                   </option>
+                  <option value="peer_to_peer_lending">
+                    Peer-to-Peer Lending
+                  </option>
                   <option value="insurance">Insurance & Annuities</option>
+                  <option value="retirement_funds">
+                    Retirement Funds (401k, IRA, NPS, etc.)
+                  </option>
+                  <option value="alternative_investments">
+                    Alternative Investments
+                  </option>
                   <option value="retirement_funds">
                     Retirement Funds (401k, IRA, NPS, etc.)
                   </option>
@@ -408,6 +452,8 @@ function SignUpStartup() {
                   <span className="text-sm text-gray-700 dark:text-gray-200">
                     I want to receive emails about events, product updates and
                     company announcements.
+                    I want to receive emails about events, product updates and
+                    company announcements.
                   </span>
                 </label>
               </div>
@@ -418,9 +464,19 @@ function SignUpStartup() {
                     href="#"
                     className="text-gray-700 underline dark:text-gray-200 ml-1 mr-1"
                   >
+                  <a
+                    href="#"
+                    className="text-gray-700 underline dark:text-gray-200 ml-1 mr-1"
+                  >
                     terms and conditions
                   </a>
                   and
+                  <a
+                    href="#"
+                    className="text-gray-700 underline dark:text-gray-200 ml-1"
+                  >
+                    {' '}
+                    privacy policy{' '}
                   <a
                     href="#"
                     className="text-gray-700 underline dark:text-gray-200 ml-1"
@@ -438,10 +494,16 @@ function SignUpStartup() {
 
                 <p className="mt-4 text-sm text-gray-500 sm:mt-0 dark:text-gray-400">
                   Already have an account?{' '}
+                  Already have an account?{' '}
                   <button
+                    onClick={() => navigate('/login/Startup')}
                     onClick={() => navigate('/login/Startup')}
                     className="text-gray-700  dark:text-gray-200 hover:text-blue-400 transition"
                   >
+                    <NavLink
+                      to="/startup-auth/login"
+                      className="py-2 px-3 border rounded-md "
+                    >
                     <NavLink
                       to="/startup-auth/login"
                       className="py-2 px-3 border rounded-md "
