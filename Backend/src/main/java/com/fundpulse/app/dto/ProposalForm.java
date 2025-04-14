@@ -20,4 +20,5 @@ public class ProposalForm {
     private String sector;
     private LocalDateTime startDate;
     private LocalDateTime endDate;
+    private Long minInvestment;
 }

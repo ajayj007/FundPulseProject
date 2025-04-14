@@ -27,7 +27,7 @@ function Navbar() {
   };
 
   return (
-    <nav className="bg-white shadow-md">
+    <nav className="bg-white mb-5 shadow-md">
       <div className="container mx-auto px-4">
         <div className="flex justify-between h-16">
           <div className="flex items-center">
@@ -98,6 +98,12 @@ function Navbar() {
                 </Link>
                 <Link
                   to="/"
+                  onClick={() => {
+                    // Remove startup ID from localStorage
+                    localStorage.removeItem('startupId');
+                    
+                 
+                  }}
                   className="text-gray-700 hover:text-green-600 px-3 py-2 rounded-md text-sm font-medium"
                 >
                   Logout

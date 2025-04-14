@@ -24,12 +24,12 @@ public class Proposal {
     private String startUpId;
     private String projectName;
     private Long amountToRaise;
-    private String reason;
     private int equityPercentage;
+    private String reason;
     private String sector;
     private LocalDateTime startDate;
     private LocalDateTime endDate;
-    private Long raisedAmount;
+    private Long raisedAmount ;
     private Long minInvestment;
     private boolean status;
 

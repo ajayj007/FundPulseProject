@@ -1,6 +1,7 @@
 package com.fundpulse.app.controller;
 
 import com.fundpulse.app.dto.LoginRequest;
+import com.fundpulse.app.dto.InvestorForm;
 import com.fundpulse.app.models.Investor;
 import com.fundpulse.app.service.investor.InvestorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,5 +39,17 @@ public class InvestorController {
                     .status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("An error occurred while processing your request.");
         }
+    }
+
+    @PostMapping(value = "/signup")
+    public ResponseEntity<?> registerInvestor(@ModelAttribute InvestorForm investorForm) {
+        System.out.println("Received request in registerInvestor()");
+        System.out.println("Investor Email: " + investorForm.getEmail());
+        return investorService.registerInvestor(investorForm);
+    }
+
+    @GetMapping("/all")
+    public ResponseEntity<?> getAllInvestors(){
+        return investorService.getInvestors();
     }
 }

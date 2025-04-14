@@ -65,14 +65,14 @@ function InvestorDashboard() {
 
         <div className="flex flex-col sm:flex-row justify-center gap-4">
           <Link
-            to="/investor/search"
+            to="/investor/explore"
             className="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-md font-medium transition duration-300"
           >
-            Search Projects
+            Explore Projects
           </Link>
           <Link
             to="/investor/track"
-            className="border-2 border-green-600 text-green-600 hover:bg-green-50 px-6 py-3 rounded-md font-medium transition duration-300"
+            className="border-2 border-green-600 text-green-600 hover:bg-green-50 px-6 py-3 rounded-md font-medium transition duration-300  "
           >
             Track Investment
           </Link>

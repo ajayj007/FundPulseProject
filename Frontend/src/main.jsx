@@ -22,7 +22,7 @@ import Profile from './pages/Profile.jsx';
 //
 import InvestorDashboard from './pages/investor/InvestorDashboard.jsx';
 import InvestorProfile from './pages/investor/InvestorProfile.jsx';
-import SearchProjects from './pages/investor/SearchProjects.jsx';
+import SearchProjects from './pages/investor/ExploreProjects.jsx';
 import TrackInvestment from './pages/investor/TrackInvestment.jsx';
 
 //
@@ -55,7 +55,7 @@ const router = createBrowserRouter(
       <Route path="/investor" element={<LayoutForMain />}>
         <Route path="/investor" element={<InvestorDashboard />} />
         <Route path="/investor/track" element={<TrackInvestment />} />
-        <Route path="/investor/search" element={<SearchProjects />} />
+        <Route path="/investor/explore" element={<SearchProjects />} />
         <Route path="/investor/profile" element={<InvestorProfile />} />
         <Route path="/investor/chatbox" element={<Chatbox />} />
       </Route>

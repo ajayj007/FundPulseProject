@@ -41,9 +41,8 @@ public class ProposalService {
 
     }
 
-    public ResponseEntity<List<Proposal>> getProposals(){
-
-        Optional<List<Proposal>> proposals = proposalRepo.findByStatus(true);
+    public ResponseEntity<List<Proposal>> getDisabledProposals(){
+        Optional<List<Proposal>> proposals = proposalRepo.findByStatus(false);
         List<Proposal> proposals2 = proposals.get();
         System.out.println(proposals2);
         return ResponseEntity.ok().body(proposals2);
@@ -54,14 +53,39 @@ public class ProposalService {
         Proposal proposal = new Proposal();
 
         proposal.setStartUpId(startup.getStartupId());
-        proposal.setAmount(proposalForm.getAmountToRaise());
+        proposal.setProjectName(proposalForm.getProjectName());
+        proposal.setAmountToRaise(proposalForm.getAmountToRaise());
         proposal.setEquityPercentage(proposalForm.getEquityPercentage());
         proposal.setReason(proposalForm.getReason());
         proposal.setSector(proposalForm.getSector());
         proposal.setStartDate(proposalForm.getStartDate());
         proposal.setEndDate(proposalForm.getEndDate());
+        proposal.setMinInvestment(proposalForm.getAmountToRaise()/2);
+        proposal.setRaisedAmount(0L);
+        proposal.setSector(proposalForm.getSector());
         proposal.setStatus(true);
         return proposal;
+    }
+
+    public ResponseEntity<Proposal> getActiveProposals(String startupId) {
+        Optional<List<Proposal>> byStatus = proposalRepo.findByStatusAndStartUpId(true,startupId);
+        List<Proposal> proposals = byStatus.get();
+        if(proposals.size() >= 1){
+            return ResponseEntity.ok().body(proposals.get(0));
+        }else
+        {
+            return  ResponseEntity.ok().body(null);
+        }
+    }
+
+    public ResponseEntity<List<Proposal>> getAllActiveProposals() {
+        Optional<List<Proposal>> byStatus = proposalRepo.findByStatus(true);
+        if(byStatus.isPresent()){
+            List<Proposal> proposals = byStatus.get();
+            return ResponseEntity.ok().body(proposals);
+        }else{
+            return ResponseEntity.ok().body(null);
+        }
     }
 
     // private boolean canSubmitProposal(String id){

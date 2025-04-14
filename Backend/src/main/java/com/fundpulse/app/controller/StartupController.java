@@ -21,9 +21,9 @@ public class StartupController {
     private ProposalService proposalService;
 
     @PostMapping(value = "/signup")
-    public ResponseEntity<String> registerInvestor(@RequestBody StartUpForm startUpForm) {
-        System.out.println("Received request in registerInvestor()");
-        System.out.println("Investor Email: " + startUpForm.getEmail());
+    public ResponseEntity<String> registerSignup(@RequestBody StartUpForm startUpForm) {
+        System.out.println("Received request in registerSignup()");
+        System.out.println("Signup Email: " + startUpForm.getEmail());
         return startupService.registerStartup(startUpForm);
     }
 

@@ -1,92 +1,90 @@
-'use client';
+"use client";
 
-import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import {
-  PieChart,
-  Pie,
-  Cell,
-  ResponsiveContainer,
-  Tooltip,
-  Legend,
-} from 'recharts';
+import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend } from "recharts";
+import axios from "axios";
+import { API_BASE_URL } from "../config";
 
 function CurrentProposal() {
-  const [hasActiveProposal, setHasActiveProposal] = useState(true);
+  const [hasActiveProposal, setHasActiveProposal] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [proposal, setProposal] = useState(null);
+  const [investors, setInvestors] = useState([]);
+  const [daysRemaining, setDaysRemaining] = useState(0);
 
-  // Mock data for the current proposal
-  const [proposal, setProposal] = useState({
-    name: 'EcoTech Solutions',
-    description:
-      'Developing sustainable technology solutions for reducing carbon footprint in urban areas.',
-    amountToRaise: 15,
-    amountRaised: 9,
-    equityOffered: 8,
-    sector: 'Technology',
-    startDate: '2023-04-10',
-    endDate: '2023-04-14',
-    investors: [
-      { id: 1, name: 'Investor A', amount: 3, equity: 2.67 },
-      { id: 2, name: 'Investor B', amount: 2.5, equity: 2.22 },
-      { id: 3, name: 'Investor C', amount: 2, equity: 1.78 },
-      { id: 4, name: 'Investor D', amount: 1.5, equity: 1.33 },
-    ],
-  });
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        // Get the startup ID from your auth context or local storage
+        const startupId = localStorage.getItem("startupId");
 
-  // Calculate days remaining
-  const calculateDaysRemaining = () => {
-    const endDate = new Date(proposal.endDate);
+        // Fetch proposal data
+        const proposalResponse = await axios.get(
+          `${API_BASE_URL}/api/active-proposals/${startupId}`,
+          {}
+        );
+
+        if (proposalResponse.data) {
+          setProposal(proposalResponse.data);
+          console.log(proposalResponse.data);
+          setHasActiveProposal(true);
+          setDaysRemaining(calculateDaysRemaining(proposalResponse.data.endDate));
+
+          // Fetch investors for this proposal
+          const investorsResponse = await axios.get(`${API_BASE_URL}/investor/all`, {
+            params: { proposalId: proposalResponse.data.id },
+          });
+          setInvestors(investorsResponse.data);
+        } else {
+          // setHasActiveProposal(false);
+        }
+      } catch (err) {
+        setError(err.message);
+        console.error("Error fetching data:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  const calculateDaysRemaining = (endDate) => {
+    const end = new Date(endDate);
     const today = new Date();
-    const diffTime = endDate - today;
+    const diffTime = end - today;
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
     return diffDays > 0 ? diffDays : 0;
   };
 
-  const [daysRemaining, setDaysRemaining] = useState(calculateDaysRemaining());
-
-  useEffect(() => {
-    // Update days remaining
-    setDaysRemaining(calculateDaysRemaining());
-
-    // Check if proposal is still active
-    const endDate = new Date(proposal.endDate);
-    const today = new Date();
-    setHasActiveProposal(endDate >= today);
-  }, [proposal]);
-
   // Prepare data for pie chart
-  const pieData = proposal.investors.map((investor) => ({
+  const pieData = investors.map((investor) => ({
     name: investor.name,
     value: investor.equity,
   }));
 
   // Add remaining equity if not fully funded
-  const totalEquityDistributed = proposal.investors.reduce(
-    (sum, investor) => sum + investor.equity,
-    0,
-  );
-  if (totalEquityDistributed < proposal.equityOffered) {
+  const totalEquityDistributed = investors.reduce((sum, investor) => sum + investor.equity, 0);
+
+  if (proposal && totalEquityDistributed < proposal.equityOffered) {
     pieData.push({
-      name: 'Remaining',
+      name: "Remaining",
       value: proposal.equityOffered - totalEquityDistributed,
     });
   }
 
+  // Rest of your component remains the same...
+  // Just make sure to use `proposal` and `investors` state variables
+  // instead of the hardcoded data
+
   // Colors for pie chart
-  const COLORS = [
-    '#4ade80',
-    '#22c55e',
-    '#16a34a',
-    '#15803d',
-    '#166534',
-    '#d1fae5',
-  ];
+  const COLORS = ["#4ade80", "#22c55e", "#16a34a", "#15803d", "#166534", "#d1fae5"];
 
   return (
     <div>
-      <h1 className="text-3xl font-bold text-gray-800 mb-6">
-        Current Proposal
-      </h1>
+      <h1 className="text-3xl font-bold text-gray-800 mb-6">Current Proposal</h1>
 
       {hasActiveProposal ? (
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -94,63 +92,38 @@ function CurrentProposal() {
           <div className="lg:col-span-2">
             <div className="bg-white rounded-lg shadow-md p-6">
               <div className="flex justify-between items-start mb-4">
-                <h2 className="text-2xl font-bold text-gray-800">
-                  {proposal.name}
-                </h2>
+                <h2 className="text-2xl font-bold text-gray-800">{proposal.projectName}</h2>
                 <span className="px-3 py-1 bg-green-100 text-green-800 text-sm font-medium rounded-full">
                   {proposal.sector}
                 </span>
               </div>
 
-              <p className="text-gray-600 mb-6">{proposal.description}</p>
+              <p className="text-gray-600 mb-6">{proposal.reason}</p>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                 <div>
-                  <h3 className="text-sm font-medium text-gray-500 mb-1">
-                    Funding Goal
-                  </h3>
-                  <p className="text-xl font-bold text-gray-800">
-                    {proposal.amountToRaise} ETH
-                  </p>
+                  <h3 className="text-sm font-medium text-gray-500 mb-1">Funding Goal</h3>
+                  <p className="text-xl font-bold text-gray-800">{proposal.amountToRaise} ETH</p>
                 </div>
                 <div>
-                  <h3 className="text-sm font-medium text-gray-500 mb-1">
-                    Amount Raised
-                  </h3>
-                  <p className="text-xl font-bold text-green-600">
-                    {proposal.amountRaised} ETH
-                  </p>
+                  <h3 className="text-sm font-medium text-gray-500 mb-1">Amount Raised</h3>
+                  <p className="text-xl font-bold text-green-600">{proposal.raisedAmount} ETH</p>
                 </div>
                 <div>
-                  <h3 className="text-sm font-medium text-gray-500 mb-1">
-                    Equity Offered
-                  </h3>
-                  <p className="text-xl font-bold text-gray-800">
-                    {proposal.equityOffered}%
-                  </p>
+                  <h3 className="text-sm font-medium text-gray-500 mb-1">Equity Offered</h3>
+                  <p className="text-xl font-bold text-gray-800">{proposal.equityPercentage}%</p>
                 </div>
                 <div>
-                  <h3 className="text-sm font-medium text-gray-500 mb-1">
-                    Days Remaining
-                  </h3>
-                  <p className="text-xl font-bold text-gray-800">
-                    {daysRemaining}
-                  </p>
+                  <h3 className="text-sm font-medium text-gray-500 mb-1">Days Remaining</h3>
+                  <p className="text-xl font-bold text-gray-800">{daysRemaining}</p>
                 </div>
               </div>
 
               <div className="mb-6">
-                <h3 className="text-sm font-medium text-gray-500 mb-1">
-                  Funding Progress
-                </h3>
+                <h3 className="text-sm font-medium text-gray-500 mb-1">Funding Progress</h3>
                 <div className="flex justify-between items-center text-sm text-gray-500 mb-2">
-                  <span>{proposal.amountRaised} ETH</span>
-                  <span>
-                    {Math.round(
-                      (proposal.amountRaised / proposal.amountToRaise) * 100,
-                    )}
-                    %
-                  </span>
+                  <span>{proposal.raisedAmount} ETH</span>
+                  <span>{Math.round((proposal.raisedAmount / proposal.amountToRaise) * 100)}%</span>
                   <span>{proposal.amountToRaise} ETH</span>
                 </div>
                 <div className="w-full bg-gray-200 rounded-full h-2.5">
@@ -158,8 +131,8 @@ function CurrentProposal() {
                     className="bg-green-600 h-2.5 rounded-full"
                     style={{
                       width: `${Math.min(
-                        (proposal.amountRaised / proposal.amountToRaise) * 100,
-                        100,
+                        (proposal.raisedAmount / proposal.amountToRaise) * 100,
+                        100
                       )}%`,
                     }}
                   ></div>
@@ -168,20 +141,14 @@ function CurrentProposal() {
 
               <div className="grid grid-cols-2 gap-4 mb-6">
                 <div>
-                  <h3 className="text-sm font-medium text-gray-500 mb-1">
-                    Start Date
-                  </h3>
+                  <h3 className="text-sm font-medium text-gray-500 mb-1">Start Date</h3>
                   <p className="text-gray-800">
                     {new Date(proposal.startDate).toLocaleDateString()}
                   </p>
                 </div>
                 <div>
-                  <h3 className="text-sm font-medium text-gray-500 mb-1">
-                    End Date
-                  </h3>
-                  <p className="text-gray-800">
-                    {new Date(proposal.endDate).toLocaleDateString()}
-                  </p>
+                  <h3 className="text-sm font-medium text-gray-500 mb-1">End Date</h3>
+                  <p className="text-gray-800">{new Date(proposal.endDate).toLocaleDateString()}</p>
                 </div>
               </div>
             </div>
@@ -189,9 +156,7 @@ function CurrentProposal() {
 
           {/* Equity Distribution Chart */}
           <div className="bg-white rounded-lg shadow-md p-6">
-            <h2 className="text-xl font-bold text-gray-800 mb-4">
-              Equity Distribution
-            </h2>
+            <h2 className="text-xl font-bold text-gray-800 mb-4">Equity Distribution</h2>
             <div className="h-64">
               <ResponsiveContainer width="100%" height="100%">
                 <PieChart>
@@ -205,13 +170,10 @@ function CurrentProposal() {
                     dataKey="value"
                   >
                     {pieData.map((entry, index) => (
-                      <Cell
-                        key={`cell-${index}`}
-                        fill={COLORS[index % COLORS.length]}
-                      />
+                      <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                     ))}
                   </Pie>
-                  <Tooltip formatter={(value) => [`${value}%`, 'Equity']} />
+                  <Tooltip formatter={(value) => [`${value}%`, "Equity"]} />
                   <Legend />
                 </PieChart>
               </ResponsiveContainer>
@@ -221,9 +183,7 @@ function CurrentProposal() {
           {/* Investors List */}
           <div className="lg:col-span-3">
             <div className="bg-white rounded-lg shadow-md p-6">
-              <h2 className="text-xl font-bold text-gray-800 mb-4">
-                Investors
-              </h2>
+              <h2 className="text-xl font-bold text-gray-800 mb-4">Investors</h2>
 
               <div className="overflow-x-auto">
                 <table className="min-w-full divide-y divide-gray-200">
@@ -256,25 +216,21 @@ function CurrentProposal() {
                     </tr>
                   </thead>
                   <tbody className="bg-white divide-y divide-gray-200">
-                    {proposal.investors.map((investor) => (
-                      <tr key={investor.id}>
+                    {investors.map((investor) => (
+                      <tr key={investor.id || investor.investorId || investor._id}>
+                        {" "}
+                        {/* Fallback options */}
                         <td className="px-6 py-4 whitespace-nowrap">
-                          <div className="text-sm font-medium text-gray-900">
-                            {investor.name}
-                          </div>
+                          <div className="text-sm font-medium text-gray-900">{investor.name}</div>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap">
-                          <div className="text-sm text-gray-900">
-                            {investor.amount} ETH
-                          </div>
+                          <div className="text-sm text-gray-900">{investor.amount} ETH</div>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap">
-                          <div className="text-sm text-gray-900">
-                            {investor.equity}%
-                          </div>
+                          <div className="text-sm text-gray-900">{investor.equity}%</div>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                          {new Date().toLocaleDateString()}
+                          {new Date(investor.investmentDate || investor.date).toLocaleDateString()}
                         </td>
                       </tr>
                     ))}
@@ -286,12 +242,10 @@ function CurrentProposal() {
         </div>
       ) : (
         <div className="bg-white rounded-lg shadow-md p-8 text-center">
-          <h2 className="text-2xl font-bold text-gray-800 mb-4">
-            No Active Proposal
-          </h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-4">No Active Proposal</h2>
           <p className="text-gray-600 mb-6">
-            You don't have any active proposals at the moment. Create a new
-            project to start raising funds.
+            You don't have any active proposals at the moment. Create a new project to start raising
+            funds.
           </p>
           <Link
             to="/startup/add-project"

@@ -1,63 +1,43 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
+import axios from "axios"
+import { API_BASE_URL } from "../config"
 
 function BackProjects() {
-  // Mock data for available projects
-  const [projects, setProjects] = useState([
-    {
-      id: 1,
-      name: "EcoTech Solutions",
-      description: "Developing sustainable technology solutions for reducing carbon footprint in urban areas.",
-      amountToRaise: 15,
-      amountRaised: 9,
-      equityOffered: 8,
-      sector: "Technology",
-      daysLeft: 3,
-    },
-    {
-      id: 2,
-      name: "MediConnect",
-      description: "A healthcare platform connecting patients with specialists for remote consultations and care.",
-      amountToRaise: 12,
-      amountRaised: 4.8,
-      equityOffered: 10,
-      sector: "Healthcare",
-      daysLeft: 4,
-    },
-    {
-      id: 3,
-      name: "FinLedger",
-      description: "Blockchain-based financial management system for small businesses and startups.",
-      amountToRaise: 20,
-      amountRaised: 14,
-      equityOffered: 12,
-      sector: "Finance",
-      daysLeft: 2,
-    },
-    {
-      id: 4,
-      name: "EduChain",
-      description: "Decentralized education platform offering verified credentials and skill certifications.",
-      amountToRaise: 8,
-      amountRaised: 3.2,
-      equityOffered: 7,
-      sector: "Education",
-      daysLeft: 5,
-    },
-  ])
-
+  const [projects, setProjects] = useState([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
   const [selectedSector, setSelectedSector] = useState("")
   const [investmentAmount, setInvestmentAmount] = useState({})
   const [showModal, setShowModal] = useState(false)
   const [selectedProject, setSelectedProject] = useState(null)
+
+  useEffect(() => {
+    const fetchProjects = async () => {
+      try {
+        const response = await axios.get(`${API_BASE_URL}/api/back-proposals`)
+        console.log(response.data)
+        setProjects(response.data)
+        setLoading(false)
+      } catch (err) {
+        setError(err.message)
+        setLoading(false)
+        console.error('Error fetching projects:', err)
+      }
+    }
+
+    fetchProjects()
+  }, [])
 
   const handleSectorChange = (e) => {
     setSelectedSector(e.target.value)
   }
 
   const filteredProjects = selectedSector
-    ? projects.filter((project) => project.sector.toLowerCase() === selectedSector.toLowerCase())
+    ? projects.filter((project) => 
+        project.sector.toLowerCase() === selectedSector.toLowerCase()
+      )
     : projects
 
   const handleInvestmentChange = (id, value) => {
@@ -72,29 +52,63 @@ function BackProjects() {
     setShowModal(true)
   }
 
-  const confirmInvestment = () => {
+  const confirmInvestment = async () => {
     const amount = Number.parseFloat(investmentAmount[selectedProject.id] || 0)
 
     if (amount > 0) {
-      // Update the project with new investment
-      const updatedProjects = projects.map((p) => {
-        if (p.id === selectedProject.id) {
-          return {
-            ...p,
-            amountRaised: Math.min(p.amountRaised + amount, p.amountToRaise),
+      try {
+        // Send investment to backend
+        await axios.post(`${API_BASE_URL}/investments`, {
+          projectId: selectedProject.id,
+          amount: amount
+        })
+
+        // Update local state optimistically
+        const updatedProjects = projects.map((p) => {
+          if (p.id === selectedProject.id) {
+            return {
+              ...p,
+              amountRaised: Math.min(p.amountRaised + amount, p.amountToRaise),
+            }
           }
-        }
-        return p
-      })
+          return p
+        })
 
-      setProjects(updatedProjects)
-      setShowModal(false)
+        setProjects(updatedProjects)
+        setShowModal(false)
 
-      // Clear the investment amount for this project
-      const newInvestmentAmount = { ...investmentAmount }
-      delete newInvestmentAmount[selectedProject.id]
-      setInvestmentAmount(newInvestmentAmount)
+        // Clear the investment amount for this project
+        const newInvestmentAmount = { ...investmentAmount }
+        delete newInvestmentAmount[selectedProject.id]
+        setInvestmentAmount(newInvestmentAmount)
+
+      } catch (err) {
+        console.error('Error making investment:', err)
+        // You might want to show an error message to the user here
+      }
     }
+  }
+
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-64">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-green-500"></div>
+      </div>
+    )
+  }
+
+  if (error) {
+    return (
+      <div className="text-center py-12 text-red-500">
+        <p>Error loading projects: {error}</p>
+        <button 
+          onClick={() => window.location.reload()}
+          className="mt-4 px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700"
+        >
+          Try Again
+        </button>
+      </div>
+    )
   }
 
   return (
@@ -126,43 +140,43 @@ function BackProjects() {
           <div key={project.id} className="bg-white rounded-lg shadow-md overflow-hidden">
             <div className="p-6">
               <div className="flex justify-between items-start mb-4">
-                <h3 className="text-xl font-bold text-gray-800">{project.name}</h3>
+                <h3 className="text-xl font-bold text-gray-800">{project.projectName}</h3>
                 <span className="px-2 py-1 bg-green-100 text-green-800 text-xs font-medium rounded-full">
                   {project.sector}
                 </span>
               </div>
 
-              <p className="text-gray-600 mb-4">{project.description}</p>
+              <p className="text-gray-600 mb-4">{project.reason}</p>
 
               <div className="flex justify-between items-center text-sm text-gray-500 mb-2">
                 <span>Goal: {project.amountToRaise} ETH</span>
-                <span>{Math.round((project.amountRaised / project.amountToRaise) * 100)}% Funded</span>
+                <span>{Math.round((project.raisedAmount / project.amountToRaise) * 100)}% Funded</span>
               </div>
 
               <div className="w-full bg-gray-200 rounded-full h-2.5 mb-4">
                 <div
                   className="bg-green-600 h-2.5 rounded-full"
-                  style={{ width: `${Math.min((project.amountRaised / project.amountToRaise) * 100, 100)}%` }}
+                  style={{ width: `${Math.min((project.raisedAmount/ project.amountToRaise) * 100, 100)}%` }}
                 ></div>
               </div>
 
               <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4">
                 <div>
                   <p className="text-sm text-gray-500">
-                    Equity Offered: <span className="font-medium text-gray-700">{project.equityOffered}%</span>
+                    Equity Offered: <span className="font-medium text-gray-700">{project.equityPercentage}%</span>
                   </p>
                   <p className="text-sm text-gray-500">
-                    Days Left: <span className="font-medium text-gray-700">{project.daysLeft}</span>
+                    Expired date: <span className="font-medium text-gray-700">{project.endDate}</span>
                   </p>
                 </div>
                 <div className="mt-3 sm:mt-0">
                   <p className="text-sm text-gray-500">
-                    Raised: <span className="font-medium text-gray-700">{project.amountRaised} ETH</span>
+                    Raised: <span className="font-medium text-gray-700">{project.raisedAmount} ETH</span>
                   </p>
                 </div>
               </div>
 
-              <div className="flex flex-col sm:flex-row items-center gap-3">
+              {/* <div className="flex flex-col sm:flex-row items-center gap-3">
                 <input
                   type="number"
                   value={investmentAmount[project.id] || ""}
@@ -180,7 +194,7 @@ function BackProjects() {
                 >
                   Back This Project
                 </button>
-              </div>
+              </div> */}
             </div>
           </div>
         ))}
@@ -225,7 +239,7 @@ function BackProjects() {
         </div>
       )}
 
-      {filteredProjects.length === 0 && (
+      {!loading && filteredProjects.length === 0 && (
         <div className="text-center py-12">
           <p className="text-gray-600">No projects found in this sector. Check back later or try a different sector.</p>
         </div>

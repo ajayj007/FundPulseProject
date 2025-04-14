@@ -25,7 +25,7 @@ export default function LoginInvestor() {
     try {
       const response = await axios.post(
         `${API_BASE_URL}/investor/login`,
-        { email, password }, // Send as JSON
+        { email, password },
         {
           headers: {
             "Content-Type": "application/json",
@@ -35,8 +35,13 @@ export default function LoginInvestor() {
 
       console.log("Login successful:", response.data);
 
-      // Store investor data (e.g., in localStorage)
-      localStorage.setItem("investor", JSON.stringify(response.data));
+      // Store investor data in localStorage
+      // localStorage.setItem("investor", JSON.stringify(response.data));
+
+      // // Additionally store investorId separately for easy access
+      // if (response.data.investorId) {
+      //   localStorage.setItem("investorId", response.data.investorId);
+      // }
 
       // Redirect to dashboard
       navigate("/dashboard");
@@ -44,10 +49,7 @@ export default function LoginInvestor() {
       console.error("Error logging in:", error);
 
       // Display specific error message from the backend
-      setError(
-        error.response?.data?.message ||
-          "Failed to log in. Please check your credentials."
-      );
+      setError(error.response?.data?.message || "Failed to log in. Please check your credentials.");
     } finally {
       setLoading(false); // Stop loading
     }
@@ -56,12 +58,8 @@ export default function LoginInvestor() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-900">
       <div className="bg-gray-800 bg-opacity-80 backdrop-blur-md p-8 rounded-xl shadow-2xl max-w-sm w-full">
-        <h2 className="text-3xl font-bold text-white text-center mb-6">
-          Investor Login
-        </h2>
-        {error && (
-          <p className="text-red-500 text-center mb-3">{error}</p>
-        )}
+        <h2 className="text-3xl font-bold text-white text-center mb-6">Investor Login</h2>
+        {error && <p className="text-red-500 text-center mb-3">{error}</p>}
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
             <label className="block text-gray-300 mb-1">Email:</label>

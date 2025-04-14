@@ -16,6 +16,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class InvestorService {
@@ -51,18 +53,28 @@ public class InvestorService {
         return investor;
     }
 
-    public ResponseEntity<String> registerInvestor(InvestorForm investorForm) {
+    public ResponseEntity<?> registerInvestor(InvestorForm investorForm) {
         try {
-            MultipartFile itrFile = investorForm.getItrDocument();
+            String email = investorForm.getEmail();
+            Optional<Investor> byEmail = investorRepo.findByEmail(email);
 
+            if (byEmail.isPresent()) {
+                return ResponseEntity.badRequest().body("Email is already registered.");
+            }
+if(!investorForm.getPassword().equals(investorForm.getConfirmPassword())){
+    return ResponseEntity.badRequest().body("Password does not matched.");
+}
+            MultipartFile itrFile = investorForm.getItrDocument();
             if (itrFile.isEmpty()) {
                 return ResponseEntity.badRequest().body("ITR document is required.");
             }
 
             boolean isValid = true;
+            // You can implement your actual validation logic here
             if (!isValid) {
                 return ResponseEntity.badRequest().body("ITR verification failed. Name mismatch or income below ₹1 crore.");
             }
+
             Investor investor = getInvestor(investorForm);
 
             String fileUrl = "";
@@ -75,7 +87,8 @@ public class InvestorService {
 
             investor.setItrUrl(fileUrl);
             investorRepo.save(investor);
-            return ResponseEntity.ok("Investor registered successfully and verified.");
+
+            return ResponseEntity.ok().body(investor);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Error processing signup: " + e.getMessage());
         }
@@ -96,5 +109,10 @@ public class InvestorService {
         }
 
         return investor;
+    }
+
+    public ResponseEntity<?> getInvestors() {
+        List<Investor> all = investorRepo.findAll();
+        return ResponseEntity.ok().body(all);
     }
 }

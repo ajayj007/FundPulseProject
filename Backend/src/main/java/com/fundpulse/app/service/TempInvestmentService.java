@@ -41,14 +41,14 @@ public class TempInvestmentService {
         }
 
         // Ensure investment does not exceed funding goal
-        long remainingAmount = proposal.getAmount() - proposal.getRaisedAmount();
+        long remainingAmount = proposal.getAmountToRaise() - proposal.getRaisedAmount();
         if (amount > remainingAmount) {
             return "Only " + remainingAmount + " is required to complete funding!";
         }
 
         // Save investment
-        Investment investment = new Investment(null, proposalId, investorId, amount, LocalDateTime.now());
-        investmentRepository.save(investment);
+//        Investment investment = new Investment(null, proposalId, investorId, amount, LocalDateTime.now());
+//        investmentRepository.save(investment);
 
         // Update proposal's raised amount
         proposal.setRaisedAmount(proposal.getRaisedAmount() + amount);
@@ -69,11 +69,11 @@ public class TempInvestmentService {
         }
 
         Proposal proposal = optionalProposal.get();
-        long remainingAmount = proposal.getAmount() - proposal.getRaisedAmount();
+        long remainingAmount = proposal.getAmountToRaise() - proposal.getRaisedAmount();
 
         return new proposalProgressForm(
                 proposal.getProposalId(),
-                proposal.getAmount(),
+                proposal.getAmountToRaise(),
                 proposal.getRaisedAmount(),
                 remainingAmount,
                 proposal.getMinInvestment(),
