@@ -3,7 +3,7 @@ package com.fundpulse.app.service;
 import com.fundpulse.app.dto.proposalProgressForm;
 import com.fundpulse.app.models.Investment;
 import com.fundpulse.app.models.Proposal;
-import com.fundpulse.app.repository.TempInvestmentRepo;
+import com.fundpulse.app.repository.InvestmentRepo;
 import com.fundpulse.app.repository.ProposalRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,7 +16,7 @@ import java.util.Optional;
 public class TempInvestmentService {
 
     @Autowired
-    private TempInvestmentRepo investmentRepository;
+    private InvestmentRepo investmentRepository;
 
     @Autowired
     private ProposalRepo proposalRepository;

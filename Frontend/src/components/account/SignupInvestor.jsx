@@ -12,7 +12,7 @@ function SignUpInvestor() {
     countryCode: "",
     password: "",
     confirmPassword: "",
-    investmentCategories: "",
+    // investmentCategories: "",
     itrDocument: null,
   });
 
@@ -53,8 +53,8 @@ function SignUpInvestor() {
       newErrors.password = "Password must be at least 6 characters";
     if (formData.password !== formData.confirmPassword)
       newErrors.confirmPassword = "Passwords do not match";
-    if (!formData.investmentCategories)
-      newErrors.investmentCategories = "Investment category is required";
+    // if (!formData.investmentCategories)
+    //   newErrors.investmentCategories = "Investment category is required";
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -75,7 +75,7 @@ function SignUpInvestor() {
     formDataToSend.append("phone", formData.phone);
     formDataToSend.append("password", formData.password);
     formDataToSend.append("confirmPassword", formData.confirmPassword);
-    formDataToSend.append("investmentCategories", formData.investmentCategories);
+    // formDataToSend.append("investmentCategories", formData.investmentCategories);
 
     if (formData.itrDocument) {
       formDataToSend.append("itrDocument", formData.itrDocument);
@@ -246,7 +246,7 @@ function SignUpInvestor() {
                 )}
               </div>
 
-              <div className="col-span-6">
+            {/* <div className="col-span-6">
                 <label
                   htmlFor="InvestmentCategory"
                   className="block text-sm font-medium text-gray-700 dark:text-gray-200"
@@ -265,12 +265,12 @@ function SignUpInvestor() {
                   <option value="">Select an investment category</option>
                   <option value="stocks">Stocks</option>
                   <option value="real_estate">Real Estate</option>
-                  {/* Other investment options... */}
+                
                 </select>
                 {errors.investmentCategories && (
                   <p className="text-red-500 text-xs mt-1">{errors.investmentCategories}</p>
                 )}
-              </div>
+              </div> */}
 
               <div className="col-span-6 sm:col-span-3">
                 <label

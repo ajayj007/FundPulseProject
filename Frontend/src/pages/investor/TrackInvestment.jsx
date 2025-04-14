@@ -1,7 +1,9 @@
 'use client';
 
-import { useState } from 'react';
-import { Link } from 'react-router';
+import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import axios from 'axios';
+import { API_BASE_URL } from '../../config';
 import {
   PieChart,
   Pie,
@@ -12,67 +14,47 @@ import {
 } from 'recharts';
 
 function TrackInvestment() {
-  // Mock data for past investments
-  const [pastInvestments, setPastInvestments] = useState([
-    {
-      id: 1,
-      name: 'EcoTech Solutions',
-      description:
-        'Developing sustainable technology solutions for reducing carbon footprint in urban areas.',
-      sector: 'Technology',
-      totalInvested: 5.5,
-      equityOwned: 4.2,
-      currentValue: 6.8,
-      rounds: [
-        {
-          id: 1,
-          name: 'Seed Round',
-          date: '2023-01-15',
-          amount: 2.0,
-          equity: 1.8,
-          status: 'Completed',
-        },
-        {
-          id: 2,
-          name: 'Series A',
-          date: '2023-06-22',
-          amount: 3.5,
-          equity: 2.4,
-          status: 'Active',
-        },
-      ],
-      expanded: false,
-    },
-    {
-      id: 2,
-      name: 'MediConnect',
-      description:
-        'A healthcare platform connecting patients with specialists for remote consultations and care.',
-      sector: 'Healthcare',
-      totalInvested: 4.2,
-      equityOwned: 3.5,
-      currentValue: 4.8,
-      rounds: [
-        {
-          id: 1,
-          name: 'Pre-Seed',
-          date: '2022-11-05',
-          amount: 1.2,
-          equity: 1.2,
-          status: 'Completed',
-        },
-        {
-          id: 2,
-          name: 'Seed Round',
-          date: '2023-04-18',
-          amount: 3.0,
-          equity: 2.3,
-          status: 'Active',
-        },
-      ],
-      expanded: false,
-    },
-  ]);
+  const [pastInvestments, setPastInvestments] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  // Fetch investments from backend
+  useEffect(() => {
+    const fetchInvestments = async () => {
+      try {
+        const investorId = localStorage.getItem('investorId');
+        if (!investorId) {
+          throw new Error('Investor ID not found');
+        }
+
+        const response = await axios.get(`${API_BASE_URL}/investment/get`, {
+          params: { investorId }
+        });
+        
+        // Transform backend data to match frontend structure
+        console.log(response.data)
+        const investments = response.data.map(investment => ({
+          id: investment.investmentId,
+          name: investment.projectName,
+          description: investment.projectDescription,
+          sector: investment.projectSector,
+          totalInvested: investment.totalInvested,
+          equityPercentage: investment.equityPercentage,
+         
+          expanded: false
+        }));
+
+        setPastInvestments(investments);
+        setLoading(false);
+      } catch (err) {
+        setError(err.message);
+        setLoading(false);
+        console.error('Error fetching investments:', err);
+      }
+    };
+
+    fetchInvestments();
+  }, []);
 
   // Toggle expanded state for a project
   const toggleExpand = (projectId) => {
@@ -80,22 +62,43 @@ function TrackInvestment() {
       pastInvestments.map((project) =>
         project.id === projectId
           ? { ...project, expanded: !project.expanded }
-          : project,
-      ),
+          : project
+      )
     );
   };
 
   // Prepare data for pie chart
   const getEquityDistributionData = (project) => {
-    const data = [
-      { name: 'Your Equity', value: project.equityOwned },
-      { name: 'Other Investors', value: 100 - project.equityOwned },
+    return [
+      { name: 'Your Equity', value: project.equityPercentage },
+      { name: 'Other Investors', value: 100 - project.equityPercentage },
     ];
-    return data;
   };
 
   // Colors for pie chart
   const COLORS = ['#4ade80', '#e5e7eb'];
+
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-64">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-green-500"></div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="text-center py-12 text-red-500">
+        <p>Error loading investments: {error}</p>
+        <button
+          onClick={() => window.location.reload()}
+          className="mt-4 px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700"
+        >
+          Try Again
+        </button>
+      </div>
+    );
+  }
 
   return (
     <div>
@@ -160,108 +163,17 @@ function TrackInvestment() {
                       Equity Owned
                     </h3>
                     <p className="text-xl font-bold text-green-600">
-                      {project.equityOwned}%
+                      {project.equityPercentage}%
                     </p>
                   </div>
-                  <div>
-                    <h3 className="text-sm font-medium text-gray-500 mb-1">
-                      Current Value
-                    </h3>
-                    <p className="text-xl font-bold text-gray-800">
-                      {project.currentValue} ETH
-                    </p>
-                  </div>
+                 
                 </div>
 
-                {/* Expanded details section */}
                 {project.expanded && (
                   <div className="mt-6 border-t border-gray-200 pt-6">
                     <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                      {/* Investment Rounds */}
-                      <div className="lg:col-span-2">
-                        <h3 className="text-lg font-bold text-gray-800 mb-4">
-                          Investment Rounds
-                        </h3>
-                        <div className="overflow-x-auto">
-                          <table className="min-w-full divide-y divide-gray-200">
-                            <thead className="bg-gray-50">
-                              <tr>
-                                <th
-                                  scope="col"
-                                  className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                                >
-                                  Round
-                                </th>
-                                <th
-                                  scope="col"
-                                  className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                                >
-                                  Date
-                                </th>
-                                <th
-                                  scope="col"
-                                  className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                                >
-                                  Amount
-                                </th>
-                                <th
-                                  scope="col"
-                                  className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                                >
-                                  Equity
-                                </th>
-                                <th
-                                  scope="col"
-                                  className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                                >
-                                  Status
-                                </th>
-                              </tr>
-                            </thead>
-                            <tbody className="bg-white divide-y divide-gray-200">
-                              {project.rounds.map((round) => (
-                                <tr key={round.id}>
-                                  <td className="px-6 py-4 whitespace-nowrap">
-                                    <div className="text-sm font-medium text-gray-900">
-                                      {round.name}
-                                    </div>
-                                  </td>
-                                  <td className="px-6 py-4 whitespace-nowrap">
-                                    <div className="text-sm text-gray-500">
-                                      {new Date(
-                                        round.date,
-                                      ).toLocaleDateString()}
-                                    </div>
-                                  </td>
-                                  <td className="px-6 py-4 whitespace-nowrap">
-                                    <div className="text-sm text-gray-900">
-                                      {round.amount} ETH
-                                    </div>
-                                  </td>
-                                  <td className="px-6 py-4 whitespace-nowrap">
-                                    <div className="text-sm text-gray-900">
-                                      {round.equity}%
-                                    </div>
-                                  </td>
-                                  <td className="px-6 py-4 whitespace-nowrap">
-                                    <span
-                                      className={`px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-full ${
-                                        round.status === 'Active'
-                                          ? 'bg-green-100 text-green-800'
-                                          : 'bg-gray-100 text-gray-800'
-                                      }`}
-                                    >
-                                      {round.status}
-                                    </span>
-                                  </td>
-                                </tr>
-                              ))}
-                            </tbody>
-                          </table>
-                        </div>
-                      </div>
+                     
 
-                      {/* Equity Distribution Chart */}
                       <div>
                         <h3 className="text-lg font-bold text-gray-800 mb-4">
                           Equity Distribution
@@ -284,7 +196,7 @@ function TrackInvestment() {
                                       key={`cell-${index}`}
                                       fill={COLORS[index % COLORS.length]}
                                     />
-                                  ),
+                                  )
                                 )}
                               </Pie>
                               <Tooltip

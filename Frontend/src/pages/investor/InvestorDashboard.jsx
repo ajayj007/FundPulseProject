@@ -1,29 +1,82 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import StatsCard from '../../components/StatsCard';
+import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import axios from "axios";
+import { API_BASE_URL } from "../../config";
+import StatsCard from "../../components/StatsCard";
 
 function InvestorDashboard() {
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState("");
+  const [stats, setStats] = useState({
+    totalInvested: 0,
+    activeInvestments: 0,
+    loading: true,
+    error: null,
+  });
 
-  // Mock data for stats
-  const stats = {
-    totalInvested: 45.8,
-    activeInvestments: 6,
-    returns: 12.5,
-  };
+  // Fetch investment stats from backend
+  useEffect(() => {
+    const fetchStats = async () => {
+      try {
+        const investorId = localStorage.getItem("investorId");
+        if (!investorId) {
+          throw new Error("Investor ID not found");
+        }
+
+        const response = await axios.get(`${API_BASE_URL}/investment/get-invested`, {
+          params: { investorId },
+        });
+
+        setStats({
+          totalInvested: response.data.totalInvested || 0,
+          activeInvestments: response.data.activeInvestments || 0,
+          loading: false,
+          error: null,
+        });
+      } catch (err) {
+        setStats((prev) => ({
+          ...prev,
+          loading: false,
+          error: err.message,
+        }));
+        console.error("Error fetching investment stats:", err);
+      }
+    };
+
+    fetchStats();
+  }, []);
 
   const handleSearch = (e) => {
     e.preventDefault();
-    // Handle search logic here
-    console.log('Searching for:', searchQuery);
+    console.log("Searching for:", searchQuery);
   };
+
+  if (stats.loading) {
+    return (
+      <div className="flex justify-center items-center h-64">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-green-500"></div>
+      </div>
+    );
+  }
+
+  if (stats.error) {
+    return (
+      <div className="text-center py-12 text-red-500">
+        <p>Error loading dashboard: {stats.error}</p>
+        <button
+          onClick={() => window.location.reload()}
+          className="mt-4 px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700"
+        >
+          Try Again
+        </button>
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-8">
-      {/* Hero Section */}
-      <div className="bg-white rounded-lg shadow-md p-8 text-center">
+         <div className="bg-white rounded-lg shadow-md p-8 text-center">
         <h1 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
           Welcome to Your Investor Dashboard
         </h1>
@@ -32,7 +85,7 @@ function InvestorDashboard() {
         </p>
 
         {/* Search Bar */}
-        <form onSubmit={handleSearch} className="max-w-md mx-auto mb-6">
+        {/* <form onSubmit={handleSearch} className="max-w-md mx-auto mb-6">
           <div className="relative">
             <input
               type="text"
@@ -61,7 +114,7 @@ function InvestorDashboard() {
               </svg>
             </button>
           </div>
-        </form>
+        </form> */}
 
         <div className="flex flex-col sm:flex-row justify-center gap-4">
           <Link
@@ -78,16 +131,15 @@ function InvestorDashboard() {
           </Link>
         </div>
       </div>
+     
 
       {/* Stats Section */}
       <div>
-        <h2 className="text-2xl font-bold text-gray-800 mb-4">
-          Investment Overview
-        </h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <h2 className="text-2xl font-bold text-gray-800 mb-4">Investment Overview</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <StatsCard
             title="Total Invested"
-            value={`${stats.totalInvested} ETH`}
+            value={`${stats.totalInvested.toFixed(2)} ETH`}
             icon={
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -125,65 +177,29 @@ function InvestorDashboard() {
               </svg>
             }
           />
-          <StatsCard
-            title="Returns"
-            value={`${stats.returns} ETH`}
-            icon={
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-6 w-6 text-green-600"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"
-                />
-              </svg>
-            }
-          />
         </div>
       </div>
 
-      {/* Recent Investments Section */}
       <div>
         <div className="flex justify-between items-center mb-4">
-          <h2 className="text-2xl font-bold text-gray-800">
-            Recent Investments
-          </h2>
-          <Link
-            to="/investor/track"
-            className="text-green-600 hover:text-green-700 font-medium"
-          >
+          <h2 className="text-2xl font-bold text-gray-800">Recent Investments</h2>
+          <Link to="/investor/track" className="text-green-600 hover:text-green-700 font-medium">
             View All
           </Link>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
           {/* Sample Investment Cards */}
           {[1, 2, 3].map((item) => (
-            <div
-              key={item}
-              className="bg-white rounded-lg shadow-md overflow-hidden"
-            >
-              <div className="h-48 bg-gray-200"></div>
+            <div key={item} className="bg-white rounded-lg shadow-md overflow-hidden">
+              {/* <div className="h-48 bg-gray-200"></div> */}
               <div className="p-6">
-                <h3 className="text-xl font-bold text-gray-800 mb-2">
-                  Project Name {item}
-                </h3>
+                <h3 className="text-xl font-bold text-gray-800 mb-2">Project Name {item}</h3>
                 <p className="text-gray-600 mb-4">
-                  Short description of the project goes here. This is a brief
-                  overview.
+                  Short description of the project goes here. This is a brief overview.
                 </p>
                 <div className="flex justify-between items-center">
-                  <span className="text-sm text-gray-500">
-                    Invested: 3.5 ETH
-                  </span>
-                  <span className="text-sm font-medium text-green-600">
-                    2.5% Equity
-                  </span>
+                  <span className="text-sm text-gray-500">Invested: 3.5 ETH</span>
+                  <span className="text-sm font-medium text-green-600">2.5% Equity</span>
                 </div>
                 <div className="mt-4">
                   <Link

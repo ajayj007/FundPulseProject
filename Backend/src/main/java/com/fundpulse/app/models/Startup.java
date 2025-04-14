@@ -25,8 +25,8 @@ public class Startup implements UserDetails {
     private String email;
     private String phone;
     private String password;
-    private String industryCategories;
-    private String fundingGoal;
+//    private String industryCategories;
+//    private String fundingGoal;
 
     private String proposalId;
     private byte[] pitchVideo;

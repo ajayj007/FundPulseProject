@@ -1,7 +1,9 @@
 package com.fundpulse.app.controller;
 
+import com.fundpulse.app.dto.InvestorUpdateForm;
 import com.fundpulse.app.dto.LoginRequest;
 import com.fundpulse.app.dto.InvestorForm;
+import com.fundpulse.app.dto.PasswordUpdateRequest;
 import com.fundpulse.app.models.Investor;
 import com.fundpulse.app.service.investor.InvestorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,4 +54,39 @@ public class InvestorController {
     public ResponseEntity<?> getAllInvestors(){
         return investorService.getInvestors();
     }
+
+    @GetMapping("/{investorId}")
+    public ResponseEntity<?> getInvestor(@PathVariable String investorId){
+        return investorService.getInvestorById(investorId);
+
+    }
+
+    @PutMapping("/update/{investorId}")
+    public ResponseEntity<?> updateProfile(@PathVariable String investorId,@RequestBody InvestorUpdateForm investorUpdateForm){
+        return investorService.updateInvestorProfile(investorUpdateForm,investorId);
+    }
+
+    @PutMapping("/{investorId}/password")
+    public ResponseEntity<String> updatePassword(
+            @PathVariable String investorId,
+            @RequestBody PasswordUpdateRequest passwordUpdateRequest) {
+
+        // Validate new password length
+        if (passwordUpdateRequest.getNewPassword() == null ||
+                passwordUpdateRequest.getNewPassword().length() < 8) {
+            return ResponseEntity.badRequest().body("New password must be at least 8 characters");
+        }
+
+        // Update password
+        boolean success = investorService.updatePassword(investorId,
+                passwordUpdateRequest.getCurrentPassword(),
+                passwordUpdateRequest.getNewPassword());
+
+        if (success) {
+            return ResponseEntity.ok("Password updated successfully");
+        } else {
+            return ResponseEntity.badRequest().body("Current password is incorrect or user not found");
+        }
+    }
+
 }

@@ -32,7 +32,7 @@ export default function LoginInvestor() {
           },
         }
       );
-
+      localStorage.setItem("investorId",response.data.investorId)
       console.log("Login successful:", response.data);
 
       // Store investor data in localStorage
@@ -44,7 +44,7 @@ export default function LoginInvestor() {
       // }
 
       // Redirect to dashboard
-      navigate("/dashboard");
+      navigate("/investor");
     } catch (error) {
       console.error("Error logging in:", error);
 

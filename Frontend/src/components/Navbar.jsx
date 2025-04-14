@@ -1,18 +1,18 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import { connectWallet } from '../utils/walletUtils';
+import { useState } from "react";
+import { Link, useLocation } from "react-router-dom";
+import { connectWallet } from "../utils/walletUtils";
 
 function Navbar() {
   const [isConnected, setIsConnected] = useState(false);
-  const [walletAddress, setWalletAddress] = useState('');
-  const [walletBalance, setWalletBalance] = useState('0.00');
+  const [walletAddress, setWalletAddress] = useState("");
+  const [walletBalance, setWalletBalance] = useState("0.00");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const location = useLocation();
 
   // Check if we're on an investor page
-  const isInvestorPage = location.pathname.startsWith('/investor');
+  const isInvestorPage = location.pathname.startsWith("/investor");
 
   const handleConnectWallet = async () => {
     try {
@@ -20,9 +20,9 @@ function Navbar() {
       setIsConnected(connected);
       setWalletAddress(address);
       // Mock balance for demo purposes
-      setWalletBalance('12.45');
+      setWalletBalance("12.45");
     } catch (error) {
-      console.error('Failed to connect wallet:', error);
+      console.error("Failed to connect wallet:", error);
     }
   };
 
@@ -32,7 +32,7 @@ function Navbar() {
         <div className="flex justify-between h-16">
           <div className="flex items-center">
             <Link
-              to={isInvestorPage ? '/investor' : '/'}
+              to={isInvestorPage ? "/investor" : "/"}
               className="flex-shrink-0 flex items-center"
             >
               <span className="text-2xl font-bold text-gray-800">
@@ -44,9 +44,7 @@ function Navbar() {
             {isInvestorPage && isConnected && (
               <div className="ml-6 hidden md:flex items-center">
                 <span className="text-gray-700 font-medium">Balance:</span>
-                <span className="ml-2 text-green-600 font-bold">
-                  {walletBalance} ETH
-                </span>
+                <span className="ml-2 text-green-600 font-bold">{walletBalance} ETH</span>
               </div>
             )}
           </div>
@@ -67,6 +65,16 @@ function Navbar() {
                   className="text-gray-700 hover:text-green-600 px-3 py-2 rounded-md text-sm font-medium"
                 >
                   Profile
+                </Link>{" "}
+                <Link
+                  to="/"
+                  onClick={() => {
+                    // Remove startup ID from localStorage
+                    localStorage.removeItem("investorId");
+                  }}
+                  className="text-gray-700 hover:text-green-600 px-3 py-2 rounded-md text-sm font-medium"
+                >
+                  Logout
                 </Link>
               </>
             ) : (
@@ -100,9 +108,7 @@ function Navbar() {
                   to="/"
                   onClick={() => {
                     // Remove startup ID from localStorage
-                    localStorage.removeItem('startupId');
-                    
-                 
+                    localStorage.removeItem("startupId");
                   }}
                   className="text-gray-700 hover:text-green-600 px-3 py-2 rounded-md text-sm font-medium"
                 >
@@ -123,9 +129,9 @@ function Navbar() {
             >
               {isConnected
                 ? `${walletAddress.substring(0, 6)}...${walletAddress.substring(
-                    walletAddress.length - 4,
+                    walletAddress.length - 4
                   )}`
-                : 'Connect Wallet'}
+                : "Connect Wallet"}
             </button>
           </div>
 
@@ -170,9 +176,7 @@ function Navbar() {
             {isInvestorPage && isConnected && (
               <div className="px-3 py-2 text-gray-700">
                 <span className="font-medium">Balance:</span>
-                <span className="ml-2 text-green-600 font-bold">
-                  {walletBalance} ETH
-                </span>
+                <span className="ml-2 text-green-600 font-bold">{walletBalance} ETH</span>
               </div>
             )}
 
@@ -234,9 +238,9 @@ function Navbar() {
             >
               {isConnected
                 ? `${walletAddress.substring(0, 6)}...${walletAddress.substring(
-                    walletAddress.length - 4,
+                    walletAddress.length - 4
                   )}`
-                : 'Connect Wallet'}
+                : "Connect Wallet"}
             </button>
           </div>
         </div>

@@ -12,8 +12,8 @@ function SignUpStartup() {
     phone: '',
     password: '',
     confirmPassword: '',
-    industryCategories: '',
-    fundingGoal: 0,
+    // industryCategories: '',
+    // fundingGoal: 0,
     currency: '',
   });
 
@@ -34,8 +34,8 @@ function SignUpStartup() {
           phone: formData.phone,
           password: formData.password,
           confirmPassword: formData.confirmPassword,
-          industryCategories: formData.industryCategories,
-          fundingGoal: formData.fundingGoal,
+          // industryCategories: formData.industryCategories,
+          // fundingGoal: formData.fundingGoal,
           currency: formData.currency
         },
         {
@@ -44,7 +44,7 @@ function SignUpStartup() {
           },
         },
       );
-    
+      localStorage.setItem("startupId", response.data.startupId);
       console.log("Signup successful:", response.data);
       setFormData({
         founderName: "",
@@ -53,8 +53,8 @@ function SignUpStartup() {
         phone: "",
         password: "",
         confirmPassword: "",
-        industryCategories: "",
-        fundingGoal: "",
+        // industryCategories: "",
+        // fundingGoal: "",
         currency: ""
       });
     } catch (error) {
@@ -244,7 +244,7 @@ function SignUpStartup() {
                 </div>
               </div>
 
-              <div className="col-span-6">
+              {/* <div className="col-span-6">
                 <label
                   htmlFor="InvestmentCategory"
                   className="block text-sm font-medium text-gray-700 dark:text-gray-200"
@@ -281,7 +281,7 @@ function SignUpStartup() {
                   <option value="retirement_funds">Retirement Funds (401k, IRA, NPS, etc.)</option>
                   <option value="alternative_investments">Alternative Investments</option>
                 </select>
-              </div>
+              </div> */}
 
               <div className="col-span-6 sm:col-span-3">
                 <label
@@ -319,7 +319,7 @@ function SignUpStartup() {
                 />
               </div>
 
-              <div className="col-span-6">
+              {/* <div className="col-span-6">
                 <label
                   htmlFor="fundingGoal"
                   className="block text-sm font-medium text-gray-700 dark:text-gray-200"
@@ -357,7 +357,7 @@ function SignUpStartup() {
                     <option value="CHF">CHF (Fr)</option>
                   </select>
                 </div>
-              </div>
+              </div> */}
 
               <div className="col-span-6">
                 <label htmlFor="MarketingAccept" className="flex gap-4">

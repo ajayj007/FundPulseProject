@@ -25,7 +25,7 @@ public class Investor implements UserDetails {
     private String email;
     private String phone;
     private String password;
-    private String investmentCategories;
+//    private String investmentCategories;
     private double declaredIncome; // From user input
     private double extractedIncome; // Extracted from ITR
     private boolean verified; // True if the document passes verification

@@ -5,29 +5,36 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e7968e2c-cf28-41de-8e9c-32e8a0a2aa9f" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/controller/ProposalController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/controller/InvestmentController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/dto/InvestmentForm.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/dto/InvestorUpdateForm.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/dto/PasswordUpdateRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/service/investment/InvestmentService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.vscode/settings.json" beforeDir="false" afterPath="$PROJECT_DIR$/.vscode/settings.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/controller/InvestorController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/controller/InvestorController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/controller/StartupController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/controller/StartupController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/dto/ProposalForm.java" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/dto/ProposalForm.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/models/Investment.java" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/models/Investment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/models/Proposal.java" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/models/Proposal.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/repository/ProposalRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/repository/ProposalRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/models/Investor.java" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/models/Investor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/models/Startup.java" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/models/Startup.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/repository/TempInvestmentRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/repository/InvestmentRepo.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/service/TempInvestmentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/service/TempInvestmentService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/service/investor/InvestorService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/service/investor/InvestorService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/service/proposal/ProposalService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/service/proposal/ProposalService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/service/startup/StartupService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/service/startup/StartupService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Backend/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/main/resources/application.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Backend/src/main/resources/google-drive.json" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/main/resources/google-drive.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Frontend/src/LayoutForMain.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/LayoutForMain.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Frontend/src/components/Navbar.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/components/Navbar.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Frontend/src/components/account/LoginInvestor.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/components/account/LoginInvestor.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Frontend/src/components/account/SignupInvestor.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/components/account/SignupInvestor.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Frontend/src/components/account/SignupStartup.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/components/account/SignupStartup.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Frontend/src/main.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/main.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Frontend/src/pages/BackProjects.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/pages/BackProjects.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Frontend/src/pages/CurrentProposal.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/pages/CurrentProposal.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/pages/Profile.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/pages/Profile.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/pages/investor/ExploreProjects.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/pages/investor/ExploreProjects.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Frontend/src/pages/investor/InvestorDashboard.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/pages/investor/InvestorDashboard.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Frontend/src/pages/investor/SearchProjects.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/pages/investor/InvestorProfile.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/pages/investor/InvestorProfile.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/pages/investor/TrackInvestment.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/pages/investor/TrackInvestment.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/vite.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/vite.config.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -76,6 +83,11 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="com.fundpulse.app.dto" />
+    </key>
+  </component>
   <component name="RunManager">
     <configuration name="BackendApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UpdateClassesAndResources" />
@@ -104,7 +116,7 @@
       <updated>1742236216341</updated>
       <workItem from="1742236224964" duration="3944000" />
       <workItem from="1744377792159" duration="9140000" />
-      <workItem from="1744564323351" duration="23216000" />
+      <workItem from="1744564323351" duration="43880000" />
     </task>
     <servers />
   </component>
@@ -130,9 +142,14 @@
           <option name="timeStamp" value="8" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/controller/InvestorController.java</url>
-          <line>45</line>
-          <option name="timeStamp" value="9" />
+          <url>file://$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/controller/InvestmentController.java</url>
+          <line>17</line>
+          <option name="timeStamp" value="12" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/service/investment/InvestmentService.java</url>
+          <line>26</line>
+          <option name="timeStamp" value="13" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/service/document/GoogleDriveUploadService.java</url>

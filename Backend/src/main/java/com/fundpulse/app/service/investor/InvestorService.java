@@ -3,7 +3,9 @@ package com.fundpulse.app.service.investor;
 import com.fundpulse.app.ResourseNotFoundExaception;
 import com.fundpulse.app.config.DocumentUploadConfig;
 import com.fundpulse.app.dto.InvestorForm;
+import com.fundpulse.app.dto.InvestorUpdateForm;
 import com.fundpulse.app.dto.LoginRequest;
+import com.fundpulse.app.dto.PasswordUpdateRequest;
 import com.fundpulse.app.models.Investor;
 import com.fundpulse.app.repository.InvestorRepo;
 import com.fundpulse.app.service.document.DocumentVerificationService;
@@ -46,7 +48,7 @@ public class InvestorService {
         investor.setEmail(investorForm.getEmail());
         investor.setPhone(investorForm.getCountryCode() + " " + investorForm.getPhone());
         investor.setPassword(encoder.encode(investorForm.getPassword())); // ✅ Encrypt password before saving
-        investor.setInvestmentCategories(investorForm.getInvestmentCategories());
+//        investor.setInvestmentCategories(investorForm.getInvestmentCategories());
         investor.setDeclaredIncome(investorForm.getDeclaredIncome());
         investor.setExtractedIncome(12000000); // Dummy extracted value
         investor.setVerified(true); // Verified as income >= ₹1 crore
@@ -114,5 +116,45 @@ if(!investorForm.getPassword().equals(investorForm.getConfirmPassword())){
     public ResponseEntity<?> getInvestors() {
         List<Investor> all = investorRepo.findAll();
         return ResponseEntity.ok().body(all);
+    }
+
+    public ResponseEntity<?> getInvestorById(String investorId) {
+        Optional<Investor> byId = investorRepo.findById(investorId);
+        Investor investor = byId.get();
+        return ResponseEntity.ok().body(investor);
+
+    }
+
+    public ResponseEntity<?> updateInvestorProfile(InvestorUpdateForm investorUpdateForm, String investorId) {
+        Optional<Investor> byId = investorRepo.findById(investorId);
+
+        Investor investor = byId.get();
+        investor.setFullName(investorUpdateForm.getFullName());
+        investor.setPhone(investorUpdateForm.getPhone());
+
+        investorRepo.save(investor);
+        return ResponseEntity.ok().body(investor);
+    }
+
+
+
+    public boolean updatePassword(String investorId, String currentPassword, String newPassword) {
+        Optional<Investor> investorOpt = investorRepo.findById(investorId);
+
+        if (investorOpt.isEmpty()) {
+            return false;
+        }
+
+        Investor investor = investorOpt.get();
+
+        // Verify current password matches
+        if (!encoder.matches(currentPassword, investor.getPassword())) {
+            return false;
+        }
+
+        // Update password
+        investor.setPassword(encoder.encode(newPassword));
+        investorRepo.save(investor);
+        return true;
     }
 }
