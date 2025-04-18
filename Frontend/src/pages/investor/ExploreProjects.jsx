@@ -1,12 +1,13 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import {useEffect, useState} from "react";
 import axios from "axios";
-import { API_BASE_URL } from "../../config";
+import {API_BASE_URL} from "../../config";
 
 function ExploreProjects() {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedSector, setSelectedSector] = useState("");
+    const [selectedStatus, setSelectedStatus] = useState("all");
   const [sortBy, setSortBy] = useState("newest");
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -40,14 +41,9 @@ function ExploreProjects() {
   const handleSectorChange = (e) => {
     setSelectedSector(e.target.value);
   };
-  const filteredProjects = selectedSector
-  ? projects.filter((project) => 
-      project.sector.toLowerCase() === selectedSector.toLowerCase()
-    )
-  : projects;
 
-  const handleSortChange = (e) => {
-    setSortBy(e.target.value);
+    const handleStatusChange = (e) => {
+        setSelectedStatus(e.target.value);
   };
 
   // Calculate days remaining for each project
@@ -58,8 +54,23 @@ function ExploreProjects() {
     return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
   };
 
-  // Sort projects based on selected sort option
-  const sortedProjects = [...filteredProjects].sort((a, b) => {
+    // Filter projects by sector
+    const filteredBySector = selectedSector
+        ? projects.filter((project) =>
+            project.sector.toLowerCase() === selectedSector.toLowerCase()
+        )
+        : projects;
+
+    // Filter projects by status
+    const filteredByStatus = filteredBySector.filter((project) => {
+        const daysLeft = calculateDaysRemaining(project.endDate);
+        if (selectedStatus === "active") return daysLeft > 0;
+        if (selectedStatus === "ended") return daysLeft <= 0;
+        return true; // "all" status
+    });
+
+    // Sort projects based on selected sort option
+    const sortedProjects = [...filteredByStatus].sort((a, b) => {
     if (sortBy === "newest") {
       return new Date(b.createdAt) - new Date(a.createdAt);
     } else if (sortBy === "funding") {
@@ -69,6 +80,7 @@ function ExploreProjects() {
     }
     return 0;
   });
+
   const handleInvestmentChange = (proposalId, value) => {
     setInvestmentAmount({
       ...investmentAmount,
@@ -86,9 +98,6 @@ function ExploreProjects() {
 
     if (amount > 0) {
       try {
-        // console.log(selectedProject.proposalId);
-        // console.log(amount);
-        // console.log(localStorage.getItem("investorId"));
         await axios.post(`${API_BASE_URL}/investment/invest`, {
           proposalId: selectedProject.proposalId,
           amount: amount,
@@ -150,41 +159,7 @@ function ExploreProjects() {
       <div className="bg-white rounded-2xl shadow-md p-6 mb-8 border border-gray-200/50 backdrop-blur-sm bg-opacity-90">
         <form onSubmit={handleSearch} className="space-y-4">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            {/* <div className="col-span-1 md:col-span-3">
-        <label htmlFor="search" className="block text-sm font-medium text-gray-700 mb-1">
-          Search
-        </label>
-        <div className="relative">
-          <input
-            type="text"
-            id="search"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="Search by project name, description, or keywords..."
-            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 pr-10"
-          />
-          <button
-            type="submit"
-            className="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-green-600 cursor-pointer"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-              />
-            </svg>
-          </button>
-        </div>
-      </div> */}
-
+              {/* Sector Filter */}
             <div>
               <label htmlFor="sector" className="block text-sm font-medium text-gray-700 mb-2">
                 Filter by Sector
@@ -216,30 +191,63 @@ function ExploreProjects() {
               </div>
             </div>
 
-            {/* <div>
-        <label htmlFor="sortBy" className="block text-sm font-medium text-gray-700 mb-1">
-          Sort By
-        </label>
-        <select
-          id="sortBy"
-          value={sortBy}
-          onChange={handleSortChange}
-          className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
-        >
-          <option value="newest">Newest</option>
-          <option value="funding">Most Funded</option>
-          <option value="daysLeft">Ending Soon</option>
-        </select>
-      </div> */}
+              {/* Status Filter */}
+              <div>
+                  <label htmlFor="status" className="block text-sm font-medium text-gray-700 mb-2">
+                      Filter by Status
+                  </label>
+                  <div className="relative">
+                      <select
+                          id="status"
+                          value={selectedStatus}
+                          onChange={handleStatusChange}
+                          className="w-full px-4 py-3 pl-3 pr-8 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent appearance-none bg-white"
+                      >
+                          <option value="all">All Projects</option>
+                          <option value="active">Active Only</option>
+                          <option value="ended">Ended Only</option>
+                      </select>
+                      <div
+                          className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                          <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
+                              <path
+                                  fillRule="evenodd"
+                                  d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                  clipRule="evenodd"
+                              />
+                          </svg>
+                      </div>
+                  </div>
+              </div>
 
-            {/* <div className="flex items-end">
-        <button
-          type="submit"
-          className="w-full px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-md transition duration-300 cursor-pointer"
-        >
-          Search
-        </button>
-      </div> */}
+              {/* Sort Filter */}
+              <div>
+                  <label htmlFor="sortBy" className="block text-sm font-medium text-gray-700 mb-2">
+                      Sort By
+                  </label>
+                  <div className="relative">
+                      <select
+                          id="sortBy"
+                          value={sortBy}
+                          onChange={(e) => setSortBy(e.target.value)}
+                          className="w-full px-4 py-3 pl-3 pr-8 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent appearance-none bg-white"
+                      >
+                          <option value="newest">Newest First</option>
+                          <option value="funding">Most Funded</option>
+                          <option value="daysLeft">Ending Soonest</option>
+                      </select>
+                      <div
+                          className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                          <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
+                              <path
+                                  fillRule="evenodd"
+                                  d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                  clipRule="evenodd"
+                              />
+                          </svg>
+                      </div>
+                  </div>
+              </div>
           </div>
         </form>
       </div>
@@ -290,7 +298,7 @@ function ExploreProjects() {
                     </p>
                     <p className="text-sm text-gray-500">
                       Days Left:{" "}
-                      <span className="font-medium text-gray-700">
+                        <span className={`font-medium ${daysLeft > 0 ? "text-gray-700" : "text-red-600"}`}>
                         {daysLeft > 0 ? daysLeft : "Ended"}
                       </span>
                     </p>
@@ -321,7 +329,7 @@ function ExploreProjects() {
                       Number.parseFloat(investmentAmount[project.proposalId]) <= 0 ||
                       daysLeft <= 0 ||
                       project.raisedAmount >= project.amountToRaise ||
-                      investmentAmount[project.proposalId] >=
+                        Number.parseFloat(investmentAmount[project.proposalId]) >
                         Math.abs(project.amountToRaise - project.raisedAmount)
                     }
                     className="w-full sm:w-auto px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-md transition duration-300 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"

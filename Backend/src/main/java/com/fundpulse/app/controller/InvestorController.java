@@ -1,9 +1,9 @@
 package com.fundpulse.app.controller;
 
-import com.fundpulse.app.dto.InvestorUpdateForm;
-import com.fundpulse.app.dto.LoginRequest;
 import com.fundpulse.app.dto.InvestorForm;
+import com.fundpulse.app.dto.LoginRequest;
 import com.fundpulse.app.dto.PasswordUpdateRequest;
+import com.fundpulse.app.dto.UpdateForm;
 import com.fundpulse.app.models.Investor;
 import com.fundpulse.app.service.investor.InvestorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,7 +62,7 @@ public class InvestorController {
     }
 
     @PutMapping("/update/{investorId}")
-    public ResponseEntity<?> updateProfile(@PathVariable String investorId,@RequestBody InvestorUpdateForm investorUpdateForm){
+    public ResponseEntity<?> updateProfile(@PathVariable String investorId, @RequestBody UpdateForm investorUpdateForm) {
         return investorService.updateInvestorProfile(investorUpdateForm,investorId);
     }
 
@@ -88,5 +88,7 @@ public class InvestorController {
             return ResponseEntity.badRequest().body("Current password is incorrect or user not found");
         }
     }
+
+
 
 }

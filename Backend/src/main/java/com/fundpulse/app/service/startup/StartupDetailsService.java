@@ -1,6 +1,6 @@
 package com.fundpulse.app.service.startup;
 
-import com.fundpulse.app.repository.StartupRepo;
+import com.fundpulse.app.repositories.StartupRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

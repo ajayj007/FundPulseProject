@@ -3,11 +3,10 @@ package com.fundpulse.app.service.investor;
 import com.fundpulse.app.ResourseNotFoundExaception;
 import com.fundpulse.app.config.DocumentUploadConfig;
 import com.fundpulse.app.dto.InvestorForm;
-import com.fundpulse.app.dto.InvestorUpdateForm;
 import com.fundpulse.app.dto.LoginRequest;
-import com.fundpulse.app.dto.PasswordUpdateRequest;
+import com.fundpulse.app.dto.UpdateForm;
 import com.fundpulse.app.models.Investor;
-import com.fundpulse.app.repository.InvestorRepo;
+import com.fundpulse.app.repositories.InvestorRepo;
 import com.fundpulse.app.service.document.DocumentVerificationService;
 import com.fundpulse.app.service.document.GoogleDriveUploadService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -125,7 +124,7 @@ if(!investorForm.getPassword().equals(investorForm.getConfirmPassword())){
 
     }
 
-    public ResponseEntity<?> updateInvestorProfile(InvestorUpdateForm investorUpdateForm, String investorId) {
+    public ResponseEntity<?> updateInvestorProfile(UpdateForm investorUpdateForm, String investorId) {
         Optional<Investor> byId = investorRepo.findById(investorId);
 
         Investor investor = byId.get();

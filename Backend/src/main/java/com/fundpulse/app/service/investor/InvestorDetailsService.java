@@ -1,6 +1,6 @@
 package com.fundpulse.app.service.investor;
 
-import com.fundpulse.app.repository.InvestorRepo;
+import com.fundpulse.app.repositories.InvestorRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

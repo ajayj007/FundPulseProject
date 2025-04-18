@@ -128,7 +128,7 @@ function AddProject() {
         );
 
         console.log("Proposal submitted:", response.data);
-        navigate("/startup/current-proposal");
+        navigate("/startup");
       } catch (error) {
         console.error("Error submitting proposal:", error);
         alert("Failed to submit proposal. Please try again.");

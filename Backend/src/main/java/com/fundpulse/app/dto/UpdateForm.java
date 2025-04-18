@@ -9,7 +9,7 @@ import lombok.Setter;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class InvestorUpdateForm {
+public class UpdateForm {
 
     private String fullName;
     private String phone;

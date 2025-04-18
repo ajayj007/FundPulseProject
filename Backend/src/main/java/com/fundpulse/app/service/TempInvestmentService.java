@@ -3,8 +3,8 @@ package com.fundpulse.app.service;
 import com.fundpulse.app.dto.proposalProgressForm;
 import com.fundpulse.app.models.Investment;
 import com.fundpulse.app.models.Proposal;
-import com.fundpulse.app.repository.InvestmentRepo;
-import com.fundpulse.app.repository.ProposalRepo;
+import com.fundpulse.app.repositories.InvestmentRepo;
+import com.fundpulse.app.repositories.ProposalRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -57,9 +57,9 @@ public class TempInvestmentService {
         return "Investment successful!";
     }
 
-    public List<Investment> getInvestmentsByProposal(String proposalId) {
-        return investmentRepository.findByProposalId(proposalId);
-    }
+//    public List<Investment> getInvestmentsByProposal(String proposalId) {
+//        return investmentRepository.findByProposalId(proposalId);
+//    }
 
     public proposalProgressForm getProposalProgress(String proposalId) {
         Optional<Proposal> optionalProposal = proposalRepository.findById(proposalId);

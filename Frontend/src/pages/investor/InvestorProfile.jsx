@@ -1,14 +1,15 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import {useEffect, useState} from "react"
 import axios from "axios"
-import { API_BASE_URL } from "../../config"
+import {API_BASE_URL} from "../../config"
 
 function InvestorProfile() {
   const [isEditing, setIsEditing] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [error, setError] = useState(null)
+    const [successMessage, setSuccessMessage] = useState(null)
   const [showPasswordModal, setShowPasswordModal] = useState(false)
   const [passwordData, setPasswordData] = useState({
     currentPassword: "",
@@ -52,7 +53,17 @@ function InvestorProfile() {
     fetchProfile()
   }, [])
 
-  const handleChange = (e) => {
+    // Clear success message after 5 seconds
+    useEffect(() => {
+        if (successMessage) {
+            const timer = setTimeout(() => {
+                setSuccessMessage(null)
+            }, 5000)
+            return () => clearTimeout(timer)
+        }
+    }, [successMessage])
+
+    const handleChange = (e) => {
     const { name, value } = e.target
     setFormData({
       ...formData,
@@ -145,6 +156,7 @@ function InvestorProfile() {
         
         setProfile(response.data)
         setIsEditing(false)
+          setSuccessMessage("Profile updated successfully!")
       } catch (err) {
         setError(err.response?.data?.message || "Failed to update profile. Please try again.")
         console.error("Error updating profile:", err)
@@ -181,8 +193,9 @@ function InvestorProfile() {
           newPassword: "",
           confirmPassword: ""
         })
+          setSuccessMessage("Password changed successfully!")
       } catch (err) {
-        setError(err.response?.data?.message || "Failed to change password. Please try again.")
+          setError("Failed to change password. Please try again." || err.response?.data?.message)
         console.error("Error changing password:", err)
       } finally {
         setIsSubmitting(false)
@@ -232,7 +245,27 @@ function InvestorProfile() {
 
   return (
     <div className="max-w-3xl mx-auto p-4 sm:p-6">
-      <div className="flex justify-between items-center mb-6">
+        {/* Success Notification */}
+        {successMessage && (
+            <div className="mb-4 p-4 bg-green-100 text-green-700 rounded-md flex justify-between items-center">
+                <span>{successMessage}</span>
+                <button
+                    onClick={() => setSuccessMessage(null)}
+                    className="text-green-700 hover:text-green-800"
+                >
+                    ✕
+                </button>
+            </div>
+        )}
+
+        {/* Error Notification */}
+        {error && (
+            <div className="mb-4 p-4 bg-red-100 text-red-700 rounded-md">
+                {error}
+            </div>
+        )}
+
+        <div className="flex justify-between items-center mb-6">
         <h1 className="text-2xl sm:text-3xl font-bold text-gray-800">Investor Profile</h1>
         {!isEditing && (
           <div className="flex space-x-2">
@@ -251,12 +284,6 @@ function InvestorProfile() {
           </div>
         )}
       </div>
-
-      {error && (
-        <div className="mb-4 p-4 bg-red-100 text-red-700 rounded-md">
-          {error}
-        </div>
-      )}
 
       <div className="bg-white rounded-lg shadow-md p-6">
         {isEditing ? (

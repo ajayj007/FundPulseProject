@@ -1,7 +1,7 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import {useState} from "react";
+import {useNavigate} from "react-router-dom";
 import axios from "axios";
-import { API_BASE_URL } from "../../config";
+import {API_BASE_URL} from "../../config";
 
 export default function LoginInvestor() {
   const [email, setEmail] = useState("");
@@ -65,6 +65,7 @@ export default function LoginInvestor() {
             <label className="block text-gray-300 mb-1">Email:</label>
             <input
               type="email"
+              name="email"
               className="w-full px-4 py-2 border border-gray-600 rounded-lg bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:border-blue-500 transition"
               placeholder="Enter your email"
               value={email}

@@ -1,6 +1,7 @@
 package com.fundpulse.app.controller;
 
 import com.fundpulse.app.models.Proposal;
+import com.fundpulse.app.service.investment.InvestmentService;
 import com.fundpulse.app.service.proposal.ProposalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -14,13 +15,16 @@ public class ProposalController {
     @Autowired
     private ProposalService proposalService;
 
-    @GetMapping("/back-proposals")
-    public ResponseEntity<List<Proposal>> getDisabledProposals(){
-        return proposalService.getDisabledProposals();
+    @Autowired
+    private InvestmentService investmentService;
+
+    @GetMapping("/back-proposals/{startupId}")
+    public ResponseEntity<List<Proposal>> getDisabledProposals(@PathVariable String startupId) {
+        return proposalService.getDisabledProposals(startupId);
     }
 
     @GetMapping("/active-proposals/{startupId}")
-    public ResponseEntity<Proposal> getActiveProposals(@PathVariable String startupId){
+    public ResponseEntity<?> getActiveProposals(@PathVariable String startupId) {
         return proposalService.getActiveProposals( startupId);
     }
 
@@ -28,4 +32,11 @@ public class ProposalController {
     public ResponseEntity<List<Proposal>> getAllActiveProposals(){
         return proposalService.getAllActiveProposals();
     }
+
+    @PutMapping("/proposal/{proposalId}/end")
+    public void endProposal(@PathVariable String proposalId) {
+        proposalService.endProposal(proposalId);
+    }
+
+
 }

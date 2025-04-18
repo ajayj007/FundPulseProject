@@ -1,4 +1,4 @@
-package com.fundpulse.app.repository;
+package com.fundpulse.app.repositories;
 
 import com.fundpulse.app.models.Investor;
 import org.springframework.data.mongodb.repository.MongoRepository;
@@ -11,4 +11,6 @@ public interface InvestorRepo extends MongoRepository<Investor, String> {
     Investor findByEmailAndPassword(String email, String pwd);
 
     Optional<Investor> findByEmail(String email);
+
+    Investor findByInvestorId(String investmentId);
 }

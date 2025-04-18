@@ -1,4 +1,4 @@
-package com.fundpulse.app.repository;
+package com.fundpulse.app.repositories;
 
 import com.fundpulse.app.models.Startup;
 import org.springframework.data.mongodb.repository.MongoRepository;

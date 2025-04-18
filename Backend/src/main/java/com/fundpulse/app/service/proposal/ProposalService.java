@@ -3,13 +3,13 @@ package com.fundpulse.app.service.proposal;
 import com.fundpulse.app.dto.ProposalForm;
 import com.fundpulse.app.models.Proposal;
 import com.fundpulse.app.models.Startup;
-import com.fundpulse.app.repository.ProposalRepo;
-import com.fundpulse.app.repository.StartupRepo;
+import com.fundpulse.app.repositories.ProposalRepo;
+import com.fundpulse.app.repositories.StartupRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import java.util.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -41,8 +41,8 @@ public class ProposalService {
 
     }
 
-    public ResponseEntity<List<Proposal>> getDisabledProposals(){
-        Optional<List<Proposal>> proposals = proposalRepo.findByStatus(false);
+    public ResponseEntity<List<Proposal>> getDisabledProposals(String startupId) {
+        Optional<List<Proposal>> proposals = proposalRepo.findByStartUpId(startupId);
         List<Proposal> proposals2 = proposals.get();
         System.out.println(proposals2);
         return ResponseEntity.ok().body(proposals2);
@@ -67,11 +67,11 @@ public class ProposalService {
         return proposal;
     }
 
-    public ResponseEntity<Proposal> getActiveProposals(String startupId) {
+    public ResponseEntity<?> getActiveProposals(String startupId) {
         Optional<List<Proposal>> byStatus = proposalRepo.findByStatusAndStartUpId(true,startupId);
         List<Proposal> proposals = byStatus.get();
         if(proposals.size() >= 1){
-            return ResponseEntity.ok().body(proposals.get(0));
+            return ResponseEntity.ok().body(proposals);
         }else
         {
             return  ResponseEntity.ok().body(null);
@@ -87,6 +87,18 @@ public class ProposalService {
             return ResponseEntity.ok().body(null);
         }
     }
+
+    public void endProposal(String proposalId) {
+        Optional<Proposal> byId = proposalRepo.findById(proposalId);
+        if (byId.isPresent()) {
+            Proposal proposal = byId.get();
+            proposal.setStatus(false);
+            proposalRepo.save(proposal);
+
+        }
+    }
+
+
 
     // private boolean canSubmitProposal(String id){
 

@@ -6,39 +6,37 @@ import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend } from "recha
 import axios from "axios";
 import { API_BASE_URL } from "../config";
 
-function CurrentProposal() {
-  const [hasActiveProposal, setHasActiveProposal] = useState(false);
+function CurrentProposals() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [proposal, setProposal] = useState(null);
-  const [investors, setInvestors] = useState([]);
-  const [daysRemaining, setDaysRemaining] = useState(0);
+  const [proposals, setProposals] = useState([]);
+  const [investors, setInvestors] = useState({});
+  const [daysRemaining, setDaysRemaining] = useState({});
+  const [expandedProposals, setExpandedProposals] = useState({});
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // Get the startup ID from your auth context or local storage
         const startupId = localStorage.getItem("startupId");
-
-        // Fetch proposal data
-        const proposalResponse = await axios.get(
-          `${API_BASE_URL}/api/active-proposals/${startupId}`,
-          {}
+        const proposalsResponse = await axios.get(
+          `${API_BASE_URL}/api/active-proposals/${startupId}`
         );
 
-        if (proposalResponse.data) {
-          setProposal(proposalResponse.data);
-          console.log(proposalResponse.data);
-          setHasActiveProposal(true);
-          setDaysRemaining(calculateDaysRemaining(proposalResponse.data.endDate));
+        if (proposalsResponse.data && proposalsResponse.data.length > 0) {
+          setProposals(proposalsResponse.data);
 
-          // Fetch investors for this proposal
-          const investorsResponse = await axios.get(`${API_BASE_URL}/investor/all`, {
-            params: { proposalId: proposalResponse.data.id },
+          const remainingDays = {};
+          proposalsResponse.data.forEach((proposal) => {
+            remainingDays[proposal.id] = calculateDaysRemaining(proposal.endDate);
           });
-          setInvestors(investorsResponse.data);
-        } else {
-          // setHasActiveProposal(false);
+          setDaysRemaining(remainingDays);
+
+          // Initialize expanded state to false for all proposals
+          const initialExpandedState = {};
+          proposalsResponse.data.forEach((proposal) => {
+            initialExpandedState[proposal.id] = false;
+          });
+          setExpandedProposals(initialExpandedState);
         }
       } catch (err) {
         setError(err.message);
@@ -59,193 +57,253 @@ function CurrentProposal() {
     return diffDays > 0 ? diffDays : 0;
   };
 
-  // Prepare data for pie chart
-  const pieData = investors.map((investor) => ({
-    name: investor.name,
-    value: investor.equity,
-  }));
+  const toggleDetails = async (proposalId) => {
+    // Toggle expanded state
+    setExpandedProposals((prev) => ({
+      ...prev,
+      [proposalId]: !prev[proposalId],
+    }));
 
-  // Add remaining equity if not fully funded
-  const totalEquityDistributed = investors.reduce((sum, investor) => sum + investor.equity, 0);
+    // Fetch investors if not already loaded and we're expanding
+    if (!investors[proposalId] && !expandedProposals[proposalId]) {
+      try {
+        console.log(proposalId)
+        const investorsResponse = await axios.get(`${API_BASE_URL}/investment/get-investors`, {
+          params: { proposalId },
+        });
 
-  if (proposal && totalEquityDistributed < proposal.equityOffered) {
-    pieData.push({
-      name: "Remaining",
-      value: proposal.equityOffered - totalEquityDistributed,
-    });
+        console.log(investorsResponse.data);
+        setInvestors((prev) => ({
+          ...prev,
+          [proposalId]: investorsResponse.data,
+        }));
+      } catch (err) {
+        console.error("Error fetching investors:", err);
+      }
+    }
+  };
+
+  const getPieData = (proposalId) => {
+    const proposalInvestors = investors[proposalId] || [];
+    const pieData = proposalInvestors.map((investor) => ({
+      name: investor.name,
+      value: investor.equity,
+    }));
+
+    const proposal = proposals.find((p) => p.id === proposalId);
+    if (proposal) {
+      const totalEquityDistributed = proposalInvestors.reduce(
+        (sum, investor) => sum + investor.equity,
+        0
+      );
+
+      if (totalEquityDistributed < proposal.equityPercentage) {
+        pieData.push({
+          name: "Remaining",
+          value: proposal.equityPercentage - totalEquityDistributed,
+        });
+      }
+    }
+
+    return pieData;
+  };
+
+  const COLORS = ["#4ade80", "#22c55e", "#16a34a", "#15803d", "#166534", "#d1fae5"];
+
+  if (loading) {
+    return <div className="flex justify-center items-center h-64">Loading...</div>;
   }
 
-  // Rest of your component remains the same...
-  // Just make sure to use `proposal` and `investors` state variables
-  // instead of the hardcoded data
-
-  // Colors for pie chart
-  const COLORS = ["#4ade80", "#22c55e", "#16a34a", "#15803d", "#166534", "#d1fae5"];
+  if (error) {
+    return (
+      <div className="text-center py-12 text-red-500">
+        <p>Error loading proposals: {error}</p>
+        <button
+          onClick={() => window.location.reload()}
+          className="mt-4 px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700"
+        >
+          Try Again
+        </button>
+      </div>
+    );
+  }
 
   return (
     <div>
-      <h1 className="text-3xl font-bold text-gray-800 mb-6">Current Proposal</h1>
+      <h1 className="text-3xl font-bold text-gray-800 mb-6">Your Proposals</h1>
 
-      {hasActiveProposal ? (
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          {/* Proposal Details */}
-          <div className="lg:col-span-2">
-            <div className="bg-white rounded-lg shadow-md p-6">
-              <div className="flex justify-between items-start mb-4">
-                <h2 className="text-2xl font-bold text-gray-800">{proposal.projectName}</h2>
-                <span className="px-3 py-1 bg-green-100 text-green-800 text-sm font-medium rounded-full">
-                  {proposal.sector}
-                </span>
-              </div>
+      {proposals.length > 0 ? (
+        <div className="space-y-6">
+          {proposals.map((proposal) => (
+            <div
+              key={proposal.id || proposal._id || proposal.proposalId}
+              className="bg-white rounded-lg shadow-md overflow-hidden"
+            >
+              <div className="p-6">
+                <div className="flex justify-between items-start mb-4">
+                  <h2 className="text-2xl font-bold text-gray-800">{proposal.projectName}</h2>
+                  <span className="px-3 py-1 bg-green-100 text-green-800 text-sm font-medium rounded-full">
+                    {proposal.sector}
+                  </span>
+                </div>
 
-              <p className="text-gray-600 mb-6">{proposal.reason}</p>
+                <p className="text-gray-600 mb-6">{proposal.reason}</p>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                <div>
-                  <h3 className="text-sm font-medium text-gray-500 mb-1">Funding Goal</h3>
-                  <p className="text-xl font-bold text-gray-800">{proposal.amountToRaise} ETH</p>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                  <div>
+                    <h3 className="text-sm font-medium text-gray-500 mb-1">Funding Goal</h3>
+                    <p className="text-xl font-bold text-gray-800">{proposal.amountToRaise} ETH</p>
+                  </div>
+                  <div>
+                    <h3 className="text-sm font-medium text-gray-500 mb-1">Amount Raised</h3>
+                    <p className="text-xl font-bold text-green-600">{proposal.raisedAmount} ETH</p>
+                  </div>
+                  <div>
+                    <h3 className="text-sm font-medium text-gray-500 mb-1">Equity Offered</h3>
+                    <p className="text-xl font-bold text-gray-800">{proposal.equityPercentage}%</p>
+                  </div>
+                  <div>
+                    <h3 className="text-sm font-medium text-gray-500 mb-1">Days Remaining</h3>
+                    <p className="text-xl font-bold text-gray-800">
+                      {daysRemaining[proposal.proposalId] || 0}
+                    </p>
+                  </div>
                 </div>
-                <div>
-                  <h3 className="text-sm font-medium text-gray-500 mb-1">Amount Raised</h3>
-                  <p className="text-xl font-bold text-green-600">{proposal.raisedAmount} ETH</p>
-                </div>
-                <div>
-                  <h3 className="text-sm font-medium text-gray-500 mb-1">Equity Offered</h3>
-                  <p className="text-xl font-bold text-gray-800">{proposal.equityPercentage}%</p>
-                </div>
-                <div>
-                  <h3 className="text-sm font-medium text-gray-500 mb-1">Days Remaining</h3>
-                  <p className="text-xl font-bold text-gray-800">{daysRemaining}</p>
-                </div>
-              </div>
 
-              <div className="mb-6">
-                <h3 className="text-sm font-medium text-gray-500 mb-1">Funding Progress</h3>
-                <div className="flex justify-between items-center text-sm text-gray-500 mb-2">
-                  <span>{proposal.raisedAmount} ETH</span>
-                  <span>{Math.round((proposal.raisedAmount / proposal.amountToRaise) * 100)}%</span>
-                  <span>{proposal.amountToRaise} ETH</span>
+                <div className="mb-6">
+                  <h3 className="text-sm font-medium text-gray-500 mb-1">Funding Progress</h3>
+                  <div className="flex justify-between items-center text-sm text-gray-500 mb-2">
+                    <span>{proposal.raisedAmount} ETH</span>
+                    <span>
+                      {Math.round((proposal.raisedAmount / proposal.amountToRaise) * 100)}%
+                    </span>
+                    <span>{proposal.amountToRaise} ETH</span>
+                  </div>
+                  <div className="w-full bg-gray-200 rounded-full h-2.5">
+                    <div
+                      className="bg-green-600 h-2.5 rounded-full"
+                      style={{
+                        width: `${Math.min(
+                          (proposal.raisedAmount / proposal.amountToRaise) * 100,
+                          100
+                        )}%`,
+                      }}
+                    ></div>
+                  </div>
                 </div>
-                <div className="w-full bg-gray-200 rounded-full h-2.5">
-                  <div
-                    className="bg-green-600 h-2.5 rounded-full"
-                    style={{
-                      width: `${Math.min(
-                        (proposal.raisedAmount / proposal.amountToRaise) * 100,
-                        100
-                      )}%`,
-                    }}
-                  ></div>
-                </div>
-              </div>
 
-              <div className="grid grid-cols-2 gap-4 mb-6">
-                <div>
-                  <h3 className="text-sm font-medium text-gray-500 mb-1">Start Date</h3>
-                  <p className="text-gray-800">
-                    {new Date(proposal.startDate).toLocaleDateString()}
-                  </p>
-                </div>
-                <div>
-                  <h3 className="text-sm font-medium text-gray-500 mb-1">End Date</h3>
-                  <p className="text-gray-800">{new Date(proposal.endDate).toLocaleDateString()}</p>
-                </div>
+                <button
+                  onClick={() => toggleDetails(proposal.proposalId)}
+                  className="px-4 py-2 bg-blue-100 text-blue-800 rounded-md hover:bg-blue-200 transition-colors"
+                >
+                  {expandedProposals[proposal.proposalId] ? "Hide Details" : "Show More Details"}
+                </button>
+
+                {expandedProposals[proposal.proposalId] && (
+                  <div className="mt-6 space-y-6">
+                    {/* Equity Distribution Chart */}
+                    {/* <div className="bg-gray-50 rounded-lg p-6">
+                      <h2 className="text-xl font-bold text-gray-800 mb-4">Equity Distribution</h2>
+                      <div className="h-64">
+                        <ResponsiveContainer width="100%" height="100%">
+                          <PieChart>
+                            <Pie
+                              data={getPieData(proposal.proposalId)}
+                              cx="50%"
+                              cy="50%"
+                              labelLine={false}
+                              outerRadius={80}
+                              fill="#8884d8"
+                              dataKey="value"
+                            >
+                              {getPieData(proposal.proposalId).map((entry, index) => (
+                                <Cell
+                                  key={`cell-${proposal.proposalId}-${index}`}
+                                  fill={COLORS[index % COLORS.length]}
+                                />
+                              ))}
+                            </Pie>
+                            <Tooltip formatter={(value) => [`${value}%`, "Equity"]} />
+                            <Legend />
+                          </PieChart>
+                        </ResponsiveContainer>
+                      </div>
+                    </div> */}
+
+                    {/* Investors List */}
+                    <div className="bg-gray-50 rounded-lg p-6">
+                      <h2 className="text-xl font-bold text-gray-800 mb-4">Investors</h2>
+                      <div className="overflow-x-auto">
+                        <table className="min-w-full divide-y divide-gray-200">
+                          <thead className="bg-gray-100">
+                            <tr>
+                              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Investor
+                              </th>
+                              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Amount Invested
+                              </th>
+                              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Equity Stake
+                              </th>
+                              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Date
+                              </th>
+                            </tr>
+                          </thead>
+                          <tbody className="bg-white divide-y divide-gray-200">
+                            {(investors[proposal.proposalId] || []).length > 0 ? (
+                              (investors[proposal.proposalId] || []).map((investor, index) => (
+                                <tr
+                                  key={
+                                    investor.id ||
+                                    investor.investorId ||
+                                    investor._id ||
+                                    `investor-${index}`
+                                  }
+                                >
+                                  <td className="px-6 py-4 whitespace-nowrap">
+                                    <div className="text-sm font-medium text-gray-900">
+                                      {investor.name}
+                                    </div>
+                                  </td>
+                                  <td className="px-6 py-4 whitespace-nowrap">
+                                    <div className="text-sm text-gray-900">
+                                      {investor.amountInvested} ETH
+                                    </div>
+                                  </td>
+                                  <td className="px-6 py-4 whitespace-nowrap">
+                                    <div className="text-sm text-gray-900">{investor.equityPercentage}%</div>
+                                  </td>
+                                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                    {new Date(
+                                      investor.investmentDate || investor.date
+                                    ).toLocaleDateString()}
+                                  </td>
+                                </tr>
+                              ))
+                            ) : (
+                              <tr>
+                                <td colSpan="4" className="px-6 py-4 text-center text-gray-500">
+                                  No investors yet
+                                </td>
+                              </tr>
+                            )}
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
-          </div>
-
-          {/* Equity Distribution Chart */}
-          <div className="bg-white rounded-lg shadow-md p-6">
-            <h2 className="text-xl font-bold text-gray-800 mb-4">Equity Distribution</h2>
-            <div className="h-64">
-              <ResponsiveContainer width="100%" height="100%">
-                <PieChart>
-                  <Pie
-                    data={pieData}
-                    cx="50%"
-                    cy="50%"
-                    labelLine={false}
-                    outerRadius={80}
-                    fill="#8884d8"
-                    dataKey="value"
-                  >
-                    {pieData.map((entry, index) => (
-                      <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                    ))}
-                  </Pie>
-                  <Tooltip formatter={(value) => [`${value}%`, "Equity"]} />
-                  <Legend />
-                </PieChart>
-              </ResponsiveContainer>
-            </div>
-          </div>
-
-          {/* Investors List */}
-          <div className="lg:col-span-3">
-            <div className="bg-white rounded-lg shadow-md p-6">
-              <h2 className="text-xl font-bold text-gray-800 mb-4">Investors</h2>
-
-              <div className="overflow-x-auto">
-                <table className="min-w-full divide-y divide-gray-200">
-                  <thead className="bg-gray-50">
-                    <tr>
-                      <th
-                        scope="col"
-                        className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                      >
-                        Investor
-                      </th>
-                      <th
-                        scope="col"
-                        className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                      >
-                        Amount Invested
-                      </th>
-                      <th
-                        scope="col"
-                        className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                      >
-                        Equity Stake
-                      </th>
-                      <th
-                        scope="col"
-                        className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                      >
-                        Date
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody className="bg-white divide-y divide-gray-200">
-                    {investors.map((investor) => (
-                      <tr key={investor.id || investor.investorId || investor._id}>
-                        {" "}
-                        {/* Fallback options */}
-                        <td className="px-6 py-4 whitespace-nowrap">
-                          <div className="text-sm font-medium text-gray-900">{investor.name}</div>
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap">
-                          <div className="text-sm text-gray-900">{investor.amount} ETH</div>
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap">
-                          <div className="text-sm text-gray-900">{investor.equity}%</div>
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                          {new Date(investor.investmentDate || investor.date).toLocaleDateString()}
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
+          ))}
         </div>
       ) : (
         <div className="bg-white rounded-lg shadow-md p-8 text-center">
-          <h2 className="text-2xl font-bold text-gray-800 mb-4">No Active Proposal</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-4">No Proposals Found</h2>
           <p className="text-gray-600 mb-6">
-            You don't have any active proposals at the moment. Create a new project to start raising
-            funds.
+            You don't have any proposals at the moment. Create a new project to start raising funds.
           </p>
           <Link
             to="/startup/add-project"
@@ -259,4 +317,4 @@ function CurrentProposal() {
   );
 }
 
-export default CurrentProposal;
+export default CurrentProposals;
