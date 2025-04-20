@@ -1,2 +1,2 @@
 // config.js
-export const API_BASE_URL = "https://fundpulseproject-frontend.onrender.com";
+export const API_BASE_URL = "https://fundpulseproject.onrender.com";
