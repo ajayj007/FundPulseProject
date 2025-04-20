@@ -6,9 +6,8 @@ import tailwindcss from "@tailwindcss/vite";
 export default defineConfig({
   plugins: [react(), tailwindcss()],
   server: {
-    host: "0.0.0.0", // Allows access from other devices
-    port: 5173, // Ensure the port is correct
-    allowedHosts: ['fundpulse-frontend1.onrender.com']
+    host: "0.0.0.0",
+    port: 5173,
+    allowedHosts: ['fundpulseproject-frontend.onrender.com'] // ✅ Removed https://
   },
-  
 });
