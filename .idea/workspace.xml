@@ -4,45 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e7968e2c-cf28-41de-8e9c-32e8a0a2aa9f" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/service/proposal/ProposalStatusUpdater.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/controller/InvestmentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/controller/InvestmentController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/controller/InvestorController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/controller/InvestorController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/controller/ProposalController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/controller/ProposalController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/controller/StartupController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/controller/StartupController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/dto/InvestorUpdateForm.java" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/dto/UpdateForm.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/repository/InvestmentRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/repositories/InvestmentRepo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/repository/InvestorRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/repositories/InvestorRepo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/repository/ProposalRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/repositories/ProposalRepo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/repository/StartupRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/repositories/StartupRepo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/service/TempInvestmentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/service/TempInvestmentService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/service/investment/InvestmentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/service/investment/InvestmentService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/service/investor/InvestorDetailsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/service/investor/InvestorDetailsService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/service/investor/InvestorService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/service/investor/InvestorService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/service/proposal/ProposalService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/service/proposal/ProposalService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/service/startup/StartupDetailsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/service/startup/StartupDetailsService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/service/startup/StartupService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/service/startup/StartupService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/src/main/resources/google-drive.json" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/main/resources/google-drive.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Frontend/src/components/Navbar.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/components/Navbar.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Frontend/src/components/account/LoginInvestor.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/components/account/LoginInvestor.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Frontend/src/components/account/LoginStartup.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/components/account/LoginStartup.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Frontend/src/components/landingPage/FeatureSection.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/components/landingPage/FeatureSection.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Frontend/src/components/landingPage/Footer.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/components/landingPage/Footer.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Frontend/src/components/landingPage/HeroSection.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/components/landingPage/HeroSection.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Frontend/src/components/landingPage/Navbar.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/components/landingPage/Navbar.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Frontend/src/components/landingPage/Testimonials.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/components/landingPage/Testimonials.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Frontend/src/pages/AddProject.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/pages/AddProject.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Frontend/src/pages/BackProjects.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/pages/BackProjects.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Frontend/src/pages/CurrentProposal.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/pages/CurrentProposal.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Frontend/src/pages/Dashboard.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/pages/Dashboard.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Frontend/src/pages/Profile.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/pages/Profile.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Frontend/src/pages/investor/ExploreProjects.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/pages/investor/ExploreProjects.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Frontend/src/pages/investor/InvestorDashboard.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/pages/investor/InvestorDashboard.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Frontend/src/pages/investor/InvestorProfile.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/pages/investor/InvestorProfile.jsx" afterDir="false" />
-    </list>
+    <list default="true" id="e7968e2c-cf28-41de-8e9c-32e8a0a2aa9f" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -70,27 +32,27 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.BackendApplication.executor": "Debug",
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "Spring Boot.BackendApplication.executor": "Run",
-    "git-widget-placeholder": "main",
-    "ignore.virus.scanning.warn.message": "true",
-    "kotlin-language-version-configured": "true",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.BackendApplication.executor&quot;: &quot;Debug&quot;,
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;Spring Boot.BackendApplication.executor&quot;: &quot;Run&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="com.fundpulse.app.dto" />
@@ -137,6 +99,7 @@
       <workItem from="1744564323351" duration="45292000" />
       <workItem from="1744799059197" duration="532000" />
       <workItem from="1744836361738" duration="13121000" />
+      <workItem from="1745144902317" duration="463000" />
     </task>
     <servers />
   </component>
@@ -148,17 +111,17 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/service/proposal/ProposalService.java</url>
-          <line>91</line>
+          <line>90</line>
           <option name="timeStamp" value="15" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/controller/InvestmentController.java</url>
-          <line>51</line>
+          <line>55</line>
           <option name="timeStamp" value="17" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/Backend/src/main/java/com/fundpulse/app/service/investment/InvestmentService.java</url>
-          <line>146</line>
+          <line>147</line>
           <option name="timeStamp" value="18" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
