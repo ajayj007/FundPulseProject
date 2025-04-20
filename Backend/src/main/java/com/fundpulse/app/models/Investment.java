@@ -19,7 +19,7 @@ public class Investment {
     @Id
     private String investmentId;
     private String proposalId;
-   private String investorId;
+    private String investorId;
     private Long amount;
     private LocalDateTime investmentDate;
 

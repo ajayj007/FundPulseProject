@@ -26,14 +26,12 @@ public class InvestorService {
     @Value("${folderId}")
     String folderId;
 
-    @Autowired
-    private DocumentVerificationService docService;
+
 
     @Autowired
     private InvestorRepo investorRepo;
 
-    @Autowired
-    private DocumentUploadConfig uploadService;
+    
 
     @Autowired
     private GoogleDriveUploadService googleDriveUploadService;
@@ -47,7 +45,7 @@ public class InvestorService {
         investor.setEmail(investorForm.getEmail());
         investor.setPhone(investorForm.getCountryCode() + " " + investorForm.getPhone());
         investor.setPassword(encoder.encode(investorForm.getPassword())); // ✅ Encrypt password before saving
-//        investor.setInvestmentCategories(investorForm.getInvestmentCategories());
+        // investor.setInvestmentCategories(investorForm.getInvestmentCategories());
         investor.setDeclaredIncome(investorForm.getDeclaredIncome());
         investor.setExtractedIncome(12000000); // Dummy extracted value
         investor.setVerified(true); // Verified as income >= ₹1 crore
@@ -62,9 +60,9 @@ public class InvestorService {
             if (byEmail.isPresent()) {
                 return ResponseEntity.badRequest().body("Email is already registered.");
             }
-if(!investorForm.getPassword().equals(investorForm.getConfirmPassword())){
-    return ResponseEntity.badRequest().body("Password does not matched.");
-}
+            if (!investorForm.getPassword().equals(investorForm.getConfirmPassword())) {
+                return ResponseEntity.badRequest().body("Password does not matched.");
+            }
             MultipartFile itrFile = investorForm.getItrDocument();
             if (itrFile.isEmpty()) {
                 return ResponseEntity.badRequest().body("ITR document is required.");
@@ -73,7 +71,8 @@ if(!investorForm.getPassword().equals(investorForm.getConfirmPassword())){
             boolean isValid = true;
             // You can implement your actual validation logic here
             if (!isValid) {
-                return ResponseEntity.badRequest().body("ITR verification failed. Name mismatch or income below ₹1 crore.");
+                return ResponseEntity.badRequest()
+                        .body("ITR verification failed. Name mismatch or income below ₹1 crore.");
             }
 
             Investor investor = getInvestor(investorForm);
@@ -134,8 +133,6 @@ if(!investorForm.getPassword().equals(investorForm.getConfirmPassword())){
         investorRepo.save(investor);
         return ResponseEntity.ok().body(investor);
     }
-
-
 
     public boolean updatePassword(String investorId, String currentPassword, String newPassword) {
         Optional<Investor> investorOpt = investorRepo.findById(investorId);

@@ -46,7 +46,7 @@ function InvestorDashboard() {
         const statsResponse = await axios.get(`${API_BASE_URL}/investment/get-invested`, {
           params: { investorId },
         });
-        console.log(statsResponse.data)
+        console.log(statsResponse.data);
 
         setStats({
           totalInvested: statsResponse.data.totalInvested || 0,

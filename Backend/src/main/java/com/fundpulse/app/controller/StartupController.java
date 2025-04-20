@@ -36,7 +36,7 @@ public class StartupController {
 
     @PostMapping("/add-proposal/{id}")
     public ResponseEntity<?> addProposal(@RequestBody ProposalForm proposalForm,
-                                         @PathVariable String id) {
+            @PathVariable String id) {
         return proposalService.addProposal(proposalForm, id);
     }
 

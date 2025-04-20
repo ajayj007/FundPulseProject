@@ -28,8 +28,9 @@ public class StartupService {
         startup.setEmail(startUpForm.getEmail());
         startup.setPhone(startUpForm.getCountryCode() + " " + startUpForm.getPhone());
         startup.setPassword(encoder.encode(startUpForm.getPassword())); // ✅ Encrypt password before saving
-//        startup.setIndustryCategories(startUpForm.getIndustryCategories());
-//        startup.setFundingGoal(startUpForm.getCurrency() + " " + startUpForm.getFundingGoal());
+        // startup.setIndustryCategories(startUpForm.getIndustryCategories());
+        // startup.setFundingGoal(startUpForm.getCurrency() + " " +
+        // startUpForm.getFundingGoal());
         return startup;
     }
 

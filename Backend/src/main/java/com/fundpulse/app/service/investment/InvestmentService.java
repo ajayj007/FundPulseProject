@@ -125,9 +125,11 @@ public class InvestmentService {
 
     public ResponseEntity<?> getAllInvested(String investorId) {
         List<Investment> investments = investmentRepo.findByInvestorId(investorId);
+        Map<String,Long> map = new HashMap<>();
         if (investments.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body("No investments found for investor ID: " + investorId);
+            map.put("totalInvested",0L);
+            map.put("activeInvestments",0L);
+            return ResponseEntity.ok().body(map);
         }
         Long total = 0L;
         Long count = 0L;
@@ -135,7 +137,6 @@ public class InvestmentService {
             total += investment.getAmount();
             count+=1;
         }
-        Map<String,Long> map = new HashMap<>();
         map.put("totalInvested",total);
         map.put("activeInvestments",count);
         return ResponseEntity.ok().body(map);

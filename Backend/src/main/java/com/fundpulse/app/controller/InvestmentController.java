@@ -14,16 +14,16 @@ import java.util.Map;
 @RequestMapping("/investment")
 public class InvestmentController {
     @Autowired
-private InvestmentService investmentService;
+    private InvestmentService investmentService;
 
     @PostMapping("/invest")
     public ResponseEntity<?> makeInvestment(
-           @RequestBody InvestmentForm investmentForm){
+            @RequestBody InvestmentForm investmentForm) {
         return investmentService.makeInvestment(investmentForm);
     }
 
     @GetMapping("/get")
-    public ResponseEntity<?> getInvestments(@RequestParam String investorId){
+    public ResponseEntity<?> getInvestments(@RequestParam String investorId) {
         List<Map<String, Object>> investments = investmentService.getInvestments(investorId);
         if (investments != null) {
             return ResponseEntity.ok().body(investments);
@@ -35,20 +35,24 @@ private InvestmentService investmentService;
     }
 
     @GetMapping("/get-invested")
-    public ResponseEntity<?> getTotalInvested(@RequestParam String investorId){
+    public ResponseEntity<?> getTotalInvested(@RequestParam String investorId) {
         return investmentService.getAllInvested(investorId);
     }
 
     @GetMapping("/recent")
     public ResponseEntity<?> getRecentInvestments(@RequestParam String investorId) {
         List<Map<String, Object>> investments = investmentService.getInvestments(investorId);
-        List<Map<String, Object>> firstThree = investments.subList(0, Math.min(investments.size(), 3));
-        return ResponseEntity.ok().body(firstThree);
+
+       if(investments != null){
+           List<Map<String, Object>> firstThree = investments.subList(0, Math.min(investments.size(), 3));
+           return ResponseEntity.ok().body(firstThree);
+       }
+        return ResponseEntity.ok().body(null);
 
     }
 
     @GetMapping("/get-investors")
-    public ResponseEntity<?> getInvestors(@RequestParam String proposalId){
+    public ResponseEntity<?> getInvestors(@RequestParam String proposalId) {
         return investmentService.getInvestors(proposalId);
     }
 }

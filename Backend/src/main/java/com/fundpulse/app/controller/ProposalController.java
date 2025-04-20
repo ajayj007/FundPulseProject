@@ -15,9 +15,6 @@ public class ProposalController {
     @Autowired
     private ProposalService proposalService;
 
-    @Autowired
-    private InvestmentService investmentService;
-
     @GetMapping("/back-proposals/{startupId}")
     public ResponseEntity<List<Proposal>> getDisabledProposals(@PathVariable String startupId) {
         return proposalService.getDisabledProposals(startupId);

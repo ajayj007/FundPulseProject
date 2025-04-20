@@ -1,6 +1,5 @@
 package com.fundpulse.app.repositories;
 
-import com.fasterxml.jackson.annotation.OptBoolean;
 import com.fundpulse.app.models.Investment;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;

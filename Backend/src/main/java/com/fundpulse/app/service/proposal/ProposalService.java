@@ -25,7 +25,7 @@ public class ProposalService {
         Optional<Startup> startupById = startupRepo.findById(id);
 
         if (startupById.isPresent()) {
-            
+
             Startup startup = startupById.get();
             Proposal proposal = getProposal(proposalForm, startup);
 
@@ -33,8 +33,8 @@ public class ProposalService {
             System.out.println(savedProposal.getProposalId());
             startup.setProposalId(savedProposal.getProposalId());
             startupRepo.save(startup);
-             return ResponseEntity.ok().body(proposal);
-        }else{
+            return ResponseEntity.ok().body(proposal);
+        } else {
             System.out.println("user is not available");
             return ResponseEntity.notFound().build();
         }
@@ -60,7 +60,7 @@ public class ProposalService {
         proposal.setSector(proposalForm.getSector());
         proposal.setStartDate(proposalForm.getStartDate());
         proposal.setEndDate(proposalForm.getEndDate());
-        proposal.setMinInvestment(proposalForm.getAmountToRaise()/2);
+        proposal.setMinInvestment(proposalForm.getAmountToRaise() / 2);
         proposal.setRaisedAmount(0L);
         proposal.setSector(proposalForm.getSector());
         proposal.setStatus(true);
@@ -68,22 +68,21 @@ public class ProposalService {
     }
 
     public ResponseEntity<?> getActiveProposals(String startupId) {
-        Optional<List<Proposal>> byStatus = proposalRepo.findByStatusAndStartUpId(true,startupId);
+        Optional<List<Proposal>> byStatus = proposalRepo.findByStatusAndStartUpId(true, startupId);
         List<Proposal> proposals = byStatus.get();
-        if(proposals.size() >= 1){
+        if (proposals.size() >= 1) {
             return ResponseEntity.ok().body(proposals);
-        }else
-        {
-            return  ResponseEntity.ok().body(null);
+        } else {
+            return ResponseEntity.ok().body(null);
         }
     }
 
     public ResponseEntity<List<Proposal>> getAllActiveProposals() {
         Optional<List<Proposal>> byStatus = proposalRepo.findByStatus(true);
-        if(byStatus.isPresent()){
+        if (byStatus.isPresent()) {
             List<Proposal> proposals = byStatus.get();
             return ResponseEntity.ok().body(proposals);
-        }else{
+        } else {
             return ResponseEntity.ok().body(null);
         }
     }
@@ -98,12 +97,11 @@ public class ProposalService {
         }
     }
 
-
-
     // private boolean canSubmitProposal(String id){
 
-    //     Optional<Proposal> activeProposal = proposalRepo.findByStartupAndStatus(id,"Active");
-    //    
-    //     return true;
-   // }
+    // Optional<Proposal> activeProposal =
+    // proposalRepo.findByStartupAndStatus(id,"Active");
+    //
+    // return true;
+    // }
 }
