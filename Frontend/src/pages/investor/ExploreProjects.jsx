@@ -1,13 +1,13 @@
 "use client";
 
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
-import {API_BASE_URL} from "../../config";
+import { API_BASE_URL } from "../../config";
 
 function ExploreProjects() {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedSector, setSelectedSector] = useState("");
-    const [selectedStatus, setSelectedStatus] = useState("all");
+  const [selectedStatus, setSelectedStatus] = useState("all");
   const [sortBy, setSortBy] = useState("newest");
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -42,8 +42,8 @@ function ExploreProjects() {
     setSelectedSector(e.target.value);
   };
 
-    const handleStatusChange = (e) => {
-        setSelectedStatus(e.target.value);
+  const handleStatusChange = (e) => {
+    setSelectedStatus(e.target.value);
   };
 
   // Calculate days remaining for each project
@@ -54,23 +54,21 @@ function ExploreProjects() {
     return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
   };
 
-    // Filter projects by sector
-    const filteredBySector = selectedSector
-        ? projects.filter((project) =>
-            project.sector.toLowerCase() === selectedSector.toLowerCase()
-        )
-        : projects;
+  // Filter projects by sector
+  const filteredBySector = selectedSector
+    ? projects.filter((project) => project.sector.toLowerCase() === selectedSector.toLowerCase())
+    : projects;
 
-    // Filter projects by status
-    const filteredByStatus = filteredBySector.filter((project) => {
-        const daysLeft = calculateDaysRemaining(project.endDate);
-        if (selectedStatus === "active") return daysLeft > 0;
-        if (selectedStatus === "ended") return daysLeft <= 0;
-        return true; // "all" status
-    });
+  // Filter projects by status
+  const filteredByStatus = filteredBySector.filter((project) => {
+    const daysLeft = calculateDaysRemaining(project.endDate);
+    if (selectedStatus === "active") return daysLeft > 0;
+    if (selectedStatus === "ended") return daysLeft <= 0;
+    return true; // "all" status
+  });
 
-    // Sort projects based on selected sort option
-    const sortedProjects = [...filteredByStatus].sort((a, b) => {
+  // Sort projects based on selected sort option
+  const sortedProjects = [...filteredByStatus].sort((a, b) => {
     if (sortBy === "newest") {
       return new Date(b.createdAt) - new Date(a.createdAt);
     } else if (sortBy === "funding") {
@@ -159,7 +157,7 @@ function ExploreProjects() {
       <div className="bg-white rounded-2xl shadow-md p-6 mb-8 border border-gray-200/50 backdrop-blur-sm bg-opacity-90">
         <form onSubmit={handleSearch} className="space-y-4">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              {/* Sector Filter */}
+            {/* Sector Filter */}
             <div>
               <label htmlFor="sector" className="block text-sm font-medium text-gray-700 mb-2">
                 Filter by Sector
@@ -191,63 +189,61 @@ function ExploreProjects() {
               </div>
             </div>
 
-              {/* Status Filter */}
-              <div>
-                  <label htmlFor="status" className="block text-sm font-medium text-gray-700 mb-2">
-                      Filter by Status
-                  </label>
-                  <div className="relative">
-                      <select
-                          id="status"
-                          value={selectedStatus}
-                          onChange={handleStatusChange}
-                          className="w-full px-4 py-3 pl-3 pr-8 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent appearance-none bg-white"
-                      >
-                          <option value="all">All Projects</option>
-                          <option value="active">Active Only</option>
-                          <option value="ended">Ended Only</option>
-                      </select>
-                      <div
-                          className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                          <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
-                              <path
-                                  fillRule="evenodd"
-                                  d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                  clipRule="evenodd"
-                              />
-                          </svg>
-                      </div>
-                  </div>
+            {/* Status Filter */}
+            <div>
+              <label htmlFor="status" className="block text-sm font-medium text-gray-700 mb-2">
+                Filter by Status
+              </label>
+              <div className="relative">
+                <select
+                  id="status"
+                  value={selectedStatus}
+                  onChange={handleStatusChange}
+                  className="w-full px-4 py-3 pl-3 pr-8 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent appearance-none bg-white"
+                >
+                  <option value="all">All Projects</option>
+                  <option value="active">Active Only</option>
+                  <option value="ended">Ended Only</option>
+                </select>
+                <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                  <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
+                    <path
+                      fillRule="evenodd"
+                      d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                </div>
               </div>
+            </div>
 
-              {/* Sort Filter */}
-              <div>
-                  <label htmlFor="sortBy" className="block text-sm font-medium text-gray-700 mb-2">
-                      Sort By
-                  </label>
-                  <div className="relative">
-                      <select
-                          id="sortBy"
-                          value={sortBy}
-                          onChange={(e) => setSortBy(e.target.value)}
-                          className="w-full px-4 py-3 pl-3 pr-8 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent appearance-none bg-white"
-                      >
-                          <option value="newest">Newest First</option>
-                          <option value="funding">Most Funded</option>
-                          <option value="daysLeft">Ending Soonest</option>
-                      </select>
-                      <div
-                          className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                          <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
-                              <path
-                                  fillRule="evenodd"
-                                  d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                  clipRule="evenodd"
-                              />
-                          </svg>
-                      </div>
-                  </div>
+            {/* Sort Filter */}
+            <div>
+              <label htmlFor="sortBy" className="block text-sm font-medium text-gray-700 mb-2">
+                Sort By
+              </label>
+              <div className="relative">
+                <select
+                  id="sortBy"
+                  value={sortBy}
+                  onChange={(e) => setSortBy(e.target.value)}
+                  className="w-full px-4 py-3 pl-3 pr-8 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent appearance-none bg-white"
+                >
+                  <option value="newest">Newest First</option>
+                  <option value="funding">Most Funded</option>
+                  <option value="daysLeft">Ending Soonest</option>
+                </select>
+                <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                  <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
+                    <path
+                      fillRule="evenodd"
+                      d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                </div>
               </div>
+            </div>
           </div>
         </form>
       </div>
@@ -298,7 +294,9 @@ function ExploreProjects() {
                     </p>
                     <p className="text-sm text-gray-500">
                       Days Left:{" "}
-                        <span className={`font-medium ${daysLeft > 0 ? "text-gray-700" : "text-red-600"}`}>
+                      <span
+                        className={`font-medium ${daysLeft > 0 ? "text-gray-700" : "text-red-600"}`}
+                      >
                         {daysLeft > 0 ? daysLeft : "Ended"}
                       </span>
                     </p>
@@ -329,7 +327,7 @@ function ExploreProjects() {
                       Number.parseFloat(investmentAmount[project.proposalId]) <= 0 ||
                       daysLeft <= 0 ||
                       project.raisedAmount >= project.amountToRaise ||
-                        Number.parseFloat(investmentAmount[project.proposalId]) >
+                      Number.parseFloat(investmentAmount[project.proposalId]) >
                         Math.abs(project.amountToRaise - project.raisedAmount)
                     }
                     className="w-full sm:w-auto px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-md transition duration-300 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"

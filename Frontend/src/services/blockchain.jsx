@@ -73,25 +73,13 @@ const getEtheriumContract = async () => {
   }
 };
 
-const createProject = async ({
-  title,
-  description,
-  imageURL,
-  cost,
-  expiresAt,
-}) => {
+const createProject = async ({ title, description, imageURL, cost, expiresAt }) => {
   try {
     if (!ethereum) return alert("Please install Metamask");
 
     const contract = await getEtheriumContract();
     cost = ethers.utils.parseEther(cost);
-    tx = await contract.createProject(
-      title,
-      description,
-      imageURL,
-      cost,
-      expiresAt
-    );
+    tx = await contract.createProject(title, description, imageURL, cost, expiresAt);
     await tx.wait();
     await loadProjects();
   } catch (error) {
@@ -99,24 +87,12 @@ const createProject = async ({
   }
 };
 
-const updateProject = async ({
-  id,
-  title,
-  description,
-  imageURL,
-  expiresAt,
-}) => {
+const updateProject = async ({ id, title, description, imageURL, expiresAt }) => {
   try {
     if (!ethereum) return alert("Please install Metamask");
 
     const contract = await getEtheriumContract();
-    tx = await contract.updateProject(
-      id,
-      title,
-      description,
-      imageURL,
-      expiresAt
-    );
+    tx = await contract.updateProject(id, title, description, imageURL, expiresAt);
     await tx.wait();
     await loadProject(id);
   } catch (error) {
@@ -241,8 +217,7 @@ const structuredProjects = (projects) =>
 const toDate = (timestamp) => {
   const date = new Date(timestamp);
   const dd = date.getDate() > 9 ? date.getDate() : `0${date.getDate()}`;
-  const mm =
-    date.getMonth() + 1 > 9 ? date.getMonth() + 1 : `0${date.getMonth() + 1}`;
+  const mm = date.getMonth() + 1 > 9 ? date.getMonth() + 1 : `0${date.getMonth() + 1}`;
   const yyyy = date.getFullYear();
   return `${yyyy}-${mm}-${dd}`;
 };

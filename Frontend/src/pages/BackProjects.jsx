@@ -153,7 +153,10 @@ function BackProjects() {
           const isActive = project.status;
 
           return (
-            <div key={project.id || project._id || project.proposalId} className="bg-white rounded-lg shadow-md overflow-hidden">
+            <div
+              key={project.id || project._id || project.proposalId}
+              className="bg-white rounded-lg shadow-md overflow-hidden"
+            >
               <div className="p-6">
                 <div className="flex justify-between items-start mb-4">
                   <h3 className="text-xl font-bold text-gray-800">{project.projectName}</h3>

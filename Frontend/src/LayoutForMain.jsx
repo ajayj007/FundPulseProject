@@ -1,6 +1,6 @@
-import React from 'react';
-import { Outlet } from 'react-router-dom';
-import Navbar from './components/Navbar';
+import React from "react";
+import { Outlet } from "react-router-dom";
+import Navbar from "./components/Navbar";
 
 function Layout() {
   return (
@@ -14,4 +14,3 @@ function Layout() {
 }
 
 export default Layout;
-

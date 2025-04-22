@@ -160,23 +160,25 @@ export const features = [
 export const checklistItems = [
   {
     title: "Smart Contracts for Secure Agreements",
-    description: "Utilize blockchain-based smart contracts to ensure fair and transparent funding agreements.",
+    description:
+      "Utilize blockchain-based smart contracts to ensure fair and transparent funding agreements.",
   },
   {
     title: "Investor Due Diligence Made Easy",
-    description: "Access verified investor and business profiles with built-in credibility scores and history.",
+    description:
+      "Access verified investor and business profiles with built-in credibility scores and history.",
   },
   {
     title: "AI-Powered Matching",
-    description: "Leverage AI to match investors with the most promising businesses based on their preferences.",
+    description:
+      "Leverage AI to match investors with the most promising businesses based on their preferences.",
   },
   {
     title: "Instant & Low-Cost Transactions",
-    description: "Reduce transaction fees and speed up funding transfers with blockchain-powered payments.",
+    description:
+      "Reduce transaction fees and speed up funding transfers with blockchain-powered payments.",
   },
 ];
-
-
 
 export const pricingOptions = [
   {

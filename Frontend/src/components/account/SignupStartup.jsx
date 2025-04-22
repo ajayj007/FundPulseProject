@@ -1,20 +1,20 @@
-import React, { useState } from 'react';
-import { NavLink, useNavigate } from 'react-router-dom';
-import axios from 'axios';
-import { API_BASE_URL } from '../../config';
+import React, { useState } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
+import axios from "axios";
+import { API_BASE_URL } from "../../config";
 
 function SignUpStartup() {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    founderName: '',
-    email: '',
-    countryCode: '',
-    phone: '',
-    password: '',
-    confirmPassword: '',
+    founderName: "",
+    email: "",
+    countryCode: "",
+    phone: "",
+    password: "",
+    confirmPassword: "",
     // industryCategories: '',
     // fundingGoal: 0,
-    currency: '',
+    currency: "",
   });
 
   const handleChange = (e) => {
@@ -36,13 +36,13 @@ function SignUpStartup() {
           confirmPassword: formData.confirmPassword,
           // industryCategories: formData.industryCategories,
           // fundingGoal: formData.fundingGoal,
-          currency: formData.currency
+          currency: formData.currency,
         },
         {
           headers: {
             "Content-Type": "application/json",
           },
-        },
+        }
       );
       localStorage.setItem("startupId", response.data.startupId);
       console.log("Signup successful:", response.data);
@@ -55,10 +55,10 @@ function SignUpStartup() {
         confirmPassword: "",
         // industryCategories: "",
         // fundingGoal: "",
-        currency: ""
+        currency: "",
       });
     } catch (error) {
-      console.error('Error signing up:', error);
+      console.error("Error signing up:", error);
     }
   };
 
@@ -369,7 +369,8 @@ function SignUpStartup() {
                   />
 
                   <span className="text-sm text-gray-700 dark:text-gray-200">
-                    I want to receive emails about events, product updates and company announcements.
+                    I want to receive emails about events, product updates and company
+                    announcements.
                   </span>
                 </label>
               </div>
@@ -394,7 +395,7 @@ function SignUpStartup() {
                 </button>
 
                 <p className="mt-4 text-sm text-gray-500 sm:mt-0 dark:text-gray-400">
-                  Already have an account?{' '}
+                  Already have an account?{" "}
                   <NavLink
                     to="/startup-auth/login"
                     className="text-gray-700 dark:text-gray-200 hover:text-blue-400 transition"

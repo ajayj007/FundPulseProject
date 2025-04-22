@@ -88,7 +88,7 @@ function SignUpInvestor() {
         },
       });
 
-      localStorage.setItem("investorId",response.data.investorId)
+      localStorage.setItem("investorId", response.data.investorId);
       console.log("Signup successful:", response.data);
       navigate("/investor"); // Redirect to login after successful signup
     } catch (error) {
@@ -246,7 +246,7 @@ function SignUpInvestor() {
                 )}
               </div>
 
-            {/* <div className="col-span-6">
+              {/* <div className="col-span-6">
                 <label
                   htmlFor="InvestmentCategory"
                   className="block text-sm font-medium text-gray-700 dark:text-gray-200"

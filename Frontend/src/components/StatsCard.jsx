@@ -7,7 +7,7 @@ function StatsCard({ title, value, icon }) {
         <p className="text-2xl font-bold text-gray-800">{value}</p>
       </div>
     </div>
-  )
+  );
 }
 
-export default StatsCard
+export default StatsCard;

@@ -8,6 +8,6 @@ export default defineConfig({
   server: {
     host: "0.0.0.0",
     port: 5173,
-    allowedHosts: ['fundpulseproject-frontend.onrender.com'] // ✅ Removed https://
+    allowedHosts: ["fundpulseproject-frontend.onrender.com"], // ✅ Removed https://
   },
 });

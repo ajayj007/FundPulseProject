@@ -1,230 +1,230 @@
-"use client"
+"use client";
 
-import {useEffect, useState} from "react"
-import axios from "axios"
-import {API_BASE_URL} from "../../config"
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { API_BASE_URL } from "../../config";
 
 function InvestorProfile() {
-  const [isEditing, setIsEditing] = useState(false)
-  const [isLoading, setIsLoading] = useState(true)
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const [error, setError] = useState(null)
-    const [successMessage, setSuccessMessage] = useState(null)
-  const [showPasswordModal, setShowPasswordModal] = useState(false)
+  const [isEditing, setIsEditing] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState(null);
+  const [successMessage, setSuccessMessage] = useState(null);
+  const [showPasswordModal, setShowPasswordModal] = useState(false);
   const [passwordData, setPasswordData] = useState({
     currentPassword: "",
     newPassword: "",
-    confirmPassword: ""
-  })
-  const [passwordErrors, setPasswordErrors] = useState({})
+    confirmPassword: "",
+  });
+  const [passwordErrors, setPasswordErrors] = useState({});
   const [profile, setProfile] = useState({
     fullName: "",
     email: "",
     phone: "",
-    investorId: ""
-  })
-  const [formData, setFormData] = useState({ ...profile })
-  const [errors, setErrors] = useState({})
+    investorId: "",
+  });
+  const [formData, setFormData] = useState({ ...profile });
+  const [errors, setErrors] = useState({});
 
   // Fetch investor profile from backend
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const investorId = localStorage.getItem("investorId")
-        const response = await axios.get(`${API_BASE_URL}/investor/${investorId}`)
-        
+        const investorId = localStorage.getItem("investorId");
+        const response = await axios.get(`${API_BASE_URL}/investor/${investorId}`);
+
         const profileData = {
           fullName: response.data.fullName,
           email: response.data.email,
           phone: response.data.phone,
-          investorId: response.data.investorId
-        }
+          investorId: response.data.investorId,
+        };
 
-        setProfile(profileData)
-        setFormData(profileData)
-        setIsLoading(false)
+        setProfile(profileData);
+        setFormData(profileData);
+        setIsLoading(false);
       } catch (err) {
-        setError(err.response?.data?.message || "Failed to load profile")
-        setIsLoading(false)
-        console.error("Error fetching investor profile:", err)
+        setError(err.response?.data?.message || "Failed to load profile");
+        setIsLoading(false);
+        console.error("Error fetching investor profile:", err);
       }
+    };
+
+    fetchProfile();
+  }, []);
+
+  // Clear success message after 5 seconds
+  useEffect(() => {
+    if (successMessage) {
+      const timer = setTimeout(() => {
+        setSuccessMessage(null);
+      }, 5000);
+      return () => clearTimeout(timer);
     }
+  }, [successMessage]);
 
-    fetchProfile()
-  }, [])
-
-    // Clear success message after 5 seconds
-    useEffect(() => {
-        if (successMessage) {
-            const timer = setTimeout(() => {
-                setSuccessMessage(null)
-            }, 5000)
-            return () => clearTimeout(timer)
-        }
-    }, [successMessage])
-
-    const handleChange = (e) => {
-    const { name, value } = e.target
+  const handleChange = (e) => {
+    const { name, value } = e.target;
     setFormData({
       ...formData,
       [name]: value,
-    })
+    });
 
     // Clear error when field is edited
     if (errors[name]) {
       setErrors({
         ...errors,
         [name]: "",
-      })
+      });
     }
-  }
+  };
 
   const handlePasswordChange = (e) => {
-    const { name, value } = e.target
+    const { name, value } = e.target;
     setPasswordData({
       ...passwordData,
       [name]: value,
-    })
+    });
 
     // Clear error when field is edited
     if (passwordErrors[name]) {
       setPasswordErrors({
         ...passwordErrors,
         [name]: "",
-      })
+      });
     }
-  }
+  };
 
   const validateForm = () => {
-    const newErrors = {}
+    const newErrors = {};
 
     if (!formData.fullName.trim()) {
-      newErrors.fullName = "Full name is required"
+      newErrors.fullName = "Full name is required";
     }
 
     if (!formData.phone.trim()) {
-      newErrors.phone = "Phone number is required"
+      newErrors.phone = "Phone number is required";
     } else if (!/^\+?[\d\s-]{10,}$/.test(formData.phone)) {
-      newErrors.phone = "Phone number is invalid"
+      newErrors.phone = "Phone number is invalid";
     }
 
-    setErrors(newErrors)
-    return Object.keys(newErrors).length === 0
-  }
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
 
   const validatePasswordForm = () => {
-    const newErrors = {}
+    const newErrors = {};
 
     if (!passwordData.currentPassword.trim()) {
-      newErrors.currentPassword = "Current password is required"
+      newErrors.currentPassword = "Current password is required";
     }
 
     if (!passwordData.newPassword.trim()) {
-      newErrors.newPassword = "New password is required"
+      newErrors.newPassword = "New password is required";
     } else if (passwordData.newPassword.length < 8) {
-      newErrors.newPassword = "Password must be at least 8 characters"
+      newErrors.newPassword = "Password must be at least 8 characters";
     }
 
     if (passwordData.newPassword !== passwordData.confirmPassword) {
-      newErrors.confirmPassword = "Passwords do not match"
+      newErrors.confirmPassword = "Passwords do not match";
     }
 
-    setPasswordErrors(newErrors)
-    return Object.keys(newErrors).length === 0
-  }
+    setPasswordErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
 
     if (validateForm()) {
       try {
-        setIsSubmitting(true)
-        setError(null)
-        
+        setIsSubmitting(true);
+        setError(null);
+
         const response = await axios.put(
           `${API_BASE_URL}/investor/update/${profile.investorId}`,
           {
             fullName: formData.fullName,
-            phone: formData.phone
+            phone: formData.phone,
           },
           {
             headers: {
-              'Content-Type': 'application/json',
-            }
+              "Content-Type": "application/json",
+            },
           }
-        )
-        
-        setProfile(response.data)
-        setIsEditing(false)
-          setSuccessMessage("Profile updated successfully!")
+        );
+
+        setProfile(response.data);
+        setIsEditing(false);
+        setSuccessMessage("Profile updated successfully!");
       } catch (err) {
-        setError(err.response?.data?.message || "Failed to update profile. Please try again.")
-        console.error("Error updating profile:", err)
+        setError(err.response?.data?.message || "Failed to update profile. Please try again.");
+        console.error("Error updating profile:", err);
       } finally {
-        setIsSubmitting(false)
+        setIsSubmitting(false);
       }
     }
-  }
+  };
 
   const handlePasswordSubmit = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
 
     if (validatePasswordForm()) {
       try {
-        setIsSubmitting(true)
-        setError(null)
-        
+        setIsSubmitting(true);
+        setError(null);
+
         await axios.put(
           `${API_BASE_URL}/investor/${profile.investorId}/password`,
           {
             currentPassword: passwordData.currentPassword,
-            newPassword: passwordData.newPassword
+            newPassword: passwordData.newPassword,
           },
           {
             headers: {
-              'Content-Type': 'application/json',
-            }
+              "Content-Type": "application/json",
+            },
           }
-        )
-        
-        setShowPasswordModal(false)
+        );
+
+        setShowPasswordModal(false);
         setPasswordData({
           currentPassword: "",
           newPassword: "",
-          confirmPassword: ""
-        })
-          setSuccessMessage("Password changed successfully!")
+          confirmPassword: "",
+        });
+        setSuccessMessage("Password changed successfully!");
       } catch (err) {
-          setError("Failed to change password. Please try again." || err.response?.data?.message)
-        console.error("Error changing password:", err)
+        setError("Failed to change password. Please try again." || err.response?.data?.message);
+        console.error("Error changing password:", err);
       } finally {
-        setIsSubmitting(false)
+        setIsSubmitting(false);
       }
     }
-  }
+  };
 
   const handleCancel = () => {
-    setFormData({ ...profile })
-    setErrors({})
-    setIsEditing(false)
-  }
+    setFormData({ ...profile });
+    setErrors({});
+    setIsEditing(false);
+  };
 
   const handlePasswordCancel = () => {
-    setShowPasswordModal(false)
+    setShowPasswordModal(false);
     setPasswordData({
       currentPassword: "",
       newPassword: "",
-      confirmPassword: ""
-    })
-    setPasswordErrors({})
-  }
+      confirmPassword: "",
+    });
+    setPasswordErrors({});
+  };
 
   if (isLoading && !isEditing) {
     return (
       <div className="flex justify-center items-center h-64">
         <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-green-500"></div>
       </div>
-    )
+    );
   }
 
   if (error && !isEditing) {
@@ -240,32 +240,28 @@ function InvestorProfile() {
           </button>
         </div>
       </div>
-    )
+    );
   }
 
   return (
     <div className="max-w-3xl mx-auto p-4 sm:p-6">
-        {/* Success Notification */}
-        {successMessage && (
-            <div className="mb-4 p-4 bg-green-100 text-green-700 rounded-md flex justify-between items-center">
-                <span>{successMessage}</span>
-                <button
-                    onClick={() => setSuccessMessage(null)}
-                    className="text-green-700 hover:text-green-800"
-                >
-                    ✕
-                </button>
-            </div>
-        )}
+      {/* Success Notification */}
+      {successMessage && (
+        <div className="mb-4 p-4 bg-green-100 text-green-700 rounded-md flex justify-between items-center">
+          <span>{successMessage}</span>
+          <button
+            onClick={() => setSuccessMessage(null)}
+            className="text-green-700 hover:text-green-800"
+          >
+            ✕
+          </button>
+        </div>
+      )}
 
-        {/* Error Notification */}
-        {error && (
-            <div className="mb-4 p-4 bg-red-100 text-red-700 rounded-md">
-                {error}
-            </div>
-        )}
+      {/* Error Notification */}
+      {error && <div className="mb-4 p-4 bg-red-100 text-red-700 rounded-md">{error}</div>}
 
-        <div className="flex justify-between items-center mb-6">
+      <div className="flex justify-between items-center mb-6">
         <h1 className="text-2xl sm:text-3xl font-bold text-gray-800">Investor Profile</h1>
         {!isEditing && (
           <div className="flex space-x-2">
@@ -293,7 +289,10 @@ function InvestorProfile() {
                 <h2 className="text-xl font-bold text-gray-800 mb-4">Personal Information</h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
-                    <label htmlFor="fullName" className="block text-sm font-medium text-gray-700 mb-1">
+                    <label
+                      htmlFor="fullName"
+                      className="block text-sm font-medium text-gray-700 mb-1"
+                    >
                       Full Name*
                     </label>
                     <input
@@ -306,7 +305,9 @@ function InvestorProfile() {
                         errors.fullName ? "border-red-500" : "border-gray-300"
                       }`}
                     />
-                    {errors.fullName && <p className="mt-1 text-sm text-red-500">{errors.fullName}</p>}
+                    {errors.fullName && (
+                      <p className="mt-1 text-sm text-red-500">{errors.fullName}</p>
+                    )}
                   </div>
                   <div>
                     <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
@@ -357,13 +358,31 @@ function InvestorProfile() {
               >
                 {isSubmitting ? (
                   <>
-                    <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white inline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    <svg
+                      className="animate-spin -ml-1 mr-2 h-4 w-4 text-white inline"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                    >
+                      <circle
+                        className="opacity-25"
+                        cx="12"
+                        cy="12"
+                        r="10"
+                        stroke="currentColor"
+                        strokeWidth="4"
+                      ></circle>
+                      <path
+                        className="opacity-75"
+                        fill="currentColor"
+                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                      ></path>
                     </svg>
                     Saving...
                   </>
-                ) : "Save Changes"}
+                ) : (
+                  "Save Changes"
+                )}
               </button>
             </div>
           </form>
@@ -402,7 +421,10 @@ function InvestorProfile() {
             <form onSubmit={handlePasswordSubmit}>
               <div className="space-y-4">
                 <div>
-                  <label htmlFor="currentPassword" className="block text-sm font-medium text-gray-700 mb-1">
+                  <label
+                    htmlFor="currentPassword"
+                    className="block text-sm font-medium text-gray-700 mb-1"
+                  >
                     Current Password*
                   </label>
                   <input
@@ -420,7 +442,10 @@ function InvestorProfile() {
                   )}
                 </div>
                 <div>
-                  <label htmlFor="newPassword" className="block text-sm font-medium text-gray-700 mb-1">
+                  <label
+                    htmlFor="newPassword"
+                    className="block text-sm font-medium text-gray-700 mb-1"
+                  >
                     New Password*
                   </label>
                   <input
@@ -438,7 +463,10 @@ function InvestorProfile() {
                   )}
                 </div>
                 <div>
-                  <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700 mb-1">
+                  <label
+                    htmlFor="confirmPassword"
+                    className="block text-sm font-medium text-gray-700 mb-1"
+                  >
                     Confirm New Password*
                   </label>
                   <input
@@ -478,7 +506,7 @@ function InvestorProfile() {
         </div>
       )}
     </div>
-  )
+  );
 }
 
-export default InvestorProfile
+export default InvestorProfile;

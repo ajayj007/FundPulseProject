@@ -67,7 +67,7 @@ function CurrentProposals() {
     // Fetch investors if not already loaded and we're expanding
     if (!investors[proposalId] && !expandedProposals[proposalId]) {
       try {
-        console.log(proposalId)
+        console.log(proposalId);
         const investorsResponse = await axios.get(`${API_BASE_URL}/investment/get-investors`, {
           params: { proposalId },
         });
@@ -273,7 +273,9 @@ function CurrentProposals() {
                                     </div>
                                   </td>
                                   <td className="px-6 py-4 whitespace-nowrap">
-                                    <div className="text-sm text-gray-900">{investor.equityPercentage}%</div>
+                                    <div className="text-sm text-gray-900">
+                                      {investor.equityPercentage}%
+                                    </div>
                                   </td>
                                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                     {new Date(

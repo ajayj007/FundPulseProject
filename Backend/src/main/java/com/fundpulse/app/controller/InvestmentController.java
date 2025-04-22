@@ -43,10 +43,10 @@ public class InvestmentController {
     public ResponseEntity<?> getRecentInvestments(@RequestParam String investorId) {
         List<Map<String, Object>> investments = investmentService.getInvestments(investorId);
 
-       if(investments != null){
-           List<Map<String, Object>> firstThree = investments.subList(0, Math.min(investments.size(), 3));
-           return ResponseEntity.ok().body(firstThree);
-       }
+        if (investments != null) {
+            List<Map<String, Object>> firstThree = investments.subList(0, Math.min(investments.size(), 3));
+            return ResponseEntity.ok().body(firstThree);
+        }
         return ResponseEntity.ok().body(null);
 
     }

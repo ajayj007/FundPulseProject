@@ -114,7 +114,6 @@ function AddProject() {
         startDate: new Date(formData.startDate).toISOString(), // ISO format
         endDate: new Date(formData.endDate).toISOString(),
       };
-      
 
       try {
         const response = await axios.post(

@@ -1,7 +1,7 @@
-import {useState} from "react";
-import {useNavigate} from "react-router-dom";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import {API_BASE_URL} from "../../config";
+import { API_BASE_URL } from "../../config";
 
 export default function LoginInvestor() {
   const [email, setEmail] = useState("");
@@ -32,7 +32,7 @@ export default function LoginInvestor() {
           },
         }
       );
-      localStorage.setItem("investorId",response.data.investorId)
+      localStorage.setItem("investorId", response.data.investorId);
       console.log("Login successful:", response.data);
 
       // Store investor data in localStorage

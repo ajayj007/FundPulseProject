@@ -22,12 +22,10 @@ public class DocumentVerificationService {
     }
 
     private String extractTextFromITR(MultipartFile file) {
-        // TODO: Implement OCR (Google Vision, Tesseract, or AWS Textract)
         return "Investor Name"; // Dummy value
     }
 
     private double extractIncomeFromITR(MultipartFile file) {
-        // TODO: Extract numeric income from ITR document
         return 12000000; // Dummy value
     }
 }

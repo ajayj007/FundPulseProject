@@ -1,8 +1,8 @@
 "use client";
 
-import {useState} from "react";
-import {Link, useLocation} from "react-router-dom";
-import {connectWallet} from "../utils/walletUtils";
+import { useState } from "react";
+import { Link, useLocation } from "react-router-dom";
+import { connectWallet } from "../utils/walletUtils";
 
 function Navbar() {
   const [isConnected, setIsConnected] = useState(false);
@@ -32,7 +32,7 @@ function Navbar() {
         <div className="flex justify-between h-16">
           <div className="flex items-center">
             <Link
-                to={isInvestorPage ? "/investor" : "/startup"}
+              to={isInvestorPage ? "/investor" : "/startup"}
               className="flex-shrink-0 flex items-center"
             >
               <span className="text-2xl font-bold text-gray-800">
@@ -54,18 +54,18 @@ function Navbar() {
             {isInvestorPage ? (
               // Investor Navigation Items
               <>
-                  <Link
-                      to="/investor/explore"
-                      className="text-gray-700 hover:text-green-600 px-3 py-2 rounded-md text-sm font-medium"
-                  >
-                      Explore
-                  </Link>
-                  <Link
-                      to="/investor/track"
-                      className="text-gray-700 hover:text-green-600 px-3 py-2 rounded-md text-sm font-medium"
-                  >
-                      Track
-                  </Link>
+                <Link
+                  to="/investor/explore"
+                  className="text-gray-700 hover:text-green-600 px-3 py-2 rounded-md text-sm font-medium"
+                >
+                  Explore
+                </Link>
+                <Link
+                  to="/investor/track"
+                  className="text-gray-700 hover:text-green-600 px-3 py-2 rounded-md text-sm font-medium"
+                >
+                  Track
+                </Link>
                 <Link
                   to="/investor/chatbox"
                   className="text-gray-700 hover:text-green-600 px-3 py-2 rounded-md text-sm font-medium"

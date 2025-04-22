@@ -1,7 +1,6 @@
 package com.fundpulse.app.controller;
 
 import com.fundpulse.app.models.Proposal;
-import com.fundpulse.app.service.investment.InvestmentService;
 import com.fundpulse.app.service.proposal.ProposalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

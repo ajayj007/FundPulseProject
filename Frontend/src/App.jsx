@@ -1,11 +1,11 @@
 // import SignUp from "./components/signUp/SignUp.jsx";
 
-import Navbar from './components/landingPage/Navbar';
-import HeroSection from './components/landingPage/HeroSection';
-import FeatureSection from './components/landingPage/FeatureSection';
-import Workflow from './components/landingPage/Workflow';
-import Footer from './components/landingPage/Footer';
-import Testimonials from './components/landingPage/Testimonials';
+import Navbar from "./components/landingPage/Navbar";
+import HeroSection from "./components/landingPage/HeroSection";
+import FeatureSection from "./components/landingPage/FeatureSection";
+import Workflow from "./components/landingPage/Workflow";
+import Footer from "./components/landingPage/Footer";
+import Testimonials from "./components/landingPage/Testimonials";
 
 const App = () => {
   return (

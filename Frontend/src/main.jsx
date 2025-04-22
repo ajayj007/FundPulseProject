@@ -1,34 +1,33 @@
-import { StrictMode } from 'react';
-import { createRoot } from 'react-dom/client';
-import './index.css';
-import App from './App.jsx';
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import "./index.css";
+import App from "./App.jsx";
 import {
   createBrowserRouter,
   createRoutesFromElements,
   Route,
   RouterProvider,
-} from 'react-router-dom';
-import Layout from './Layout.jsx';
-import LoginInvestor from './components/account/LoginInvestor.jsx';
-import LoginStartup from './components/account/LoginStartup.jsx';
-import SignUpStartup from './components/account/SignupStartup.jsx';
-import SignUpInvestor from './components/account/SignupInvestor.jsx';
-import Dashboard from './pages/Dashboard.jsx';
-import AddProject from './pages/AddProject.jsx';
-import BackProjects from './pages/BackProjects.jsx';
-import Chatbox from './pages/Chatbox.jsx';
-import CurrentProposal from './pages/CurrentProposal.jsx';
-import Profile from './pages/Profile.jsx';
+} from "react-router-dom";
+import Layout from "./Layout.jsx";
+import LoginInvestor from "./components/account/LoginInvestor.jsx";
+import LoginStartup from "./components/account/LoginStartup.jsx";
+import SignUpStartup from "./components/account/SignupStartup.jsx";
+import SignUpInvestor from "./components/account/SignupInvestor.jsx";
+import Dashboard from "./pages/Dashboard.jsx";
+import AddProject from "./pages/AddProject.jsx";
+import BackProjects from "./pages/BackProjects.jsx";
+import Chatbox from "./pages/Chatbox.jsx";
+import CurrentProposal from "./pages/CurrentProposal.jsx";
+import Profile from "./pages/Profile.jsx";
 //
-import InvestorDashboard from './pages/investor/InvestorDashboard.jsx';
-import InvestorProfile from './pages/investor/InvestorProfile.jsx';
-import SearchProjects from './pages/investor/ExploreProjects.jsx';
-import TrackInvestment from './pages/investor/TrackInvestment.jsx';
+import InvestorDashboard from "./pages/investor/InvestorDashboard.jsx";
+import InvestorProfile from "./pages/investor/InvestorProfile.jsx";
+import SearchProjects from "./pages/investor/ExploreProjects.jsx";
+import TrackInvestment from "./pages/investor/TrackInvestment.jsx";
 
 //
-import LayoutForMain from './LayoutForMain.jsx';
+import LayoutForMain from "./LayoutForMain.jsx";
 //
-
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -60,8 +59,8 @@ const router = createBrowserRouter(
         <Route path="/investor/profile" element={<InvestorProfile />} />
         <Route path="/investor/chatbox" element={<Chatbox />} />
       </Route>
-    </Route>,
-  ),
+    </Route>
+  )
 );
 
 {
@@ -72,8 +71,8 @@ const router = createBrowserRouter(
       <Route path="github" element={<Github />} loader={githubInfo} /> */
 }
 
-createRoot(document.getElementById('root')).render(
+createRoot(document.getElementById("root")).render(
   <StrictMode>
     <RouterProvider router={router} />
-  </StrictMode>,
+  </StrictMode>
 );
